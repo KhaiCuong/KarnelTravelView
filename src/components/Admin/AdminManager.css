@@ -1,0 +1,17 @@
+.background-blue {
+    background: #3e64d3 ;
+}
+
+.background-red {
+    background: rgb(152, 2, 2) ;
+}
+
+.background-green {
+    background: rgb(3, 132, 1) ;
+}
+
+
+
+.background-primary {
+    background: linear-gradient(to right, hsl(187,85%, 43%), hsl(199, 100%, 33%));
+}

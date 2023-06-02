@@ -4,20 +4,22 @@ import { Data } from '../../fakeData/FakeInfoDest'
 import {Room, ContentPaste} from '@mui/icons-material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { Outlet } from 'react-router-dom';
 
-const MainContent = () => {
+const MainContent = ({children}) => {
   useEffect(() => {
     AOS.init({duration:3000})
 },[])
 
   return (
+    <>
+    <main>{children}</main>
     <section className='main container section'>
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title">
             Most visited destinations
           </h3>
         </div>
-
         <div className="secContent grid">
             {Data.map((item, idx) => (
               <div key={idx} data-aos="fade-up-right" className='singleDestination'>
@@ -60,6 +62,8 @@ const MainContent = () => {
             ))}
         </div>
     </section>
+    </>
+
   )
 }
 
