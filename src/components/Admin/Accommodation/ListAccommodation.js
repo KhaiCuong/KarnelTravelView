@@ -54,7 +54,7 @@ function ListAccommodation() {
                 <th scope="col">Discount</th>
                 <th scope="col">location_id</th>
 
-                <th colSpan={3} scope="col">
+                <th colSpan={3} scope="col" className='text-center'>
                   Action
                 </th>
               </tr>
