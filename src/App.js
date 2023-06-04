@@ -9,6 +9,7 @@ import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./components/Layout/MainLayout";
+import RestaurantManager from "./components/Admin/RestaurantManager/RestaurantManager";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
         <Route index element={<DashboardPage />} />
         <Route path="tour" element={<TourManager />} />
+        <Route path="restaurant" element={<RestaurantManager />} />
       </Route>
 
       
