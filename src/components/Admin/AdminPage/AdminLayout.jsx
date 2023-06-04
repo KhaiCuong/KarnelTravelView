@@ -7,18 +7,21 @@ const AdminLayout = ({ children }) => {
       {/* <!-- Sidebar --> */}
       <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex" id="accordionSidebar">
         {/* <!-- Sidebar - Brand --> */}
-        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a className="sidebar-brand d-flex align-items-center justify-content-center" >
+        
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink"></i>
           </div>
-          <div className="sidebar-brand-text mx-3">KarnelTravel Admin {/* <!-- <sup>2</sup>  --> */}</div>
+          <div className="sidebar-brand-text mx-3" >KarnelTravel Admin
+          
+           </div>
         </a>
 
         {/* <!-- Divider --> */}
         <ul className="sidebar-divider my-0">
           {/* <!-- Nav Item - Dashboard --> */}
           <li className="nav-item active">
-            <a className="nav-link" href="index.html">
+            <a className="nav-link" href="/admin">
               <i className="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </a>
@@ -28,6 +31,35 @@ const AdminLayout = ({ children }) => {
           <ul className="sidebar-divider">
             {/* <!-- Heading --> */}
             {/* <div className="sidebar-heading">ADMIN MANAGEMENT</div> */}
+
+            <li className="nav-item">
+              <a className="nav-link collapsed ONE " href="#" data-toggle="collapse" data-target="#collapseADD" aria-expanded="true" aria-controls="collapseADD">
+                <i className="fas fa-fw fa-plus"></i>
+                <span>ADD</span>
+              </a>
+              
+              <div id="collapseADD" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div className="bg-white py-2 collapse-inner rounded">
+                  {/* <h6 className="collapse-header">Custom Components:</h6> */}
+                  <a className="collapse-item" href="buttons.html">
+                    Tour Manager
+                  </a>
+                  <a className="collapse-item" href="cards.html">
+                    Accomodation Manager
+                  </a>
+                  <a className="collapse-item" >
+                  <Link to="restaurant/createRestaurant">Add Restaurant</Link>
+                    
+                  </a>
+                  <a className="collapse-item" href="cards.html">
+                    Tourist Spot Manager
+                  </a>
+                  <a className="collapse-item" href="cards.html">
+                    Transport Manager
+                  </a>
+                </div>
+              </div>
+            </li>
 
             {/* <!-- Nav Item - Pages Collapse Menu --> */}
             <li className="nav-item">
@@ -44,8 +76,9 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="cards.html">
                     Accomodation Manager
                   </a>
-                  <a className="collapse-item" href="cards.html">
-                    Restaurant Manager
+                  <a className="collapse-item" >
+                  <Link to="/admin/restaurant">Restaurant Manager</Link>
+                    
                   </a>
                   <a className="collapse-item" href="cards.html">
                     Tourist Spot Manager
@@ -111,6 +144,7 @@ const AdminLayout = ({ children }) => {
                     <i className="fas fa-search fa-sm"></i>
                   </button>
                 </div>
+                
               </div>
             </form>
 

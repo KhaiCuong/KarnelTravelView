@@ -9,7 +9,10 @@ import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./components/Layout/MainLayout";
-import RestaurantManager from "./components/Admin/RestaurantManager/RestaurantManager";
+import ListRestaurant from "./components/Admin/RestaurantManager/ListRestaurant";
+import CreateRestaurant from "./components/Admin/RestaurantManager/CreateRestaurant";
+import UpdateRestaurant from "./components/Admin/RestaurantManager/UpdateRestaurant";
+
 
 function App() {
   return (
@@ -25,7 +28,11 @@ function App() {
       <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
         <Route index element={<DashboardPage />} />
         <Route path="tour" element={<TourManager />} />
-        <Route path="restaurant" element={<RestaurantManager />} />
+        <Route path="restaurant" >
+          <Route index element={<ListRestaurant />} />
+          <Route path="createRestaurant" element={<CreateRestaurant/>} />
+          <Route path="updateRestaurant" element={<UpdateRestaurant />} />
+        </Route>
       </Route>
 
       
