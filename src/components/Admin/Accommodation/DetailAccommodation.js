@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getAccommodationByID, getLocations, putAccommodation } from './Services/ApiService';
+import { deleteAccommodation, deleteAccommodationImage, getAccommodationByID, getAccommodationImageByID, getLocations, putAccommodation } from './Services/ApiService';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { Height } from '@mui/icons-material';
 
 function DetailAccommodation(props) {
     const [locations, setLocations] = useState([]);
     const [accommodation, setAccommodation] = useState({});
+    const [image, setImage] = useState([]);
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -16,6 +18,14 @@ function DetailAccommodation(props) {
             .then(response => {
                 setAccommodation(response.data);
                 console.log("Accommodation", response);
+                if (response.status === 200) {
+                    getAccommodationImageByID(id)
+                        .then(response => {
+                            setImage(response.data)
+                            console.log("Image", response);
+                        })
+                        .catch(error => console.log("error", error));
+                }
             })
             .catch(error => console.log("error", error));
     }, [id]);
@@ -34,66 +44,104 @@ function DetailAccommodation(props) {
             .catch(error => console.log("error", error));
     }
 
+    const handleDeleteAccommodation = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteAccommodation(id)
+                    .then(pro => {
+                        console.log("pro", pro);
+                        if (pro.status === 200) {
+                            deleteAccommodationImage(id)
+                                .then(response => {
+                                    console.log("deleted Image", response);
+                                    if (response.status === 200) {
+                                        navigate("/admin/accommodation");
+                                        Swal.fire(
+                                            'Deleted!',
+                                            'Your file has been deleted.',
+                                            'success'
+                                        )
+                                    }
+                                })
+                                .catch(error => console.log("error", error));
+                        }
+                    })
+                    .catch(error => console.log("error", error));
+            }
+        })
+    }
+
     const handleUpdateAccommodation = (id) => {
         navigate(`/admin/accommodation/updateAccommodation/${id}`)
     }
+
+    //get Accommodation Image
+
     return (
         <section>
-            <h2 class="text-center font-weight-bold">{accommodation.accommodation_name}</h2>
+            <h2 className="text-center font-weight-bold">{accommodation.accommodation_name}</h2>
             <div className="container-fluid">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Accommodation Id</div>
-                            <div class="col-6 text-center">{accommodation.accommodation_id}</div>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Accommodation Id</div>
+                            <div className="col-6 text-center">{accommodation.accommodation_id}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Accommodation Name</div>
-                            <div class="col-6 text-center">{accommodation.accommodation_name}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Accommodation Name</div>
+                            <div className="col-6 text-center">{accommodation.accommodation_name}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Rate</div>
-                            <div class="col-6 text-center">{accommodation.rate}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Rate</div>
+                            <div className="col-6 text-center">{accommodation.rate}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Type</div>
-                            <div class="col-6 text-center">{accommodation.type + "" === "true" ? "Resort" : "Hotel"}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Type</div>
+                            <div className="col-6 text-center">{accommodation.type + "" === "true" ? "Resort" : "Hotel"}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Description</div>
-                            <div class="col-6 text-center">{accommodation.description}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Description</div>
+                            <div className="col-6 text-center">{accommodation.description}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Price </div>
-                            <div class="col-6 text-center">{accommodation.price}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Price </div>
+                            <div className="col-6 text-center">{accommodation.price}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Status </div>
-                            <div class="col-6 text-center">{accommodation.status_Accommodation + ""}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Status </div>
+                            <div className="col-6 text-center">{accommodation.status_Accommodation + ""}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Discount</div>
-                            <div class="col-6 text-center">{accommodation.discount}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Discount</div>
+                            <div className="col-6 text-center">{accommodation.discount}</div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6 text-center">Location</div>
-                            <div class="col-6 text-center">{accommodation.location_id}</div>
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-6 text-center">Location</div>
+                            <div className="col-6 text-center">{accommodation.location_id}</div>
                         </div>
                     </li>
                 </ul>
@@ -106,7 +154,7 @@ function DetailAccommodation(props) {
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
-                        {img.map((item, index) => {
+                        {image.map((item, index) => {
                             if (index === 0) {
                                 return (
                                     <>
@@ -136,6 +184,90 @@ function DetailAccommodation(props) {
                     </button>
                 </div>
             </div> */}
+            <div className="container text-center my-3">
+                <h2 className="font-weight-light">Bootstrap Multi Slide Carousel</h2>
+                <div className="row mx-auto my-auto justify-content-center">
+                    <div id="recipeCarousel" className="carousel slide" data-bs-ride="carousel">
+                        <div className="carousel-inner" role="listbox">
+                            <div className="carousel-item active">
+                                {image.map((item, index) => {
+                                    if (index < 4) {
+                                        return (
+                                            <>
+                                                <div className="col-md-3">
+                                                    <div className="card">
+                                                        <div className="card-img">
+                                                            <img src={`http://localhost:5158/${item}`} className="d-block w-100" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        );
+                                    }
+                                })}
+                            </div>
+                            <div className="carousel-item">
+                                {image.map((item, index) => {
+                                    if (index >= 4) {
+                                        return (
+                                            <>
+                                                <div className="col-md-3">
+                                                    <div className="card">
+                                                        <div className="card-img">
+                                                            <img src={`http://localhost:5158/${item}`} className="d-block w-100" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        );
+                                    }
+                                })}
+                            </div>
+                        </div>
+                        <a className="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true"></span> </a>
+                        <a className="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                <h5 className="mt-2 fw-light">advances one slide at a time</h5>
+            </div>
+
+            {/* <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        {image.map((item, index) => {
+                            if (index <= 4) {
+                                return (
+                                    <>
+                                        <img class="d-block w-100" src={`http://localhost:5158/${item}`} alt={item} />
+                                    </>
+                                );
+                            }
+                        })}
+                    </div>
+                    <div class="carousel-item">
+                        {image.map((item, index) => {
+                            if (index > 4) {
+                                return (
+                                    <>
+                                        <img class="d-block w-100" src={`http://localhost:5158/${item}`} alt={item} />
+                                    </>
+                                );
+                            }
+                        })}
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div> */}
 
             <div className="d-flex justify-content-around align-items-center mt-4">
                 <div className="d-flex justify-content-between align-items-center w-50">
@@ -145,7 +277,7 @@ function DetailAccommodation(props) {
 
                     <button className="btn btn-warning background-blue" onClick={() => { handleUpdateAccommodation(accommodation.accommodation_id) }}>Update</button>
 
-                    <button className="btn btn-warning background-red">Delete</button>
+                    <button className="btn btn-warning background-red" onClick={() => { handleDeleteAccommodation(accommodation.accommodation_id) }}>Delete</button>
                 </div>
             </div>
         </section>

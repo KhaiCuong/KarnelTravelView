@@ -26,8 +26,30 @@ async function putAccommodation(id, accommodation) {
     return data;
 }
 
+//Location API
 async function getLocations() {
     const data = await axios.get("http://localhost:5158/api/Location/GetLocations");
+    return data.data;
+}
+
+//Accommodation Image API
+async function postAccommodationImage(id, images) {
+    const data = await axios.post(`http://localhost:5158/api/AccommodationImage/PostImages?Accommodation_Id=${id}`, images);
+    return data.data;
+}
+
+async function getAccommodationImageByID(id) {
+    const data = await axios.get(`http://localhost:5158/api/AccommodationImage/GetImagesByTouristSpotId/${id}`);
+    return data.data;
+}
+
+async function putAccommodationImage(id, images) {
+    const data = await axios.post(`http://localhost:5158/api/AccommodationImage/UpdateImageById/${id}`, images);
+    return data.data;
+}
+
+async function deleteAccommodationImage(id) {
+    const data = await axios.delete(`http://localhost:5158/api/AccommodationImage/DeleteImages/${id}`);
     return data.data;
 }
 
@@ -37,5 +59,9 @@ export {
     postAccommodation,
     getAccommodationByID,
     putAccommodation,
+    postAccommodationImage,
+    getAccommodationImageByID,
+    putAccommodationImage,
+    deleteAccommodationImage,
     getLocations,
 };

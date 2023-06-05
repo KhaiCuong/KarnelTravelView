@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getLocations, postAccommodation } from './Services/ApiService';
+import { getLocations, postAccommodation, postAccommodationImage } from './Services/ApiService';
 import { useNavigate } from 'react-router-dom';
 
 function CreateAccommodation() {
@@ -60,25 +60,37 @@ function CreateAccommodation() {
         e.preventDefault();
 
         postAccommodation(data)
-            .then((pro) => {
-                console.log("pro", pro);
-                if (pro.status === 201) {
-                    navigateListAccommodation();
+            .then((result) => {
+                console.log("accommodation", result);
+                if (result.status === 201) {
+                    //upload image
+                    postAccommodationImage(result.data.accommodation_id, formData)
+                        .then(result => {
+                            console.log("image", result);
+                            if (result.status === 200) {
+                                navigateListAccommodation();
+                            }
+                        })
+                        .catch(error => console.log("error", error));
                 }
             })
             .catch(error => console.log("error", error));
-        //console.log("Accommodation", accommodation);
-        console.log("accommodation", accommodation);
-        // console.log("price", typeof (accommodation.price));
-        // console.log("rate", typeof (accommodation.rate));
-        // console.log("status accommodation", typeof (accommodation.status_Accommodation));
-        // console.log("type", typeof (accommodation.type));
     }
+
+    const formData = new FormData();
+    //upload hinh 
+    const handleFileChange = (e) => {
+        for (var i = 0; i < e.target.files.length; i++) {
+            formData.append("files", e.target.files[i]);
+        }
+    };
+
+
     return (
         <section>
             <div className="container">
                 <h2>Accommodation Form</h2>
-                <form onSubmit={handleSubmit} method='post'>
+                <form onSubmit={handleSubmit} method='post' encType="multipart/form-data">
                     <div className="form-group">
                         <label htmlFor="accommodationId">Accommodation ID</label>
                         <input
@@ -203,6 +215,13 @@ function CreateAccommodation() {
                             })}
                             {/* Add more options for locations */}
                         </select>
+                    </div>
+
+                    <div className="mb-3 mt-3">
+                        <label for="photoimg" className="form-label w-100">
+                            Photo
+                        </label>
+                        <input type="file" className="form-control" id="photoimg" onChange={handleFileChange} multiple />
                     </div>
 
                     <button type="submit" className="btn btn-primary">

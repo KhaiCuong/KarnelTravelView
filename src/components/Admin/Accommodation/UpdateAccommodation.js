@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAccommodationByID, getLocations, putAccommodation } from './Services/ApiService';
+import { getAccommodationByID, getAccommodationImageByID, getLocations, putAccommodation, putAccommodationImage } from './Services/ApiService';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -7,8 +7,9 @@ function UpdateAccommodation(props) {
     const [locations, setLocations] = useState([]);
     const [accommodation, setAccommodation] = useState([]);
     const [updateAccommodation, setUpdateAccommodation] = useState([]);
+    const [updateImage, setUpdateImage] = useState([]);
     const navigate = useNavigate();
-    console.log("props", props);
+    const formData = new FormData();
 
     const { id } = useParams();
 
@@ -24,6 +25,15 @@ function UpdateAccommodation(props) {
             .then(response => {
                 setAccommodation(response.data);
                 setUpdateAccommodation(response.data);
+                console.log("accommodation", response);
+                if (response.status === 200) {
+                    getAccommodationImageByID(id)
+                        .then(response => {
+                            console.log("image", response);
+                            setUpdateImage(response.data);
+                        })
+                        .catch(error => console.log("error", error));
+                }
             })
             .catch(error => console.log("error", error));
     }, [id]);
@@ -36,7 +46,7 @@ function UpdateAccommodation(props) {
         // make an API call to fetch the locations
         getLocations()
             .then(response => {
-                console.log("response", response);
+                console.log("Location", response);
                 setLocations(response.data); // assuming the response contains the location data
             })
             .catch(error => console.log("error", error));
@@ -69,13 +79,21 @@ function UpdateAccommodation(props) {
                         .then(response => {
                             console.log("Updated Accommodation", response);
                             if (response.status === 200) {
-                                Swal.fire(
-                                    'Updated!',
-                                    'Your Accommodation has been updated.',
-                                    'success'
-                                )
-                                // handle success or navigate to another page
-                                navigate("/admin/accommodation");
+                                console.log("updateImage", updateImage);
+                                putAccommodationImage(id, formData)
+                                    .then(response => {
+                                        console.log("updated image", response);
+                                        if (response.status === 200) {
+                                            Swal.fire(
+                                                'Updated!',
+                                                'Your Accommodation has been updated.',
+                                                'success'
+                                            )
+                                            // handle success or navigate to another page
+                                            navigate("/admin/accommodation");
+                                        }
+                                    })
+                                    .catch(error => console.log("error", error));
                             }
                         })
                         .catch(error => console.log("error", error));
@@ -83,11 +101,19 @@ function UpdateAccommodation(props) {
             })
         console.log("updateAccommodation", updateAccommodation);
     };
+
+    //upload hinh
+    const handleFileChange = (e) => {
+        for (var i = 0; i < e.target.files.length; i++) {
+            formData.append("files", e.target.files[i]);
+        }
+        // setUpdateImage(formData);
+    };
     return (
         <section>
             <div className="container">
                 <h2>Accommodation Form</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="form-group">
                         <label htmlFor="accommodationId">Accommodation ID</label>
                         <input
@@ -213,6 +239,26 @@ function UpdateAccommodation(props) {
                             })}
                             {/* Add more options for locations */}
                         </select>
+                    </div>
+
+                    <div className="mb-3 mt-3">
+                        <label for="photoimg" className="form-label w-100">
+                            Photo
+                        </label>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            {updateImage.map((item, index) => {
+                                return (
+                                    <>
+                                        <ul >
+                                            <li >
+                                                <img key={index} src={`http://localhost:5158/${item}`} alt={item} className='' style={{ width: '200px', height: '200px', objectFit: 'cover', marginRight: '10px' }} />
+                                            </li>
+                                        </ul>
+                                    </>
+                                )
+                            })}
+                        </div>
+                        <input type="file" className="form-control" id="photoimg" onChange={handleFileChange} multiple />
                     </div>
 
                     <button type="submit" className="btn btn-primary">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getListAccommodation, deleteAccommodation } from './Services/ApiService';
+import { getListAccommodation, deleteAccommodation, deleteAccommodationImage } from './Services/ApiService';
 import Swal from 'sweetalert2';
 
 function ListAccommodation() {
@@ -28,15 +28,22 @@ function ListAccommodation() {
           .then(pro => {
             console.log("pro", pro);
             if (pro.status === 200) {
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-              setAccommodation(accommodation.filter((item) => item.id !== id));
+              deleteAccommodationImage(id)
+                .then(response => {
+                  console.log("deleted Image", response);
+                  if (response.status === 200) {
+                    Swal.fire(
+                      'Deleted!',
+                      'Your file has been deleted.',
+                      'success'
+                    )
+                    setAccommodation(accommodation.filter((item) => item.id !== id));
+                  }
+                })
+                .catch(error => console.log("error", error));
             }
           })
-          .catch(error => console.log(error));
+          .catch(error => console.log("error", error));
       }
     })
   }
