@@ -14,8 +14,8 @@ function UpdateAccommodation(props) {
 
     var updatedData = {
         ...updateAccommodation,
-        type: updateAccommodation.type === "true" ? true : false,
-        status_Accommodation: updateAccommodation.status_Accommodation === "true" ? true : false,
+        type: updateAccommodation.type + "" === "true" ? true : false,
+        status_Accommodation: updateAccommodation.status_Accommodation + "" === "true" ? true : false,
     }
 
     useEffect(() => {

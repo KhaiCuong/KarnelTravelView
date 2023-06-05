@@ -45,6 +45,10 @@ function ListAccommodation() {
   const handleUpdateAccommodation = (id) => {
     navigate(`updateAccommodation/${id}`);
   };
+
+  const handleDetailAccommodation = (id) => {
+    navigate(`detailAccommodation/${id}`);
+  }
   return (
     <section>
       <div className="container-fluid">
@@ -75,14 +79,14 @@ function ListAccommodation() {
                     <th scope="row">{item.accommodation_id}</th>
                     <td>{item.accommodation_name}</td>
                     <td>{item.rate}</td>
-                    <td>{item.type.toString() === "true" ? "Resort" : "Hotel"}</td>
+                    <td>{item.type === true ? "Resort" : "Hotel"}</td>
                     <td>{item.description}</td>
                     <td>{item.price}</td>
                     <td>{item.status_Accommodation.toString()}</td>
                     <td>{item.discount}</td>
                     <td>{item.location_id}</td>
                     <td>
-                      <button className="btn btn-warning background-blue">
+                      <button className="btn btn-warning background-blue" onClick={() => { handleDetailAccommodation(item.accommodation_id) }}>
                         Detail
                       </button>
                     </td>

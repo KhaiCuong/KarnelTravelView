@@ -12,6 +12,7 @@ import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommod
 import ListAccommodation from "./components/Admin/Accommodation/ListAccommodation";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UpdateAccommodation from "./components/Admin/Accommodation/UpdateAccommodation";
+import DetailAccommodation from "./components/Admin/Accommodation/DetailAccommodation";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route index element={<ListAccommodation />} />
           <Route path="createAccommodation" element={<CreateAccommodation />} />
           <Route path="updateAccommodation/:id" element={<UpdateAccommodation />} />
+          <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
         </Route>
       </Route>
     </Routes>
