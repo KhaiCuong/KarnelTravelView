@@ -12,6 +12,7 @@ import MainLayout from "./components/Layout/MainLayout";
 import ListRestaurant from "./components/Admin/RestaurantManager/ListRestaurant";
 import CreateRestaurant from "./components/Admin/RestaurantManager/CreateRestaurant";
 import UpdateRestaurant from "./components/Admin/RestaurantManager/UpdateRestaurant";
+import DetailRestaurant from "./components/Admin/RestaurantManager/DetailRestaurant";
 
 
 function App() {
@@ -30,8 +31,9 @@ function App() {
         <Route path="tour" element={<TourManager />} />
         <Route path="restaurant" >
           <Route index element={<ListRestaurant />} />
+          <Route path="detailRestaurant/:id" element={<DetailRestaurant/>} />
           <Route path="createRestaurant" element={<CreateRestaurant/>} />
-          <Route path="updateRestaurant" element={<UpdateRestaurant />} />
+          <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
         </Route>
       </Route>
 

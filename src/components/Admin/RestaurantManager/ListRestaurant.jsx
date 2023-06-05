@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { deleteRestaurant, getListRestaurant } from './Service/ApiService';
 
 
 function ListRestaurant() {
   const [restaurant, setRestaurant] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     getListRestaurant()
       .then(pro => setRestaurant(pro.data))
@@ -37,6 +39,13 @@ function ListRestaurant() {
           .catch(error => console.log(error));
       }
     })
+  }
+  const handleUpdateRestaurant = (id) => {
+    navigate(`updateRestaurant/${id}`);
+  };
+
+  const handleDetailRestaurant = (id) => {
+    navigate(`detailRestaurant/${id}`);
   }
   return (
     <section>
@@ -73,15 +82,15 @@ function ListRestaurant() {
                     <td>{item.discount}</td>
                     <td>{item.location_id}</td>
                     <td>
-                      <button className="btn btn-warning background-blue" >
+                      <button className="btn btn-warning background-blue" onClick={() => handleDetailRestaurant(item.restaurant_id)} >
                         Detail
                       </button>
                     </td>
-                    <td>
-                      <button className="btn btn-warning background-green" >
+                    {/* <td>
+                      <button className="btn btn-warning background-green" onClick={() => handleUpdateRestaurant(item.restaurant_id)} >
                         Update
                       </button>
-                    </td>
+                    </td> */}
                     <td>
                       <button className="btn btn-warning background-red" onClick={() => handleDeleteRestaurant(item.restaurant_id)}>
                         Delete

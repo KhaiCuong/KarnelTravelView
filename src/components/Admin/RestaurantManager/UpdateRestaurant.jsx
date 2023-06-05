@@ -1,93 +1,93 @@
-import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { UpdateContext } from "./Context/UpdateContext";
-import { getLocations } from "./Service/ApiService";
+import React, { useEffect, useState } from 'react';
+import {  getLocations, getRestaurantByID,  putRestaurant } from './Service/ApiService';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function UpdateRestaurant(props) {
-  const navigate = useNavigate();
-  const initialState = {
-    restaurant_id: "",
-    restaurant_name: "",
-    rate: "",
-    description: "",
-    price:"",
-    status_Restaurant: "",
-    discount: "",
-    location_id: "",
-};
+    const [locations, setLocations] = useState([]);
+    const [restaurant, setRestaurant] = useState([]);
+    const [updateRestaurant, setUpdateRestaurant] = useState([]);
+    const navigate = useNavigate();
+    console.log("props", props);
 
-const [restaurant, setRestaurant] = useState(initialState);
-const [locations, setLocations] = useState([])
+    const { id } = useParams();
 
-var data = {
-    restaurant_id: restaurant.restaurant_id,
-    restaurant_name: restaurant.restaurant_name,
-    rate: restaurant.rate,
-    description: restaurant.description,
-    price: restaurant.price,
-    status_Restaurant: restaurant.status_Restaurant === "true" ? true : false,
-    discount: restaurant.discount,
-    location_id: restaurant.location_id,
-}
-useEffect(() => {
-    fetchLocation();
-}, []);
+    var updatedData = {
+        ...updateRestaurant,
+        // type: updateAccommodation.type + "" === "true" ? true : false,
+        status_Restaurant: updateRestaurant.status_Restaurant + "" === "true" ? true : false,
+    }
 
-const fetchLocation = () => {
-    // make an API call to fetch the locations
-    getLocations()
-        .then(response => {
-            console.log("response", response);
-            setLocations(response.data); // assuming the response contains the location data
+    useEffect(() => {
+        // fetch the accommodation data with the given ID
+        getRestaurantByID(id)
+            .then(response => {
+                setRestaurant(response.data);
+                setUpdateRestaurant(response.data);
+            })
+            .catch(error => console.log("error", error));
+    }, [id]);
+
+    useEffect(() => {
+        fetchLocation();
+    }, []);
+
+    const fetchLocation = () => {
+        // make an API call to fetch the locations
+        getLocations()
+            .then(response => {
+                console.log("response", response);
+                setLocations(response.data); // assuming the response contains the location data
+            })
+            .catch(error => console.log("error", error));
+    }
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        console.log(name, value);
+        setUpdateRestaurant({
+            ...updateRestaurant,
+            [name]: value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //update accommodation with the updatedAccommodation data
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!'
         })
-        .catch(error => console.log("error", error));
-}
-
-
-
-const navigateListRestaurant = () => {
-    navigate("/admin/restaurant");
-};
-  const [updateRestaurant, setUpdateRestaurant] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5158/api/Restaurant/GetRestaurantById/`)
-      .then((pro) => setUpdateRestaurant(pro.data.data))
-      .catch((error) => console.log(error));
-  }, []);
-
-  const handleChangeInput = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setUpdateRestaurant({
-      ...updateRestaurant,
-      [name]: value,
-    });
-  };
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    axios
-      .put(
-        `http://localhost:5158/api/Restaurant/GetRestaurantById/`,
-        updateRestaurant,
-       
-      )
-      .then((result) => {
-        console.log(result);
-        if (result.status === 200) {
-            navigateListRestaurant();
-        }
-      })
-      .catch((error) => console.log(error));
-  };
-  return (
-    <section>
+            .then(result => {
+                if (result.isConfirmed) {
+                    putRestaurant(id, updatedData)
+                        .then(response => {
+                            console.log("Updated Restaurant", response);
+                            if (response.status === 200) {
+                                Swal.fire(
+                                    'Updated!',
+                                    'Your Restaurant has been updated.',
+                                    'success'
+                                )
+                                // handle success or navigate to another page
+                                navigate("/admin/restaurant");
+                            }
+                        })
+                        .catch(error => console.log("error", error));
+                }
+            })
+        console.log("updateRestaurant", updateRestaurant);
+    };
+    return (
+        <section>
             <div className="container">
                 <h2>Restaurant Form</h2>
-                <form onSubmit={handleUpdate} method='post'>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="restaurantId">Restaurant ID</label>
                         <input
@@ -97,8 +97,10 @@ const navigateListRestaurant = () => {
                             name='restaurant_id'
                             placeholder="Enter Restaurant ID"
                             value={updateRestaurant.restaurant_id}
-                            onChange={handleChangeInput}
+                            onChange={handleInputChange}
                             required
+                            disabled
+
                         />
                     </div>
 
@@ -111,7 +113,7 @@ const navigateListRestaurant = () => {
                             name='restaurant_name'
                             placeholder="Enter Restaurant Name"
                             value={updateRestaurant.restaurant_name}
-                            onChange={handleChangeInput}
+                            onChange={handleInputChange}
                             required
                         />
                     </div>
@@ -127,7 +129,7 @@ const navigateListRestaurant = () => {
                             max="5"
                             placeholder="Enter rate (1-5)"
                             value={updateRestaurant.rate}
-                            onChange={handleChangeInput}
+                            onChange={handleInputChange}
                             required
                         />
                     </div>
@@ -138,28 +140,15 @@ const navigateListRestaurant = () => {
                             className="form-control"
                             id="type"
                             name='type'
-                            value={accommodation.type}
+                            value={updateAccommodation.type}
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="false">false</option>
-                            <option value="true">true</option>
+                            <option value="">Select accommodation type</option>
+                            <option value="false">Hotel</option>
+                            <option value="true">Resort</option>
                         </select>
                     </div> */}
-
-                    <div className="form-group">
-                        <label htmlFor="description">Description</label>
-                        <textarea
-                            className="form-control"
-                            id="description"
-                            name='description'
-                            rows="5"
-                            placeholder="Enter description"
-                            value={updateRestaurant.description}
-                            onChange={handleChangeInput}
-                            required
-                        ></textarea>
-                    </div>
 
                     <div className="form-group">
                         <label htmlFor="price">Price</label>
@@ -170,11 +159,24 @@ const navigateListRestaurant = () => {
                             name='price'
                             placeholder="Enter price"
                             value={updateRestaurant.price}
-                            onChange={handleChangeInput}
+                            onChange={handleInputChange}
                             required
                         />
                     </div>
 
+                    <div className="form-group">
+                        <label htmlFor="description">Description</label>
+                        <textarea
+                            className="form-control"
+                            id="description"
+                            name='description'
+                            rows="5"
+                            placeholder="Enter description"
+                            value={updateRestaurant.description}
+                            onChange={handleInputChange}
+                            required
+                        ></textarea>
+                    </div>
 
                     <div className="form-group">
                         <label htmlFor="statusRestaurant">Status Restaurant</label>
@@ -183,26 +185,12 @@ const navigateListRestaurant = () => {
                             id="status_Restaurant"
                             name='status_Restaurant'
                             value={updateRestaurant.status_Restaurant}
-                            onChange={handleChangeInput}
+                            onChange={handleInputChange}
                             required
                         >
                             <option value="false">false</option>
                             <option value="true">true</option>
                         </select>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="price">Discount</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="discount"
-                            name='discount'
-                            placeholder="Enter discount"
-                            value={updateRestaurant.discount}
-                            onChange={handleChangeInput}
-                            required
-                        />
                     </div>
 
                     <div className="form-group">
@@ -212,8 +200,8 @@ const navigateListRestaurant = () => {
                             id="location_id"
                             name='location_id'
                             value={updateRestaurant.location_id}
-                            onChange={handleChangeInput}
-                        // required
+                            onChange={handleInputChange}
+                            required
                         >
                             <option value="">Select location ID</option>
                             {locations.map((item, index) => {
@@ -231,9 +219,9 @@ const navigateListRestaurant = () => {
                         Submit
                     </button>
                 </form>
-            </div>
-        </section>
-  );
+            </div >
+        </section >
+    );
 }
 
 export default UpdateRestaurant;
