@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getListAccommodation, deleteAccommodation } from './Services/ApiService';
 import Swal from 'sweetalert2';
 
 function ListAccommodation() {
   const [accommodation, setAccommodation] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     getListAccommodation()
       .then(pro => setAccommodation(pro.data))
@@ -37,6 +40,11 @@ function ListAccommodation() {
       }
     })
   }
+
+
+  const handleUpdateAccommodation = (id) => {
+    navigate(`updateAccommodation/${id}`);
+  };
   return (
     <section>
       <div className="container-fluid">
@@ -67,7 +75,7 @@ function ListAccommodation() {
                     <th scope="row">{item.accommodation_id}</th>
                     <td>{item.accommodation_name}</td>
                     <td>{item.rate}</td>
-                    <td>{item.type.toString()}</td>
+                    <td>{item.type.toString() === "true" ? "Resort" : "Hotel"}</td>
                     <td>{item.description}</td>
                     <td>{item.price}</td>
                     <td>{item.status_Accommodation.toString()}</td>
@@ -79,7 +87,7 @@ function ListAccommodation() {
                       </button>
                     </td>
                     <td>
-                      <button className="btn btn-warning background-green">
+                      <button className="btn btn-warning background-green" onClick={() => { handleUpdateAccommodation(item.accommodation_id) }}>
                         Update
                       </button>
                     </td>

@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { getLocations, postAccommodation } from './Services/ApiService';
-import { useNavigate } from 'react-router-dom';
+import { getAccommodationByID, getLocations, putAccommodation } from './Services/ApiService';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-function CreateAccommodation() {
+function UpdateAccommodation(props) {
+    const [locations, setLocations] = useState([]);
+    const [accommodation, setAccommodation] = useState([]);
+    const [updateAccommodation, setUpdateAccommodation] = useState([]);
     const navigate = useNavigate();
-    const initialState = {
-        accommodation_id: "",
-        accommodation_name: "",
-        rate: "",
-        type: "",
-        price: "",
-        description: "",
-        status_Accommodation: "",
-        location_id: "",
-    };
+    console.log("props", props);
 
-    const [accommodation, setAccommodation] = useState(initialState);
-    const [locations, setLocations] = useState([])
+    const { id } = useParams();
 
-    var data = {
-        accommodation_id: accommodation.accommodation_id,
-        accommodation_name: accommodation.accommodation_name,
-        rate: accommodation.rate,
-        type: accommodation.type === "true" ? true : false,
-        price: accommodation.price,
-        description: accommodation.description,
-        status_Accommodation: accommodation.status_Accommodation === "true" ? true : false,
-        location_id: accommodation.location_id,
+    var updatedData = {
+        ...updateAccommodation,
+        type: updateAccommodation.type === "true" ? true : false,
+        status_Accommodation: updateAccommodation.status_Accommodation === "true" ? true : false,
     }
+
+    useEffect(() => {
+        // fetch the accommodation data with the given ID
+        getAccommodationByID(id)
+            .then(response => {
+                setAccommodation(response.data);
+                setUpdateAccommodation(response.data);
+            })
+            .catch(error => console.log("error", error));
+    }, [id]);
+
     useEffect(() => {
         fetchLocation();
     }, []);
@@ -45,40 +45,49 @@ function CreateAccommodation() {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value);
-        setAccommodation({
-            ...accommodation,
-            [name]: value,
-
+        setUpdateAccommodation({
+            ...updateAccommodation,
+            [name]: value
         });
     };
 
-    const navigateListAccommodation = () => {
-        navigate("/admin/accommodation");
-    };
-
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        postAccommodation(data)
-            .then((pro) => {
-                console.log("pro", pro);
-                if (pro.status === 201) {
-                    navigateListAccommodation();
+        //update accommodation with the updatedAccommodation data
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!'
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    putAccommodation(id, updatedData)
+                        .then(response => {
+                            console.log("Updated Accommodation", response);
+                            if (response.status === 200) {
+                                Swal.fire(
+                                    'Updated!',
+                                    'Your Accommodation has been updated.',
+                                    'success'
+                                )
+                                // handle success or navigate to another page
+                                navigate("/admin/accommodation");
+                            }
+                        })
+                        .catch(error => console.log("error", error));
                 }
             })
-            .catch(error => console.log("error", error));
-        //console.log("Accommodation", accommodation);
-        console.log("accommodation", accommodation);
-        // console.log("price", typeof (accommodation.price));
-        // console.log("rate", typeof (accommodation.rate));
-        // console.log("status accommodation", typeof (accommodation.status_Accommodation));
-        // console.log("type", typeof (accommodation.type));
-    }
+        console.log("updateAccommodation", updateAccommodation);
+    };
     return (
         <section>
             <div className="container">
                 <h2>Accommodation Form</h2>
-                <form onSubmit={handleSubmit} method='post'>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="accommodationId">Accommodation ID</label>
                         <input
@@ -87,9 +96,11 @@ function CreateAccommodation() {
                             id="accommodation_id"
                             name='accommodation_id'
                             placeholder="Enter accommodation ID"
-                            value={accommodation.accommodation_id}
+                            value={updateAccommodation.accommodation_id}
                             onChange={handleInputChange}
                             required
+                            disabled
+
                         />
                     </div>
 
@@ -101,7 +112,7 @@ function CreateAccommodation() {
                             id="accommodation_name"
                             name='accommodation_name'
                             placeholder="Enter accommodation name"
-                            value={accommodation.accommodation_name}
+                            value={updateAccommodation.accommodation_name}
                             onChange={handleInputChange}
                             required
                         />
@@ -117,7 +128,7 @@ function CreateAccommodation() {
                             min="1"
                             max="5"
                             placeholder="Enter rate (1-5)"
-                            value={accommodation.rate}
+                            value={updateAccommodation.rate}
                             onChange={handleInputChange}
                             required
                         />
@@ -129,7 +140,7 @@ function CreateAccommodation() {
                             className="form-control"
                             id="type"
                             name='type'
-                            value={accommodation.type}
+                            value={updateAccommodation.type}
                             onChange={handleInputChange}
                             required
                         >
@@ -147,7 +158,7 @@ function CreateAccommodation() {
                             id="price"
                             name='price'
                             placeholder="Enter price"
-                            value={accommodation.price}
+                            value={updateAccommodation.price}
                             onChange={handleInputChange}
                             required
                         />
@@ -161,7 +172,7 @@ function CreateAccommodation() {
                             name='description'
                             rows="5"
                             placeholder="Enter description"
-                            value={accommodation.description}
+                            value={updateAccommodation.description}
                             onChange={handleInputChange}
                             required
                         ></textarea>
@@ -173,11 +184,10 @@ function CreateAccommodation() {
                             className="form-control"
                             id="status_Accommodation"
                             name='status_Accommodation'
-                            value={accommodation.status_Accommodation}
+                            value={updateAccommodation.status_Accommodation}
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="">Select accommodation Status</option>
                             <option value="false">false</option>
                             <option value="true">true</option>
                         </select>
@@ -189,9 +199,9 @@ function CreateAccommodation() {
                             className="form-control"
                             id="location_id"
                             name='location_id'
-                            value={accommodation.location_id}
+                            value={updateAccommodation.location_id}
                             onChange={handleInputChange}
-                        // required
+                            required
                         >
                             <option value="">Select location ID</option>
                             {locations.map((item, index) => {
@@ -209,9 +219,9 @@ function CreateAccommodation() {
                         Submit
                     </button>
                 </form>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 }
 
-export default CreateAccommodation;
+export default UpdateAccommodation;
