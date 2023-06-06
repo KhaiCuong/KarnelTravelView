@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAccommodationByID, getAccommodationImageByID, getLocations, putAccommodation, putAccommodationImage } from './Services/ApiService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 function UpdateAccommodation(props) {
@@ -61,9 +61,53 @@ function UpdateAccommodation(props) {
         });
     };
 
+    //update accommodation and image, however cannot keep the old images when no new image
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     //update accommodation with the updatedAccommodation data
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, update it!'
+    //     })
+    //         .then(result => {
+    //             if (result.isConfirmed) {
+    //                 putAccommodation(id, updatedData)
+    //                     .then(response => {
+    //                         console.log("Updated Accommodation", response);
+    //                         if (response.status === 200) {
+    //                             console.log("updateImage", updateImage);
+    //                             console.log("formData", formData);
+    //                             putAccommodationImage(id, formData)
+    //                                 .then(response => {
+    //                                     console.log("updated image", response);
+    //                                     if (response.status === 200) {
+    //                                         Swal.fire(
+    //                                             'Updated!',
+    //                                             'Your Accommodation has been updated.',
+    //                                             'success'
+    //                                         )
+    //                                         // handle success or navigate to another page
+    //                                         // navigate("/admin/accommodation");
+    //                                     }
+    //                                 })
+    //                                 .catch(error => console.log("error", error));
+    //                         }
+    //                     })
+    //                     .catch(error => console.log("error", error));
+    //             }
+    //         })
+    //     console.log("updateAccommodation", updateAccommodation);
+    // };
+
+    // update accommodation and image, it can also keep the old images when there are no new updated images
     const handleSubmit = (e) => {
         e.preventDefault();
-        //update accommodation with the updatedAccommodation data
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -72,43 +116,47 @@ function UpdateAccommodation(props) {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, update it!'
-        })
-            .then(result => {
-                if (result.isConfirmed) {
-                    putAccommodation(id, updatedData)
-                        .then(response => {
-                            console.log("Updated Accommodation", response);
-                            if (response.status === 200) {
-                                console.log("updateImage", updateImage);
+        }).then((result) => {
+            if (result.isConfirmed) {
+                putAccommodation(id, updatedData)
+                    .then((response) => {
+                        console.log('Updated Accommodation', response);
+                        if (response.status === 200) {
+                            if (formData.get('files')) { // Check if new files are selected
                                 putAccommodationImage(id, formData)
-                                    .then(response => {
-                                        console.log("updated image", response);
+                                    .then((response) => {
+                                        console.log('updated image', response);
                                         if (response.status === 200) {
-                                            Swal.fire(
-                                                'Updated!',
-                                                'Your Accommodation has been updated.',
-                                                'success'
-                                            )
+                                            Swal.fire('Updated!', 'Your Accommodation has been updated.', 'success');
                                             // handle success or navigate to another page
                                             navigate("/admin/accommodation");
                                         }
                                     })
-                                    .catch(error => console.log("error", error));
+                                    .catch((error) => console.log('error', error));
+                            } else {
+                                Swal.fire('Updated!', 'Your Accommodation has been updated.', 'success');
+                                // handle success or navigate to another page
+                                navigate("/admin/accommodation");
                             }
-                        })
-                        .catch(error => console.log("error", error));
-                }
-            })
-        console.log("updateAccommodation", updateAccommodation);
+                        }
+                    })
+                    .catch((error) => console.log('error', error));
+            }
+        });
+        console.log('updateAccommodation', updateAccommodation);
     };
 
     //upload hinh
     const handleFileChange = (e) => {
-        for (var i = 0; i < e.target.files.length; i++) {
-            formData.append("files", e.target.files[i]);
+        const files = e.target.files;
+        if (files.length > 0) {
+            for (var i = 0; i < e.target.files.length; i++) {
+                console.log("files", e);
+                formData.append("files", e.target.files[i]);
+            }
         }
-        // setUpdateImage(formData);
     };
+
     return (
         <section>
             <div className="container">
@@ -245,18 +293,17 @@ function UpdateAccommodation(props) {
                         <label for="photoimg" className="form-label w-100">
                             Photo
                         </label>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            {updateImage.map((item, index) => {
-                                return (
-                                    <>
-                                        <ul >
-                                            <li >
-                                                <img key={index} src={`http://localhost:5158/${item}`} alt={item} className='' style={{ width: '200px', height: '200px', objectFit: 'cover', marginRight: '10px' }} />
-                                            </li>
-                                        </ul>
-                                    </>
-                                )
-                            })}
+                        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                            {updateImage.map((item, index) => (
+                                <div key={index} style={{ width: '200px', height: '200px', margin: '5px' }}>
+                                    <img
+                                        src={`http://localhost:5158/${item}`}
+                                        alt={item}
+                                        className=""
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                </div>
+                            ))}
                         </div>
                         <input type="file" className="form-control" id="photoimg" onChange={handleFileChange} multiple />
                     </div>

@@ -184,55 +184,65 @@ function DetailAccommodation(props) {
                     </button>
                 </div>
             </div> */}
-            <div className="container text-center my-3">
-                <h2 className="font-weight-light">Bootstrap Multi Slide Carousel</h2>
-                <div className="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel" className="carousel slide" data-bs-ride="carousel">
-                        <div className="carousel-inner" role="listbox">
-                            <div className="carousel-item active">
-                                {image.map((item, index) => {
-                                    if (index < 4) {
-                                        return (
-                                            <>
-                                                <div className="col-md-3">
-                                                    <div className="card">
-                                                        <div className="card-img">
-                                                            <img src={`http://localhost:5158/${item}`} className="d-block w-100" />
+            {image != null && image.length > 0 ? (
+                <div className="container text-center my-3">
+                    <h2 className="font-weight-light">IMAGES</h2>
+                    <div className="row mx-auto my-auto justify-content-center">
+                        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+                                    {image.map((item, index) => {
+                                        if (index < 4) {
+                                            return (
+                                                <>
+                                                    <div class="col-md-3">
+                                                        <div class="card">
+                                                            <div class="card-img">
+                                                                <img src={`http://localhost:5158/${item}`} class="img-fluid" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </>
-                                        );
-                                    }
-                                })}
-                            </div>
-                            <div className="carousel-item">
-                                {image.map((item, index) => {
-                                    if (index >= 4) {
-                                        return (
-                                            <>
-                                                <div className="col-md-3">
-                                                    <div className="card">
-                                                        <div className="card-img">
-                                                            <img src={`http://localhost:5158/${item}`} className="d-block w-100" />
+                                                </>
+                                            );
+                                        }
+                                    })}
+                                </div>
+                                <div class="carousel-item ">
+                                    {image.map((item, index) => {
+                                        if (index >= 4) {
+                                            return (
+                                                <>
+                                                    <div class="col-md-3">
+                                                        <div class="card">
+                                                            <div class="card-img">
+                                                                <img src={`http://localhost:5158/${item}`} class="img-fluid" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </>
-                                        );
-                                    }
-                                })}
+                                                </>
+                                            );
+                                        }
+                                    })}
+                                </div>
                             </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <a className="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
-                            <span className="carousel-control-prev-icon" aria-hidden="true"></span> </a>
-                        <a className="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
                     </div>
                 </div>
-                <h5 className="mt-2 fw-light">advances one slide at a time</h5>
-            </div>
+
+            ) : (
+                <div className="container text-center my-3">
+                    <h2 className="font-weight-light">IMAGES</h2>
+                    <p>There are no images.</p>
+                </div>
+            )}
 
             {/* <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">

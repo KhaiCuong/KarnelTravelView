@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getLocations, postAccommodation, postAccommodationImage } from './Services/ApiService';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function CreateAccommodation() {
     const navigate = useNavigate();
@@ -58,23 +59,36 @@ function CreateAccommodation() {
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        postAccommodation(data)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, create it!'
+        })
             .then((result) => {
-                console.log("accommodation", result);
-                if (result.status === 201) {
-                    //upload image
-                    postAccommodationImage(result.data.accommodation_id, formData)
-                        .then(result => {
-                            console.log("image", result);
-                            if (result.status === 200) {
-                                navigateListAccommodation();
+                if (result.isConfirmed) {
+                    postAccommodation(data)
+                        .then((result) => {
+                            console.log("accommodation", result);
+                            if (result.status === 201) {
+                                //upload image
+                                postAccommodationImage(result.data.accommodation_id, formData)
+                                    .then(result => {
+                                        console.log("image", result);
+                                        if (result.status === 200) {
+                                            Swal.fire('Created!', 'Your Accommodation has been created.', 'success');
+                                            navigateListAccommodation();
+                                        }
+                                    })
+                                    .catch(error => console.log("error", error));
                             }
                         })
                         .catch(error => console.log("error", error));
                 }
             })
-            .catch(error => console.log("error", error));
     }
 
     const formData = new FormData();
