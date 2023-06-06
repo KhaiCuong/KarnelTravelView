@@ -1,8 +1,20 @@
-import { React, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { React, useEffect, useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const AdminLayout = ({ children }) => {
+  const [userInfo, setUserInfo] = useState();
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userToken");
+
+    setUserInfo(null);
+    navigate("/login");
+    navigate("/account");
+  };
   return (
+
     <div id="wrapper" className="w-100">
       {/* <!-- Sidebar --> */}
       <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex" id="accordionSidebar">
@@ -66,7 +78,7 @@ const AdminLayout = ({ children }) => {
               <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                   {/* <h6 className="collapse-header">Custom Utilities:</h6> */}
-                  <a className="collapse-item" href="utilities-color.html">
+                  <a className="collapse-item" href="/admin/account">
                     Account Manager
                   </a>
                   <a className="collapse-item" href="utilities-border.html">
@@ -246,7 +258,7 @@ const AdminLayout = ({ children }) => {
               {/* <!-- Nav Item - User Information --> */}
               <li className="nav-item dropdown no-arrow">
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">User: {!userInfo ? "Username" : userInfo?.Username} </span>
                   <img className="img-profile rounded-circle" src="img/undraw_profile.svg" />
                 </a>
                 {/* <!-- Dropdown - User Information --> */}
@@ -264,10 +276,11 @@ const AdminLayout = ({ children }) => {
                     Activity Log
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <button className="dropdown-item" onClick={handleLogout} data-toggle="modal" data-target="#logoutModal">
                     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    
                     Logout
-                  </a>
+                  </button>
                 </div>
               </li>
             </ul>
