@@ -305,7 +305,7 @@ function UpdateAccommodation(props) {
                                 </div>
                             ))}
                         </div>
-                        <input type="file" className="form-control" id="photoimg" onChange={handleFileChange} multiple />
+                        <input type="file" className="form-control" id="photoimg" onChange={handleFileChange} multiple  style={{ marginTop: '10px' }}/>
                     </div>
 
                     <button type="submit" className="btn btn-primary">

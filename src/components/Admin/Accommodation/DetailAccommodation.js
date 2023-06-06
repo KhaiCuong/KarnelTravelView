@@ -240,7 +240,7 @@ function DetailAccommodation(props) {
             ) : (
                 <div className="container text-center my-3">
                     <h2 className="font-weight-light">IMAGES</h2>
-                    <p>There are no images.</p>
+                    <p>No images found.</p>
                 </div>
             )}
 
