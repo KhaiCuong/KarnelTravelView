@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { TourContext } from "./contexts/TourContext";
+import { TourContext } from "../contexts/TourContext";
 
 function UpdateTour() {
   const contextTour = useContext(TourContext);

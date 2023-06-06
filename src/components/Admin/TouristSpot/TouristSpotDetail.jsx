@@ -5,8 +5,7 @@ import { TourContext } from "../contexts/TourContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const TourDetail = () => {
-  const [tour, setTour] = useState([]);
+const TouristSpotDetail = () => {
   const [img, setImg] = useState([]);
   const [spot, setSpot] = useState([]);
   const contextTour = useContext(TourContext);
@@ -15,14 +14,14 @@ const TourDetail = () => {
   let [count, setCount] = useState(0);
 
   const handleBack = () => {
-    navigate("/admin/tour");
+    navigate("/admin/tourist-spot");
   };
 
   const handleGetPageUpdate = (item) => {
-    navigate(`/admin/tour/update/${item}`);
+    navigate(`/admin/tourist-spot/update/${item}`);
   };
 
-  const handleDelete = (tour_id) => {
+  const handleDelete = (touristSpot_id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -35,9 +34,9 @@ const TourDetail = () => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
         axios
-          .delete(`http://localhost:5158/api/Tour/Deletetour/${tour_id}`)
+          .delete(`http://localhost:5158/api/TouristSpot/DeleteEmployee/${touristSpot_id}`)
           .then((s) => {
-            navigate("/admin/tour");
+            navigate("/admin/tourist-spot");
           })
           .then((error) => console.log(error));
       }
@@ -46,92 +45,72 @@ const TourDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5158/api/Tour/GetTour/${itemTour}`)
+      .get(`http://localhost:5158/api/TouristSpot/GetTouristSpotById/${itemTour}`)
       .then((t) => {
-        setTour(t.data.data);
+        setSpot(t.data.data);
       })
       .then((error) => console.log(error));
 
     axios
-      .get(`http://localhost:5158/api/TouristSpotTour/GetListByTourId/${itemTour}`)
+      .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${itemTour}`)
       .then((s) => {
-        setSpot(s.data.data);
+        setImg(s.data.data);
         return s.data.data;
       })
-      .then((spot) => {
-        axios
-          .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${spot[count].touristSpot_id}`)
-          .then((i) => {
-            if (img.length > 0) {
-              var list = Object.values(img).concat(Object.values(i.data.data));
-            } else {
-              var list = Object.values(i.data.data);
-            }
-            setImg(list);
-            return count;
-          })
-          .then((c) => {
-            if (c < spot.length) {
-              setCount(count++);
-            }
-          })
-          .then((error) => console.log(error));
-      })
-
       .then((error) => console.log(error));
-  }, [count]);
-
+  }, []);
+console.log("itemTour", itemTour);
   return (
     <section>
-      <h2 class="text-center font-weight-bold">{tour.tour_name}</h2>
+      <h2 class="text-center font-weight-bold">{spot.touristSpot_name}</h2>
       <div className="container-fluid">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="row">
-              <div class="col-3">Tour Id</div>
-              <div class="col-9">{tour.tour_id}</div>
+              <div class="col-3">Tourist Spot Id</div>
+              <div class="col-9">{spot.touristSpot_id}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
-              <div class="col-3">Tour Name</div>
-              <div class="col-9">{tour.tour_name}</div>
+              <div class="col-3">Tourist Spot Name</div>
+              <div class="col-9">{spot.touristSpot_name}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
-              <div class="col-3">Depature date</div>
-              <div class="col-9">{tour.depature_date}</div>
+              <div class="col-3">Location </div>
+              <div class="col-9">{spot.location_id}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
-              <div class="col-3">Times</div>
-              <div class="col-9">{tour.times}</div>
+              <div class="col-3">Activities</div>
+              <div class="col-9">{spot.activities}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
               <div class="col-3">Status </div>
-              <div class="col-9">{tour.status_tour + ""}</div>
+              <div class="col-9">{spot.status_TouristSpot + ""}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
               <div class="col-3">Price</div>
-              <div class="col-9">{tour.price}</div>
+              <div class="col-9">{spot.price}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
               <div class="col-3">Discount</div>
-              <div class="col-9">{tour.discount}</div>
+              <div class="col-9">{spot.discount}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
               <div class="col-3">Description</div>
-              <div class="col-9">{tour.description}</div>
+              <div class="col-9">{spot.description}</div>
             </div>
           </li>
         </ul>
@@ -187,7 +166,6 @@ const TourDetail = () => {
             </div>
           </div>
         </div>
-       
       </div>
 
       <div className="d-flex justify-content-around align-items-center mt-4">
@@ -199,14 +177,14 @@ const TourDetail = () => {
           <button
             className="btn btn-warning background-blue"
             onClick={() => {
-              setItemTour(tour.tour_id);
-              handleGetPageUpdate(tour.tour_id);
+              setItemTour(spot.touristSpot_id);
+              handleGetPageUpdate(spot.touristSpot_id);
             }}
           >
             Update
           </button>
 
-          <button className="btn btn-warning background-red" onClick={() => handleDelete(tour.tour_id)}>
+          <button className="btn btn-warning background-red" onClick={() => handleDelete(spot.touristSpot_id)}>
             Delete
           </button>
         </div>
@@ -215,4 +193,4 @@ const TourDetail = () => {
   );
 };
 
-export default TourDetail;
+export default TouristSpotDetail;

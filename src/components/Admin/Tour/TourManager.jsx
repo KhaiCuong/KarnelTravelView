@@ -2,13 +2,15 @@ import { React, useContext, useEffect, useState } from "react";
 import "../AdminManager.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { TourContext } from "./contexts/TourContext";
+import { TourContext } from "../contexts/TourContext";
 
 const TourManager = () => {
   const [tours, setTours] = useState([]);
   const [status, setStatus] = useState([]);
+
   const contextTour = useContext(TourContext);
   const { itemTour, setItemTour } = contextTour;
+  
   const navigate = useNavigate();
 
   const handleGetPageDetail = (item) => {

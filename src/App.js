@@ -8,13 +8,14 @@ import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./components/Layout/MainLayout";
-import TourProvider from "./components/Admin/Tour/contexts/TourContext";
 import TourDetail from "./components/Admin/Tour/TourDetail";
 import { Details } from "@mui/icons-material";
 import CreateTour from "./components/Admin/Tour/TourCreate";
 import TourManager from "./components/Admin/Tour/TourManager";
 import CreateTouristSpot from "./components/Admin/TouristSpot/TouristSpotCreate";
 import UpdateTour from "./components/Admin/Tour/TourUpdate";
+import TouristSpotDetail from "./components/Admin/TouristSpot/TouristSpotDetail";
+import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate";
 
 function App() {
   return (
@@ -32,27 +33,24 @@ function App() {
           />
         </Route>
 
-
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
           <Route index element={<DashboardPage />} />
-          <Route path="tour" >
-            <Route index element={<TourManager/>}/>
+          <Route path="tour">
+            <Route index element={<TourManager />} />
             <Route path="detail/:id" element={<TourDetail />} />
             <Route path="create" element={<CreateTour />} />
             <Route path="update/:id" element={<UpdateTour />} />
-
-
           </Route>
 
           {/* <Route path="user" element={<Tour />}/> */}
 
-          <Route path="tourist-spot"  >
-          <Route index element={<TouristSpot />}/>
-            {/* <Route path="detail/:id" element={<TourDetail />} /> */}
+          <Route path="tourist-spot">
+            <Route index element={<TouristSpot />} />
+            <Route path="detail/:id" element={<TouristSpotDetail />} />
             <Route path="create" element={<CreateTouristSpot />} />
+            <Route path="update/:id" element={<UpdateTouristSpot />} />
           </Route>
-
         </Route>
       </Routes>
     </>
