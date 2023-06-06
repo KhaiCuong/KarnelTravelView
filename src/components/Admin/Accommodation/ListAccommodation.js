@@ -108,7 +108,7 @@ function ListAccommodation() {
                         Detail
                       </button>
                     </td>
-                    <td>
+                    {/* <td>
                       <button className="btn btn-warning background-green" onClick={() => { handleUpdateAccommodation(item.accommodation_id) }}>
                         Update
                       </button>
@@ -117,7 +117,7 @@ function ListAccommodation() {
                       <button className="btn btn-warning background-red" onClick={() => handleDeleteAccommodation(item.accommodation_id)}>
                         Delete
                       </button>
-                    </td>
+                    </td> */}
                   </tr></>
               })}
             </tbody>
