@@ -59,6 +59,17 @@ function ListAccommodation() {
   return (
     <section>
       <div className="container-fluid">
+        <div>
+          <button
+            className="btn background-green text-white"
+            onClick={() => {
+              navigate("/admin/accommodation/createAccommodation");
+            }}
+          >
+            {" "}
+            Create
+          </button>
+        </div>
         {accommodation != null && accommodation.length > 0 ? (
           <table class="table table-light">
             <thead class="thead background-primary text-white">

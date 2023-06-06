@@ -42,9 +42,10 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="buttons.html">
                     Tour Manager
                   </a>
-                  <a className="collapse-item" href="cards.html">
-                    Accomodation Manager
-                  </a>
+                  <Link className="collapse-item" to="/admin/accommodation">
+                    Accommodation Manager
+                  </Link>
+
                   <a className="collapse-item" href="cards.html">
                     Restaurant Manager
                   </a>
@@ -79,22 +80,6 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="utilities-other.html">
                     Payment Manager
                   </a>
-                </div>
-              </div>
-            </li>
-
-            <li className="nav-item">
-              <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                aria-expanded="true" aria-controls="collapsePages">
-                <i className="fas fa-fw fa-folder"></i>
-                <span>Accommodation</span>
-              </a>
-              <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div className="bg-white py-2 collapse-inner rounded">
-                  <h6 className="collapse-header">Accommodation Manager:</h6>
-                  <Link className="collapse-item" to="/admin/accommodation">List Accommodation</Link>
-                  <Link className="collapse-item" to="/admin/accommodation/createAccommodation">Create Accommodation</Link>
-
                 </div>
               </div>
             </li>
