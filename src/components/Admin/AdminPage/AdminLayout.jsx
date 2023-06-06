@@ -50,7 +50,7 @@ const AdminLayout = ({ children }) => {
               <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                   {/* <h6 className="collapse-header">Custom Components:</h6> */}
-                  <a className="collapse-item" href="buttons.html">
+                  <a className="collapse-item" href="/admin/tour">
                     Tour Manager
                   </a>
                   <a className="collapse-item" href="cards.html">
@@ -59,7 +59,7 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="cards.html">
                     Restaurant Manager
                   </a>
-                  <a className="collapse-item" href="cards.html">
+                  <a className="collapse-item" href="/admin/tourist-spot">
                     Tourist Spot Manager
                   </a>
                   <a className="collapse-item" href="cards.html">
