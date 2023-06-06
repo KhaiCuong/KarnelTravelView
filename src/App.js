@@ -7,8 +7,12 @@ import AdminLayout from "./components/Admin/AdminPage/AdminLayout";
 import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
 
-import { Route, Routes } from "react-router-dom";
 import MainLayout from "./components/Layout/MainLayout";
+import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommodation";
+import ListAccommodation from "./components/Admin/Accommodation/ListAccommodation";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UpdateAccommodation from "./components/Admin/Accommodation/UpdateAccommodation";
+import DetailAccommodation from "./components/Admin/Accommodation/DetailAccommodation";
 import TourDetail from "./components/Admin/Tour/TourDetail";
 import { Details } from "@mui/icons-material";
 import CreateTour from "./components/Admin/Tour/TourCreate";
@@ -61,9 +65,30 @@ function App() {
               </ProtectRouter>
             }
           />
-          <Route path="tour" element={<TourManager />} />
+          {/* <Route path="tour" element={<TourManager />} /> */}
+          <Route path="tour">
+            <Route index element={<TourManager />} />
+            <Route path="detail/:id" element={<TourDetail />} />
+            <Route path="create" element={<CreateTour />} />
+            <Route path="update/:id" element={<UpdateTour />} />
+          </Route>
+          <Route path="tourist-spot">
+            <Route index element={<TouristSpot />} />
+            <Route path="detail/:id" element={<TouristSpotDetail />} />
+            <Route path="create" element={<CreateTouristSpot />} />
+            <Route path="update/:id" element={<UpdateTouristSpot />} />
+          </Route>
           <Route path="account" element={<AccountManager />} />
+          <Route index element={<DashboardPage />} />
+          <Route path="tour" element={<TourManager />} />
+          <Route path="accommodation">
+            <Route index element={<ListAccommodation />} />
+            <Route path="createAccommodation" element={<CreateAccommodation />} />
+            <Route path="updateAccommodation/:id" element={<UpdateAccommodation />} />
+            <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
+          </Route>
         </Route>
+
       </Routes>
     </Fragment>
     //     {/* View Admin */}
@@ -84,9 +109,17 @@ function App() {
     //         <Route path="create" element={<CreateTouristSpot />} />
     //         <Route path="update/:id" element={<UpdateTouristSpot />} />
     //       </Route>
+
     //     </Route>
     //   </Routes>
     // </>
+    // {/* View Admin */}
+    // </Routes>
+    //     {/* <Header/> */ }
+    // {/* <Home/> */ }
+    // {/* <MainContent/> */ }
+    // {/* <TourManager /> */ }
+    // {/* <Footer/> */ }
   );
 }
 

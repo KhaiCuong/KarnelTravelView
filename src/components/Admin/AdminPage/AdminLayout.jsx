@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import ListAccommodation from "../Accommodation/ListAccommodation";
 
 const AdminLayout = ({ children }) => {
   const [userInfo, setUserInfo] = useState();
@@ -53,9 +54,10 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="/admin/tour">
                     Tour Manager
                   </a>
-                  <a className="collapse-item" href="cards.html">
-                    Accomodation Manager
-                  </a>
+                  <Link className="collapse-item" to="/admin/accommodation">
+                    Accommodation Manager
+                  </Link>
+
                   <a className="collapse-item" href="cards.html">
                     Restaurant Manager
                   </a>
