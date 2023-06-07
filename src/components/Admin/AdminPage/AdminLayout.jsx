@@ -11,7 +11,7 @@ const AdminLayout = ({ children }) => {
 
     setUserInfo(null);
     navigate("/login");
-    navigate("/account");
+    // navigate("/account");
   };
   return (
 

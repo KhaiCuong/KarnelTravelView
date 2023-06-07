@@ -21,6 +21,7 @@ import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
 import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
+import Register from "./components/Admin/Login/Register";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -50,6 +51,7 @@ function App() {
             <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
           }
         />
+        <Route path="register" element={<Register />} />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>

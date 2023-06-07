@@ -33,14 +33,12 @@ function Login(props) {
           setCheckLogin(!checkLogin);
           console.log("data", data);
           // navigate("/admin");
-         if(data.data.userToken.role === "Admin" ){
-          navigate("/admin");
-         }
-         else{
-          navigate("/")
-         }
+          if (data.data.userToken.role === "Admin") {
+            navigate("/admin");
+          } else {
+            navigate("/");
+          }
         }
-
       })
       .catch((error) => console.log(error));
   };
@@ -103,13 +101,8 @@ function Login(props) {
                             </div>
                           </div>
                           <button class="btn btn-primary btn-user btn-block">
-                          
-                            
-                          
                             Login
                           </button>
-                       
-                          
 
                           <a
                             href="index.html"
