@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getListAccommodation, deleteAccommodation, deleteAccommodationImage } from './Services/ApiService';
 import Swal from 'sweetalert2';
+import "../AdminManager.css";
+
 
 function ListAccommodation() {
   const [accommodation, setAccommodation] = useState([]);
@@ -58,6 +60,8 @@ function ListAccommodation() {
   }
   return (
     <section>
+            <h2 class="text-center font-weight-bold">List of Accommodation</h2>
+
       <div className="container-fluid">
         <div>
           <button
@@ -71,7 +75,7 @@ function ListAccommodation() {
           </button>
         </div>
         {accommodation != null && accommodation.length > 0 ? (
-          <table class="table table-light">
+          <table class="table  mt-3 mb-3">
             <thead class="thead background-primary text-white">
               <tr>
                 <th scope="col">Accommodation Id</th>

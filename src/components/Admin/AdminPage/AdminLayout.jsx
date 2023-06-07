@@ -1,26 +1,26 @@
 import { React, useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import ListAccommodation from "../Accommodation/ListAccommodation";
+import ProtectRouter from "../Login/Service/ProtectRouter";
+
 
 const AdminLayout = ({ children }) => {
-  const [userInfo, setUserInfo] = useState();
-
+  const usertoken = JSON.parse(localStorage.getItem("userToken"));
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userToken");
-
-    setUserInfo(null);
-    navigate("/login");
-    navigate("/account");
+    navigate("/");
   };
+
+
   return (
 
     <div id="wrapper" className="w-100">
       {/* <!-- Sidebar --> */}
       <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex" id="accordionSidebar">
         {/* <!-- Sidebar - Brand --> */}
-        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink"></i>
           </div>
@@ -260,8 +260,8 @@ const AdminLayout = ({ children }) => {
               {/* <!-- Nav Item - User Information --> */}
               <li className="nav-item dropdown no-arrow">
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">User: {!userInfo ? "Username" : userInfo?.Username} </span>
-                  <img className="img-profile rounded-circle" src="img/undraw_profile.svg" />
+                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">User: {!usertoken ? "Username" : usertoken?.user_name} </span>
+                  <img className="img-profile rounded-circle" src="/img/undraw_profile.svg" />
                 </a>
                 {/* <!-- Dropdown - User Information --> */}
                 <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -290,7 +290,9 @@ const AdminLayout = ({ children }) => {
           {/* <!-- End of Topbar --> */}
 
           {/* <main>{children}</main> */}
+          <ProtectRouter>
           <Outlet />
+          </ProtectRouter>
         </div>
         {/* <!-- End of Main Content --> */}
 

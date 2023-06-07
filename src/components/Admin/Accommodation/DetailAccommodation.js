@@ -3,6 +3,7 @@ import { deleteAccommodation, deleteAccommodationImage, getAccommodationByID, ge
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Height } from '@mui/icons-material';
+import "../AdminManager.css";
 
 function DetailAccommodation(props) {
     const [locations, setLocations] = useState([]);
@@ -92,56 +93,56 @@ function DetailAccommodation(props) {
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Accommodation Id</div>
-                            <div className="col-6 text-center">{accommodation.accommodation_id}</div>
+                            <div className="col-3 ">Accommodation Id</div>
+                            <div className="col-9 ">{accommodation.accommodation_id}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Accommodation Name</div>
-                            <div className="col-6 text-center">{accommodation.accommodation_name}</div>
+                            <div className="col-3 ">Accommodation Name</div>
+                            <div className="col-9 ">{accommodation.accommodation_name}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Rate</div>
-                            <div className="col-6 text-center">{accommodation.rate}</div>
+                            <div className="col-3 ">Rate</div>
+                            <div className="col-9 ">{accommodation.rate}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Type</div>
-                            <div className="col-6 text-center">{accommodation.type + "" === "true" ? "Resort" : "Hotel"}</div>
+                            <div className="col-3 ">Type</div>
+                            <div className="col-9 ">{accommodation.type + "" === "true" ? "Resort" : "Hotel"}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Description</div>
-                            <div className="col-6 text-center">{accommodation.description}</div>
+                            <div className="col-3 ">Description</div>
+                            <div className="col-9 ">{accommodation.description}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Price </div>
-                            <div className="col-6 text-center">{accommodation.price}</div>
+                            <div className="col-3 ">Price </div>
+                            <div className="col-9 ">{accommodation.price}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Status </div>
-                            <div className="col-6 text-center">{accommodation.status_Accommodation + ""}</div>
+                            <div className="col-3 ">Status </div>
+                            <div className="col-9 ">{accommodation.status_Accommodation + ""}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Discount</div>
-                            <div className="col-6 text-center">{accommodation.discount}</div>
+                            <div className="col-3 ">Discount</div>
+                            <div className="col-9 ">{accommodation.discount}</div>
                         </div>
                     </li>
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-6 text-center">Location</div>
-                            <div className="col-6 text-center">{accommodation.location_id}</div>
+                            <div className="col-3 ">Location</div>
+                            <div className="col-9 ">{accommodation.location_id}</div>
                         </div>
                     </li>
                 </ul>
@@ -281,7 +282,7 @@ function DetailAccommodation(props) {
 
             <div className="d-flex justify-content-around align-items-center mt-4">
                 <div className="d-flex justify-content-between align-items-center w-50">
-                    <button className="btn btn-warning" onClick={() => { navigate("/admin/accommodation") }}>
+                    <button className="btn btn-warning background-dark" onClick={() => { navigate("/admin/accommodation") }}>
                         Back
                     </button>
 
