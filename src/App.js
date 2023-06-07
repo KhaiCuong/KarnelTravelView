@@ -26,7 +26,7 @@ import AccountManager from "./components/Admin/Account/AccountManager";
 import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
 import Register from "./components/Admin/Login/Register";
 import NotFound from "./components/NotFound/NotFound";
-import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
+
 import Accommodation from "./components/User/Accommodation/Accommodation";
 
 
