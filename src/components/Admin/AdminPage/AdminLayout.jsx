@@ -1,14 +1,26 @@
-import { React, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { React, useEffect, useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import ListAccommodation from "../Accommodation/ListAccommodation";
+import ProtectRouter from "../Login/Service/ProtectRouter";
+
 
 const AdminLayout = ({ children }) => {
+  const usertoken = JSON.parse(localStorage.getItem("userToken"));
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userToken");
+    navigate("/");
+  };
+
+
   return (
+
     <div id="wrapper" className="w-100">
       {/* <!-- Sidebar --> */}
       <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex" id="accordionSidebar">
         {/* <!-- Sidebar - Brand --> */}
-        <a className="sidebar-brand d-flex align-items-center justify-content-center" >
-        
+        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink"></i>
           </div>
@@ -70,7 +82,7 @@ const AdminLayout = ({ children }) => {
               <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                   {/* <h6 className="collapse-header">Custom Components:</h6> */}
-                  <a className="collapse-item" href="buttons.html">
+                  <a className="collapse-item" href="/admin/tour">
                     Tour Manager
                   </a>
                   <a className="collapse-item" href="cards.html">
@@ -80,7 +92,7 @@ const AdminLayout = ({ children }) => {
                   <Link to="/admin/restaurant">Restaurant Manager</Link>
                     
                   </a>
-                  <a className="collapse-item" href="cards.html">
+                  <a className="collapse-item" href="/admin/tourist-spot">
                     Tourist Spot Manager
                   </a>
                   <a className="collapse-item" href="cards.html">
@@ -99,7 +111,7 @@ const AdminLayout = ({ children }) => {
               <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                   {/* <h6 className="collapse-header">Custom Utilities:</h6> */}
-                  <a className="collapse-item" href="utilities-color.html">
+                  <a className="collapse-item" href="/admin/account">
                     Account Manager
                   </a>
                   <a className="collapse-item" href="utilities-border.html">
@@ -280,8 +292,8 @@ const AdminLayout = ({ children }) => {
               {/* <!-- Nav Item - User Information --> */}
               <li className="nav-item dropdown no-arrow">
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                  <img className="img-profile rounded-circle" src="img/undraw_profile.svg" />
+                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">User: {!usertoken ? "Username" : usertoken?.user_name} </span>
+                  <img className="img-profile rounded-circle" src="/img/undraw_profile.svg" />
                 </a>
                 {/* <!-- Dropdown - User Information --> */}
                 <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -298,10 +310,11 @@ const AdminLayout = ({ children }) => {
                     Activity Log
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <button className="dropdown-item" onClick={handleLogout} data-toggle="modal" data-target="#logoutModal">
                     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    
                     Logout
-                  </a>
+                  </button>
                 </div>
               </li>
             </ul>
@@ -309,7 +322,9 @@ const AdminLayout = ({ children }) => {
           {/* <!-- End of Topbar --> */}
 
           {/* <main>{children}</main> */}
+          <ProtectRouter>
           <Outlet />
+          </ProtectRouter>
         </div>
         {/* <!-- End of Main Content --> */}
 
