@@ -24,6 +24,8 @@ import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
 import NotFound from "./components/NotFound/NotFound";
+import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
+import Accommodation from "./components/User/Accommodation/Accommodation";
 
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
               </MainContent>
             }
           />
+          <Route path="accommodation" element={<Accommodation />} />
         </Route>
 
         <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
