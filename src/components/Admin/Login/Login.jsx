@@ -44,8 +44,8 @@ function Login(props) {
   };
   return (
     <section>
-      <div className="bg-gradient-primary h-100">
-        <div className="container">
+      <div className="bg-gradient-primary vh-100 justify-content-center align-items-center d-flex">
+        <div className="container ">
           <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
               <div class="card o-hidden border-0 shadow-lg my-5">

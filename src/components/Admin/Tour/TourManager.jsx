@@ -7,17 +7,18 @@ import { TourContext } from "../contexts/TourContext";
 const TourManager = () => {
   const [tours, setTours] = useState([]);
   const [status, setStatus] = useState([]);
+  const [checkedToggle, setCheckedToggle] = useState(false);
 
   const contextTour = useContext(TourContext);
   const { itemTour, setItemTour } = contextTour;
-  
+
   const navigate = useNavigate();
 
   const handleGetPageDetail = (item) => {
     navigate(`/admin/tour/detail/${item}`);
   };
   const handleGetPageCreate = (item) => {
-    navigate('/admin/tour/create');
+    navigate("/admin/tour/create");
   };
   const handleChangeStatus = (item) => {
     axios
@@ -26,7 +27,7 @@ const TourManager = () => {
         setStatus(s.data.data);
       })
       .then((error) => console.log(error));
-    window.location.reload();
+    // window.location.reload();
   };
 
   useEffect(() => {
@@ -37,17 +38,24 @@ const TourManager = () => {
         console.log("t", t);
       })
       .then((error) => console.log(error));
-
   }, [status]);
 
   return (
     <section>
       <h2 class="text-center font-weight-bold">List of Tour</h2>
-   
+
       <div className="container-fluid">
-      <div>
-        <button className="btn background-green text-white" onClick={() => { handleGetPageCreate();}}> Create</button>
-      </div>
+        <div>
+          <button
+            className="btn background-green text-white"
+            onClick={() => {
+              handleGetPageCreate();
+            }}
+          >
+            {" "}
+            Create
+          </button>
+        </div>
         <table class="table mt-3 mb-3">
           <thead class="thead background-primary text-white">
             <tr>
@@ -64,50 +72,20 @@ const TourManager = () => {
               tours.map((item, index) => {
                 return (
                   <>
-                    {item.status_tour === true ? (
-                      <tr key={index}>
-                        <th>{item.tour_id}</th>
-                        <td>{item.tour_name}</td>
-                        <td>{item.depature_date.slice(0, 10).split("-").reverse().join("-")}</td>
-                        <td>{item.price}</td>
-                        <td>
-                          <label class="switch">
-                            <input
-                              type="checkbox"
-                              onClick={() => {
-                                handleChangeStatus(item.tour_id);
-                              }}
-                              checked
-                            />
-                            <span class="slider round "></span>
-                          </label>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-warning"
-                            onClick={() => {
-                              setItemTour(item.tour_id);
-                              handleGetPageDetail(item.tour_id);
-                            }}
-                          >
-                            Detail
-                          </button>
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr key={index} className="background-disable" >
+                    <tr key={index} >
                       <th>{item.tour_id}</th>
                       <td>{item.tour_name}</td>
                       <td>{item.depature_date.slice(0, 10).split("-").reverse().join("-")}</td>
                       <td>{item.price}</td>
-                      <td>
-                        <label class="switch">
+                      <td >
+                        <label class="switch" >
                           <input
                             type="checkbox"
                             onClick={() => {
                               handleChangeStatus(item.tour_id);
                             }}
-               
+                             
+                            checked={item.status_tour}
                           />
                           <span class="slider round "></span>
                         </label>
@@ -124,13 +102,11 @@ const TourManager = () => {
                         </button>
                       </td>
                     </tr>
-                    )}
                   </>
                 );
               })
             ) : (
-              <div>No product to show
-              </div> 
+              <div>No product to show</div>
             )}
           </tbody>
         </table>
