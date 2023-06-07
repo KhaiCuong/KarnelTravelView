@@ -1,18 +1,16 @@
 import { React, useContext, useEffect, useState } from "react";
 import "../AdminManager.css";
 import axios from "axios";
-import { TourContext } from "../contexts/TourContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const TourDetail = () => {
   const [tour, setTour] = useState([]);
   const [img, setImg] = useState([]);
   const [spot, setSpot] = useState([]);
-  const contextTour = useContext(TourContext);
-  const { itemTour, setItemTour } = contextTour;
   const navigate = useNavigate();
   let [count, setCount] = useState(0);
+  const { id } = useParams();
 
   const handleBack = () => {
     navigate("/admin/tour");
@@ -46,14 +44,14 @@ const TourDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5158/api/Tour/GetTour/${itemTour}`)
+      .get(`http://localhost:5158/api/Tour/GetTour/${id}`)
       .then((t) => {
         setTour(t.data.data);
       })
       .then((error) => console.log(error));
 
     axios
-      .get(`http://localhost:5158/api/TouristSpotTour/GetListByTourId/${itemTour}`)
+      .get(`http://localhost:5158/api/TouristSpotTour/GetListByTourId/${id}`)
       .then((s) => {
         setSpot(s.data.data);
         return s.data.data;
@@ -139,6 +137,8 @@ const TourDetail = () => {
       <div lassName="container-fluid ">
         <div class="container text-center my-3">
           <h2 class="font-weight-light pt-4">Tour Image</h2>
+          { (img != null) && (img != "")  ? (
+            <>
           <div class="row mx-auto my-auto justify-content-center pb-5">
             <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner" role="listbox">
@@ -186,6 +186,9 @@ const TourDetail = () => {
               </a>
             </div>
           </div>
+          </> ) : (
+                <div className="mt-3 mb-3">No image found.</div>
+          )}
         </div>
        
       </div>
@@ -199,7 +202,6 @@ const TourDetail = () => {
           <button
             className="btn btn-warning background-blue"
             onClick={() => {
-              setItemTour(tour.tour_id);
               handleGetPageUpdate(tour.tour_id);
             }}
           >

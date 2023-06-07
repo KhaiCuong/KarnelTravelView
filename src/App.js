@@ -6,7 +6,6 @@ import Footer from "./components/Footer/Footer";
 import AdminLayout from "./components/Admin/AdminPage/AdminLayout";
 import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
-
 import MainLayout from "./components/Layout/MainLayout";
 import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommodation";
 import ListAccommodation from "./components/Admin/Accommodation/ListAccommodation";
@@ -24,8 +23,10 @@ import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate"
 import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
+import NotFound from "./components/NotFound/NotFound";
 import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
 import Accommodation from "./components/User/Accommodation/Accommodation";
+
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -50,24 +51,12 @@ function App() {
           <Route path="accommodation" element={<Accommodation />} />
         </Route>
 
-        <Route
-          path="login"
-          element={
-            <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
-          }
-        />
+        <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
-          <Route
-            index
-            element={
-              <ProtectRouter>
-                <DashboardPage />
-              </ProtectRouter>
-            }
-          />
-          {/* <Route path="tour" element={<TourManager />} /> */}
+          <Route index element={ <DashboardPage /> }/>
+
           <Route path="tour">
             <Route index element={<TourManager />} />
             <Route path="detail/:id" element={<TourDetail />} />
@@ -81,8 +70,6 @@ function App() {
             <Route path="update/:id" element={<UpdateTouristSpot />} />
           </Route>
           <Route path="account" element={<AccountManager />} />
-          <Route index element={<DashboardPage />} />
-          <Route path="tour" element={<TourManager />} />
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
             <Route path="createAccommodation" element={<CreateAccommodation />} />
@@ -90,6 +77,8 @@ function App() {
             <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
           </Route>
         </Route>
+
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
     </Fragment>

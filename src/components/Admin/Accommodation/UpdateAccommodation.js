@@ -10,6 +10,9 @@ function UpdateAccommodation(props) {
     const [updateImage, setUpdateImage] = useState([]);
     const navigate = useNavigate();
     const formData = new FormData();
+    const handleBack = () => {
+        navigate(`/admin/accommodation/detailAccommodation/${id}`);
+      };
 
     const { id } = useParams();
 
@@ -308,9 +311,16 @@ function UpdateAccommodation(props) {
                         <input type="file" className="form-control" id="photoimg" onChange={handleFileChange} multiple  style={{ marginTop: '10px' }}/>
                     </div>
 
+                    <div className="d-flex justify-content-around align-items-center mt-4">
+            <div className="d-flex justify-content-between align-items-center w-50">
+              <button className="btn btn-warning background-dark" onClick={() => handleBack()}>
+                Back
+              </button>
                     <button type="submit" className="btn btn-primary">
-                        Submit
+                        Update
                     </button>
+                    </div>
+          </div>
                 </form>
             </div >
         </section >
