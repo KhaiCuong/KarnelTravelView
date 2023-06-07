@@ -51,7 +51,7 @@ function ListRestaurant() {
     <section>
       <div className="container-fluid">
         {restaurant != null && restaurant.length > 0 ? (
-          <table class="table table-light">
+          <table class="table table-blue">
             <thead class="thead background-primary text-white">
               <tr>
                 <th scope="col">Restaurant Id</th>

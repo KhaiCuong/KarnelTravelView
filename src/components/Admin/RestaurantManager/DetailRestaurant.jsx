@@ -2,20 +2,30 @@ import React, { useEffect, useState } from 'react';
 import {  getLocations, getRestaurantByID } from './Service/ApiService';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { getRestaurantImageByID } from '../../User/Service/ApiService';
 
 function DetailRestaurant(props) {
     const [locations, setLocations] = useState([]);
     const [restaurant, setRestaurant] = useState({});
     const navigate = useNavigate();
+    const [img, setImg] = useState([]);
 
     const { id } = useParams();
 
     useEffect(() => {
-        // fetch the restaurant data with the given ID
+        // fetch the accommodation data with the given ID
         getRestaurantByID(id)
             .then(response => {
                 setRestaurant(response.data);
-                console.log("Restaurant", response);
+                console.log("restaurant", response);
+                if (response.status === 200) {
+                    getRestaurantImageByID(id)
+                        .then(response => {
+                            setImg(response.data)
+                            console.log("Image", response);
+                        })
+                        .catch(error => console.log("error", error));
+                }
             })
             .catch(error => console.log("error", error));
     }, [id]);
@@ -148,14 +158,64 @@ function DetailRestaurant(props) {
                     {/* <button className="btn btn-warning background-red">Delete</button> */}
                 </div>
             </div>
-            <div class="container text-center my-3"> <h2 class="font-weight-light"></h2> <div class="row mx-auto my-auto justify-content-center"> <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel"> <div class="carousel-inner" role="listbox"> <div class="carousel-item active"> <div class="col-md-3"> <div class="card"> <div class="card-img"> 
-            <img src="http://localhost:5158/api/ResImg/PostImages?Restaurant_id=${id}" class="img-fluid"/> </div> <div class="card-img-overlay">Slide 1</div> </div> </div> </div> <div class="carousel-item"> <div class="col-md-3"> <div class="card"> <div class="card-img"> 
-            <img src="http://localhost:5158/api/ResImg/PostImages?Restaurant_id=${id}" class="img-fluid"/> </div> <div class="card-img-overlay">Slide 2</div> </div> </div> </div> <div class="carousel-item"> <div class="col-md-3"> <div class="card"> <div class="card-img"> 
-            <img src="http://localhost:5158/api/ResImg/PostImages?Restaurant_id=${id}" class="img-fluid"/> </div> <div class="card-img-overlay">Slide 3</div> </div> </div> </div> <div class="carousel-item"> <div class="col-md-3"> <div class="card"> <div class="card-img"> 
-            <img src="http://localhost:5158/api/ResImg/PostImages?Restaurant_id=${id}" class="img-fluid"/> </div> <div class="card-img-overlay">Slide 4</div> </div> </div> </div> <div class="carousel-item"> <div class="col-md-3"> <div class="card"> <div class="card-img"> 
-            <img src="http://localhost:5158/api/ResImg/PostImages?Restaurant_id=${id}" class="img-fluid"/> </div> <div class="card-img-overlay">Slide 5</div> </div> </div> </div> <div class="carousel-item"> <div class="col-md-3"> <div class="card"> <div class="card-img"> 
-            <img src="http://localhost:5158/api/ResImg/PostImages?Restaurant_id=${id}" class="img-fluid"/> </div> <div class="card-img-overlay">Slide 6</div> </div> </div> </div> </div> <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> </a> <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> </a> </div> </div> <h5 class="mt-2 fw-light"></h5>
+            <div lassName="container-fluid ">
+        <div class="container text-center my-3">
+          <h2 class="font-weight-light pt-4">Restaurant Image</h2>
+          { (img != null) && (img != "")  ? (
+            <>
+          <div class="row mx-auto my-auto justify-content-center pb-5">
+            <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                  {img.map((item, index) => {
+                    if (index < 4) {
+                      return (
+                        <>
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src={`http://localhost:5158/${item}`} class="img-fluid" />
+                              </div>
+                              </div>
+                          </div>
+                          
+                        </>
+                      );
+                    }
+                  })}
+                </div>
+                <div class="carousel-item ">
+                  {img.map((item, index) => {
+                    if (index >= 4) {
+                      return (
+                        <>
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src={`http://localhost:5158/${item}`} class="img-fluid" />
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      );
+                    }
+                  })}
+                </div>
+              </div>
+              <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </a>
+              <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </a>
             </div>
+          </div>
+          </> ) : (
+                <div className="mt-3 mb-3">No image found.</div>
+          )}
+        </div>
+       
+      </div>
         </section>
     );
 }

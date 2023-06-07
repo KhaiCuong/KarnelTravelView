@@ -48,9 +48,11 @@ function App() {
             element={
               <MainContent>
                 <Home />
+                
               </MainContent>
             }
           />
+          <Route path="restaurant" element={<ListRestaurant></ListRestaurant>}></Route>
         </Route>
 
         <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
@@ -71,6 +73,12 @@ function App() {
             <Route path="create" element={<CreateTouristSpot />} />
             <Route path="update/:id" element={<UpdateTouristSpot />} />
           </Route>
+          <Route path="restaurant" >
+          <Route index element={<ListRestaurant />} />
+          <Route path="detailRestaurant/:id" element={<DetailRestaurant/>} />
+          <Route path="createRestaurant" element={<CreateRestaurant/>} />
+          <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
+        </Route>
           <Route path="account" element={<AccountManager />} />
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
