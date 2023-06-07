@@ -1,16 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { TourContext } from "../contexts/TourContext";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateTour() {
-  const contextTour = useContext(TourContext);
-  const { itemTour, setItemTour } = contextTour;
   const navigate = useNavigate();
   const [tour, setTour] = useState([]);
   const handleBack = () => {
-    navigate(`/admin/tour/detail/${itemTour}`);
+    navigate(`/admin/tour/detail/${id}`);
   };
+  const { id } = useParams();
+
 
   // Upload accom
   const [accomList, setAccomList] = useState([]);
@@ -101,7 +100,7 @@ function UpdateTour() {
 
     // API Info
     axios
-      .get(`http://localhost:5158/api/Tour/GetTour/${itemTour}`)
+      .get(`http://localhost:5158/api/Tour/GetTour/${id}`)
       .then((t) => {
         setTour(t.data.data);
         return t.data.data.tour_id;
@@ -187,7 +186,7 @@ function UpdateTour() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5158/api/Tour/Updatetour/${itemTour}`, data)
+      .put(`http://localhost:5158/api/Tour/Updatetour/${id}`, data)
       .then((result) => {
      
         return result.data.data.tour_id;

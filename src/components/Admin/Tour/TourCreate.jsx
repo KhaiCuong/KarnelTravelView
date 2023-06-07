@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
-import { Select, Page, setOptions } from "@mobiscroll/react";
 
 function CreateTour() {
   const navigate = useNavigate();
@@ -115,7 +113,7 @@ function CreateTour() {
         if (valueAcc != null && valueAcc != "") {
           axios
             .post(`http://localhost:5158/api/AccommodationTour/PostAccommodationTour?Tour_Id=${id}`, valueAcc)
-            .then((result) => {})
+            .then((result) => { })
             .catch((err) => console.log(err));
         }
         return id;
@@ -124,7 +122,7 @@ function CreateTour() {
         if (valueRes != null && valueRes != "") {
           axios
             .post(`http://localhost:5158/api/RestaurantTour/PostRestaurantTour?Tour_Id=${id}`, valueRes)
-            .then((result) => {})
+            .then((result) => { })
             .catch((err) => console.log(err));
         }
         return id;
@@ -133,7 +131,7 @@ function CreateTour() {
         if (valueSpot != null && valueSpot != "") {
           axios
             .post(`http://localhost:5158/api/TouristSpotTour/PostTouristSpotTour?Tour_Id=${id}`, valueSpot)
-            .then((result) => {})
+            .then((result) => { })
             .catch((err) => console.log(err));
         }
         return id;
@@ -148,7 +146,7 @@ function CreateTour() {
               }
             })
             .catch((err) => console.log(err));
-        } else { navigate('/admin/tour');}
+        } else { navigate('/admin/tour'); }
       })
       .catch((err) => console.log(err));
   };

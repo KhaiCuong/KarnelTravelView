@@ -13,6 +13,8 @@
   --cardBackground: rgb(225, 225, 235);
 }
 
+
+
 .header {
   position: fixed;
   display: flex;
@@ -128,3 +130,30 @@
     padding: 1rem 8.5rem;
   }
 }/*# sourceMappingURL=header.css.map */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* my css */
+.w-10 {
+  width: 10%;
+}
+
+
