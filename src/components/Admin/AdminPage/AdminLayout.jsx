@@ -10,7 +10,10 @@ const AdminLayout = ({ children }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userToken");
-    navigate("/");
+
+    // setUserInfo(null);
+    navigate("/login");
+    // navigate("/account");
   };
 
 

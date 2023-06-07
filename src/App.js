@@ -23,6 +23,8 @@ import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate"
 import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
+import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
+import Register from "./components/Admin/Login/Register";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
 import Accommodation from "./components/User/Accommodation/Accommodation";
@@ -50,8 +52,15 @@ function App() {
           />
           <Route path="accommodation" element={<Accommodation />} />
         </Route>
+        <Route path="register" element={<Register></Register>}>
 
-        <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
+        </Route>
+        <Route
+          path="login"
+          element={
+            <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
+          }
+        />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
