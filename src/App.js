@@ -25,6 +25,7 @@ import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
 import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
+import Accommodation from "./components/User/Accommodation/Accommodation";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -46,6 +47,7 @@ function App() {
               </MainContent>
             }
           />
+          <Route path="accommodation" element={<Accommodation />} />
         </Route>
 
         <Route
