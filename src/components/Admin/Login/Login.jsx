@@ -126,7 +126,7 @@ function Login(props) {
                           </a>
                         </div>
                         <div class="text-center">
-                          <a class="small" href="register.html">
+                          <a class="small" href="/register">
                             Create an Account!
                           </a>
                         </div>

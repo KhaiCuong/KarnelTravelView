@@ -11,7 +11,7 @@ const AdminLayout = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userToken");
 
-    setUserInfo(null);
+    // setUserInfo(null);
     navigate("/login");
     // navigate("/account");
   };
