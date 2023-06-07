@@ -72,18 +72,19 @@ const TourManager = () => {
               tours.map((item, index) => {
                 return (
                   <>
-                    <tr key={index}>
+                    <tr key={index} >
                       <th>{item.tour_id}</th>
                       <td>{item.tour_name}</td>
                       <td>{item.depature_date.slice(0, 10).split("-").reverse().join("-")}</td>
                       <td>{item.price}</td>
-                      <td>
-                        <label class="switch">
+                      <td >
+                        <label class="switch" >
                           <input
                             type="checkbox"
                             onClick={() => {
                               handleChangeStatus(item.tour_id);
                             }}
+                             
                             checked={item.status_tour}
                           />
                           <span class="slider round "></span>
