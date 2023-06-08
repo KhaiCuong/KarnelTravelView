@@ -33,21 +33,19 @@ function Login(props) {
           setCheckLogin(!checkLogin);
           console.log("data", data);
           // navigate("/admin");
-         if(data.data.userToken.role === "Admin" ){
-          navigate("/admin");
-         }
-         else{
-          navigate("/")
-         }
+          if (data.data.userToken.role === "Admin") {
+            navigate("/admin");
+          } else {
+            navigate("/");
+          }
         }
-
       })
       .catch((error) => console.log(error));
   };
   return (
     <section>
-      <div className="bg-gradient-primary h-100">
-        <div className="container">
+      <div className="bg-gradient-primary vh-100 justify-content-center align-items-center d-flex">
+        <div className="container ">
           <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
               <div class="card o-hidden border-0 shadow-lg my-5">
@@ -103,13 +101,8 @@ function Login(props) {
                             </div>
                           </div>
                           <button class="btn btn-primary btn-user btn-block">
-                          
-                            
-                          
                             Login
                           </button>
-                       
-                          
 
                           <a
                             href="index.html"
@@ -133,7 +126,7 @@ function Login(props) {
                           </a>
                         </div>
                         <div class="text-center">
-                          <a class="small" href="register.html">
+                          <a class="small" href="/register">
                             Create an Account!
                           </a>
                         </div>
