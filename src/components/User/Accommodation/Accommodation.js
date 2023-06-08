@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getAccommodationImageByID, getListAccommodation } from './Services/ApiService';
-import './mainContent.css'
+import './Accommodation.css'
 import { Room, ContentPaste } from '@mui/icons-material';
 import 'aos/dist/aos.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Accommodation() {
     const [accommodation, setAccommodation] = useState([]);
     const [accommodationImage, setAccommodationImages] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAccommodationData = async () => {
@@ -38,6 +39,10 @@ function Accommodation() {
 
 
     console.log("accommodationImage", accommodationImage);
+
+    const handleDetailAccommodation = (id) => {
+        navigate(`detail/${id}`);
+    }
     return (
         <>
             <section className='main container section'>
@@ -178,16 +183,17 @@ function Accommodation() {
                                     <div class="destination">
                                         {accommodationImage[index] && (
                                             <div>
-                                                <div class="icon d-flex justify-content-center align-items-center" >
+                                                <div class="icon d-flex justify-content-center align-items-center" onClick={() => (handleDetailAccommodation(item.accommodation_id))}>
                                                     <img src={`http://localhost:5158/${accommodationImage[index][0]}`} />
-                                                    <span class="icon-search2"></span>
+                                                    <span class="icon-search2" >
+                                                    </span>
                                                 </div>
                                             </div>
                                         )}
                                         <div class="text p-3">
                                             <div class="d-flex">
                                                 <div class="one">
-                                                    <h3><Link to='/detail'>{item.accommodation_name}</Link></h3>
+                                                    <h3><a href={`accommodation/detail/${item.accommodation_id}`}>{item.accommodation_name}</a></h3>
                                                     <p class="rate">
                                                         <i class="icon-star"></i>
                                                         <i class="icon-star"></i>
