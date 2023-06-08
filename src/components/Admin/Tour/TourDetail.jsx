@@ -71,6 +71,8 @@ const TourDetail = () => {
           .then((c) => {
             if (c < spot.length) {
               setCount(count++);
+              console.log("count", count)
+
             }
           })
           .then((error) => console.log(error));

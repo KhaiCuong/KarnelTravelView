@@ -7,32 +7,91 @@ import 'aos/dist/aos.css';
 
 function Accommodation() {
     const [accommodation, setAccommodation] = useState([]);
-    const [image, setImage] = useState([]);
+    const [accommodationImage, setAccommodationImages] = useState([]);
+    //let arrayImage = [];
+    // useEffect(() => {
+    //     getListAccommodation()
+    //         .then(response => {
+    //             //console.log("response", response.data.length);
+    //             if (response.status === 200) {
+    //                 setAccommodation(response.data);
+    //                 for (let index = 0; index <= response.data.length; index++) {
+    //                     console.log("accommodation_id", response);
+    //                     getAccommodationImageByID(response.data[index].accommodation_id)
+    //                         .then(response => {
+    //                             console.log(`response ${index}`, response);
+    //                             //console.log(`response image ${index}`, response.data[index]);
+    //                             //console.log(`image by id ${response.data[index]}`, response.data[index]);
+    //                             if (response.status === 200) {
 
+
+    //                             }
+    //                             console.log("image", response);
+    //                              setImage([ ...image, response ]);
+    //                             // arrayImage.push(response);
+    //                             console.log("rrrr", response)
+    //                         })
+    //                         .catch(error => console.log("error", error));
+    //                 }
+    //                 //getAccommodationImageByID()
+    //             }
+
+    //         })
+    //         .catch(error => console.log("error", error));
+    // }, [])
+
+
+    // useEffect(() => {
+    //     const fetchAccommodationData = async () => {
+    //         try {
+    //             const response = await getListAccommodation();
+    //             if (response.status === 200) {
+    //                 setAccommodation(response.data);
+    //                 for (let index = 0; index < response.data.length; index++) {
+    //                     const imageResponse = await getAccommodationImageByID(response.data[index].accommodation_id);
+    //                     if (imageResponse.status === 200 && imageResponse.data.length > 0) {
+    //                         const firstImage = imageResponse.data[0];
+    //                         setImage(prevImage => [...prevImage, firstImage]);
+    //                     }
+    //                 }
+    //             }
+    //         } catch (error) {
+    //             console.log("error", error);
+    //         }
+    //     };
+
+    //     fetchAccommodationData();
+    // }, []);
 
     useEffect(() => {
-        getListAccommodation()
-            .then(response => {
-                console.log("response", response.data.length);
+        const fetchAccommodationData = async () => {
+            try {
+                const response = await getListAccommodation();
                 if (response.status === 200) {
                     setAccommodation(response.data);
-                    for (let index = 0; index <= response.data.length; index++) {
-                        console.log("accommodation_id", response);
-                        getAccommodationImageByID(response.data[index].accommodation_id)
-                            .then(response => {
-                                console.log("image by id", response.data[0]);
-                                if (response.data === 200) {
-                                    setImage(response.data[0]);
-                                }
-                            })
-                            .catch(error => console.log("error", error));
-                    }
-                    //getAccommodationImageByID()
-                }
+                    const accommodationImages = [];
 
-            })
-            .catch(error => console.log("error", error));
-    }, [])
+                    for (let index = 0; index < response.data.length; index++) {
+                        console.log("response", response);
+                        const imageResponse = await getAccommodationImageByID(response.data[index].accommodation_id);
+                        console.log("imageResponse", imageResponse);
+                        if (imageResponse.status === 200) {
+                            accommodationImages[index] = imageResponse.data;
+                        }
+                    }
+
+                    setAccommodationImages(accommodationImages);
+                }
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetchAccommodationData();
+    }, []);
+    console.log("accommodationImage", accommodationImage);
+
+    //console.log("image after set", arrayImage);
     return (
         <>
             <section className='main container section'>
@@ -42,18 +101,30 @@ function Accommodation() {
                     </h3>
                 </div>
                 <div className="secContent grid">
-                    <img src={`http://localhost:5158/${image}`} alt={image} />
 
                     {accommodation.map((item, index) => (
                         <div key={index} data-aos="fade-up-right" className='singleDestination'>
-                            {image.map((item, index) => {
-                                <div div className="imageDiv" >
-                                    <img src={`http://localhost:5158/${image}`} alt={item} />
+                            {accommodationImage[index] && (
+                                <div className="imageDiv">
+                                    <img src={`http://localhost:5158/${accommodationImage[index][0]}`} alt={item.accommodation_name} />
                                 </div>
-                            })}
-
+                            )}
+                            {/* {image[index] && (
+                                <div className="imageDiv">
+                                    <img src={`http://localhost:5158/${image[index]}`} alt={item.accommodation_name} />
+                                </div>
+                            )} */}
+                            {/* {image.map((item, index) => {
+                                <div key={index} className="imageDiv" >
+                                    <img src={`http://localhost:5158/${item}`} alt={item} />
+                                </div>
+                            })} */}
+                            {/* {console.log("itemxxx", item)}
+                            {
+                                image[index].idKS === item.accommodation_id &&  <img src={`http://localhost:5158/${image[index].image[0]}`} alt={item} />
+                            } */}
                             <div className="cardInfo">
-                                <h4 className="destTitle"> 
+                                <h4 className="destTitle">
                                     {item.accommodation_name}
                                 </h4>
                                 <span className="continent flex">

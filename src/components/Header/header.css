@@ -153,7 +153,18 @@
 
 /* my css */
 .w-10 {
-  width: 10%;
+  width: 7%;
+}
+
+.w-90 {
+  width: 80%;
+
+}
+
+
+.menu-left {
+  top: 0px;
+  right: -1rem !important;
 }
 
 
