@@ -5,6 +5,11 @@ async function getListAccommodation() {
     return data.data;
 }
 
+async function getAccommodationByID(id) {
+    const data = await axios.get(`http://localhost:5158/api/Accommodation/GetAccommodation/${id}`);
+    return data.data;
+}
+
 // image
 async function getAccommodationImageByID(id) {
     const data = await axios.get(`http://localhost:5158/api/AccommodationImage/GetImagesByTouristSpotId/${id}`);
@@ -12,5 +17,6 @@ async function getAccommodationImageByID(id) {
 }
 export {
     getListAccommodation,
+    getAccommodationByID,
     getAccommodationImageByID,
 };

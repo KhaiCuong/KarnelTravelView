@@ -11,7 +11,7 @@ import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommod
 import ListAccommodation from "./components/Admin/Accommodation/ListAccommodation";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UpdateAccommodation from "./components/Admin/Accommodation/UpdateAccommodation";
-import DetailAccommodation from "./components/Admin/Accommodation/DetailAccommodation";
+import DetailAccommodation from "./components/User/Accommodation/DetailAccommodation";
 import TourDetail from "./components/Admin/Tour/TourDetail";
 import { Details } from "@mui/icons-material";
 import CreateTour from "./components/Admin/Tour/TourCreate";
@@ -48,7 +48,10 @@ function App() {
               </MainContent>
             }
           />
-          <Route path="accommodation" element={<Accommodation />} />
+          <Route path="accommodation">
+            <Route index element={<Accommodation />} />
+            <Route path="detail/:id" element={<DetailAccommodation />} />
+          </Route>
         </Route>
         <Route path="register" element={<Register></Register>}>
 
@@ -62,7 +65,7 @@ function App() {
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
-          <Route index element={ <DashboardPage /> }/>
+          <Route index element={<DashboardPage />} />
 
           <Route path="tour">
             <Route index element={<TourManager />} />
