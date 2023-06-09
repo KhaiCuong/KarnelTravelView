@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getListAccommodation, deleteAccommodation, deleteAccommodationImage } from './Services/ApiService';
-import Swal from 'sweetalert2';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  getListAccommodation,
+  deleteAccommodation,
+  deleteAccommodationImage,
+} from "./Services/ApiService";
+import Swal from "sweetalert2";
 import "../AdminManager.css";
-
 
 function ListAccommodation() {
   const [accommodation, setAccommodation] = useState([]);
@@ -11,45 +14,46 @@ function ListAccommodation() {
 
   useEffect(() => {
     getListAccommodation()
-      .then(pro => setAccommodation(pro.data))
-      .catch(error => console.log(error));
+      .then((pro) => setAccommodation(pro.data))
+      .catch((error) => console.log(error));
   }, [accommodation]);
 
   const handleDeleteAccommodation = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteAccommodation(id)
-          .then(pro => {
+          .then((pro) => {
             console.log("pro", pro);
             if (pro.status === 200) {
               deleteAccommodationImage(id)
-                .then(response => {
+                .then((response) => {
                   console.log("deleted Image", response);
                   if (response.status === 200) {
                     Swal.fire(
-                      'Deleted!',
-                      'Your file has been deleted.',
-                      'success'
-                    )
-                    setAccommodation(accommodation.filter((item) => item.id !== id));
+                      "Deleted!",
+                      "Your file has been deleted.",
+                      "success"
+                    );
+                    setAccommodation(
+                      accommodation.filter((item) => item.id !== id)
+                    );
                   }
                 })
-                .catch(error => console.log("error", error));
+                .catch((error) => console.log("error", error));
             }
           })
-          .catch(error => console.log("error", error));
+          .catch((error) => console.log("error", error));
       }
-    })
-  }
-
+    });
+  };
 
   const handleUpdateAccommodation = (id) => {
     navigate(`updateAccommodation/${id}`);
@@ -57,10 +61,10 @@ function ListAccommodation() {
 
   const handleDetailAccommodation = (id) => {
     navigate(`detailAccommodation/${id}`);
-  }
+  };
   return (
     <section>
-            <h2 class="text-center font-weight-bold">List of Accommodation</h2>
+      <h2 class="text-center font-weight-bold">List of Accommodation</h2>
 
       <div className="container-fluid">
         <div>
@@ -88,31 +92,36 @@ function ListAccommodation() {
                 <th scope="col">Discount</th>
                 <th scope="col">location_id</th>
 
-                <th colSpan={3} scope="col" className='text-center'>
+                <th colSpan={3} scope="col" className="text-center">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-
               {accommodation.map((item, index) => {
-                return <>
-                  <tr key={index}>
-                    <th scope="row">{item.accommodation_id}</th>
-                    <td>{item.accommodation_name}</td>
-                    <td>{item.rate}</td>
-                    <td>{item.type === true ? "Resort" : "Hotel"}</td>
-                    <td>{item.description}</td>
-                    <td>{item.price}</td>
-                    <td>{item.status_Accommodation.toString()}</td>
-                    <td>{item.discount}</td>
-                    <td>{item.location_id}</td>
-                    <td>
-                      <button className="btn btn-warning background-blue" onClick={() => { handleDetailAccommodation(item.accommodation_id) }}>
-                        Detail
-                      </button>
-                    </td>
-                    {/* <td>
+                return (
+                  <>
+                    <tr key={index}>
+                      <th scope="row">{item.accommodation_id}</th>
+                      <td>{item.accommodation_name}</td>
+                      <td>{item.rate}</td>
+                      <td>{item.type === true ? "Resort" : "Hotel"}</td>
+                      <td>{item.description}</td>
+                      <td>{item.price}</td>
+                      <td>{item.status_Accommodation.toString()}</td>
+                      <td>{item.discount}</td>
+                      <td>{item.location_id}</td>
+                      <td>
+                        <button
+                          className="btn btn-warning background-blue"
+                          onClick={() => {
+                            handleDetailAccommodation(item.accommodation_id);
+                          }}
+                        >
+                          Detail
+                        </button>
+                      </td>
+                      {/* <td>
                       <button className="btn btn-warning background-green" onClick={() => { handleUpdateAccommodation(item.accommodation_id) }}>
                         Update
                       </button>
@@ -122,7 +131,9 @@ function ListAccommodation() {
                         Delete
                       </button>
                     </td> */}
-                  </tr></>
+                    </tr>
+                  </>
+                );
               })}
             </tbody>
           </table>
