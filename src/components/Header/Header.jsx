@@ -4,7 +4,7 @@ import { FlightOutlined, Cancel, Apps } from "@mui/icons-material";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   useEffect(() => {
@@ -55,7 +55,7 @@ const Header = () => {
             </li>
 
             <li className="navItem">
-              <a href="">Services</a>
+              <Link to="/accommodation">Accommodation</Link>
             </li>
 
             <li className="navItem">
@@ -83,7 +83,7 @@ const Header = () => {
               </button>
             ) : (
               <>
-            <li className="nav-item dropdown no-arrow  w-10">
+                <li className="nav-item dropdown no-arrow  w-10">
 
                   <a className="nav-link dropdown-toggle  w-50" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span className="mr-2 d-none d-lg-inline text-gray-600 small">User: {!usertoken ? "Username" : usertoken?.user_name} </span>
@@ -109,7 +109,7 @@ const Header = () => {
                       Logout
                     </button>
                   </div>
-                  </li>
+                </li>
 
               </>
             )}
