@@ -26,7 +26,12 @@ import AccountManager from "./components/Admin/Account/AccountManager";
 
 import Register from "./components/Admin/Login/Register";
 import NotFound from "./components/NotFound/NotFound";
+
 import Accommodation from "./components/User/Accommodation/Accommodation";
+import TransportManager from "./components/Admin/Transport/TransportManager";
+import CreateTransport from "./components/Admin/Transport/CreateTransport";
+import TransportDetail from "./components/Admin/Transport/TransportDetail";
+import TransportUpdate from "./components/Admin/Transport/TransportUpdate";
 
 import ListRestaurant from "./components/Admin/RestaurantManager/ListRestaurant";
 import CreateRestaurant from "./components/Admin/RestaurantManager/CreateRestaurant";
@@ -88,12 +93,21 @@ function App() {
             <Route path="create" element={<CreateTour />} />
             <Route path="update/:id" element={<UpdateTour />} />
           </Route>
+
           <Route path="tourist-spot">
             <Route index element={<TouristSpot />} />
             <Route path="detail/:id" element={<TouristSpotDetail />} />
             <Route path="create" element={<CreateTouristSpot />} />
             <Route path="update/:id" element={<UpdateTouristSpot />} />
           </Route>
+
+          <Route path="transport">
+            <Route index element={<TransportManager/>} />
+            <Route path="create" element={<CreateTransport />} />
+            <Route path="detail/:id" element={<TransportDetail />} />
+            <Route path="update/:id" element={<TransportUpdate />} />
+          </Route>
+
           <Route path="restaurant" >
           <Route index element={<ListRestaurant />} />
           <Route path="detailRestaurant/:id" element={<DetailRestaurant/>} />
