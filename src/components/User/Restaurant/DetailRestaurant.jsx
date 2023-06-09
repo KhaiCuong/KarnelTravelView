@@ -135,36 +135,16 @@ function DetailofRestaurant() {
                                     </div>
                                 </div>
                                 <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                                    <span>Our Best hotels &amp; Rooms</span>
+                                    <span>Our Best Restaurants</span>
                                     <h2>{restaurant.restaurant_name}</h2>
-                                    <p className="rate mb-5">
-                                        <span className="loc"><a href="#"><i className="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
-                                        <span className="star">
-                                            <i className="icon-star"></i>
-                                            <i className="icon-star"></i>
-                                            <i className="icon-star"></i>
-                                            <i className="icon-star"></i>
-                                            <i className="icon-star-o"></i>
-                                            8 Rating</span>
-                                    </p>
+                                    <p>{restaurant.rate} <i class="fa fa-star-o" ></i></p>
                                     <p class="groove">{restaurant.description}</p>
                                     <div className="d-md-flex mt-5 mb-5">
-                                        {/* <ul>
-                                            <li>The Big Oxmox advised her not to do so</li>
-                                            <li>When she reached the first hills of the Italic Mountains</li>
-                                            <li>She had a last view back on the skyline of her hometown </li>
-                                            <li>Bookmarksgrove, the headline of Alphabet </li>
-                                        </ul>
-                                        <ul className="ml-md-5">
-                                            <li>Question ran over her cheek, then she continued</li>
-                                            <li>Pityful a rethoric question ran</li>
-                                            <li>Mountains, she had a last view back on the skyline</li>
-                                            <li>Headline of Alphabet Village and the subline</li>
-                                        </ul> */}
+                                        
                                     </div>
-                                    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                                    
                                 </div>
-                                /* <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Take A Tour</h4>
                                     <div className="block-16">
                                         <figure>
@@ -172,7 +152,7 @@ function DetailofRestaurant() {
                                             <a href="https://vimeo.com/45830194" className="play-button popup-vimeo"><span className="icon-play"></span></a>
                                         </figure>
                                     </div>
-                                </div> */
+                                </div> 
                              
                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Our Rooms</h4>

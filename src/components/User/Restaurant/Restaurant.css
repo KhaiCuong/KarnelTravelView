@@ -134,7 +134,9 @@
   font-size: 15px;
 }
 .groove{
-  border: groove;
+  border: 2px solid hsl(199, 100%, 33%);
+  border-radius: 12px;
+  padding: 5px;
 }
 
 @media screen and (min-width: 500px) {
