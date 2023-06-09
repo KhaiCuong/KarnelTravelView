@@ -67,7 +67,7 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="/admin/tourist-spot">
                     Tourist Spot Manager
                   </a>
-                  <a className="collapse-item" href="cards.html">
+                  <a className="collapse-item" href="/admin/transport">
                     Transport Manager
                   </a>
                 </div>
