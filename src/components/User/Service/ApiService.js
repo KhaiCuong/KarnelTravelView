@@ -36,7 +36,7 @@ async function postRestaurantImg(id,image) {
     return data.data;
 }
 
-async function getRestaurantImageByID(id) {
+async function getRestaurantImageByIDforUser(id) {
     const data = await axios.get(`http://localhost:5158/api/ResImg/GetImagesByRestaurantId/${id}`);
     return data.data;
 }
@@ -60,7 +60,7 @@ export {
     putRestaurant,
     getLocations,
     postRestaurantImg,
-    getRestaurantImageByID,
+    getRestaurantImageByIDforUser,
     putRestaurantImage,
     deleteRestaurantImage,
 };

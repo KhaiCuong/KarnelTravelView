@@ -4,7 +4,8 @@ import { FlightOutlined, Cancel, Apps } from "@mui/icons-material";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useNavigate } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
+
 
 const Header = () => {
   useEffect(() => {
@@ -43,7 +44,7 @@ const Header = () => {
         <div className="logoDiv">
           <a href="" className="logo flex">
             <h1>
-              <FlightOutlined className="icon" /> Karnel Travel{" "}
+              <FlightOutlined className="icon" /> Karnel Travel
             </h1>
           </a>
         </div>
@@ -51,11 +52,12 @@ const Header = () => {
         <div className={active}>
           <ul className="navLists flex navbar-nav justify-content-end">
             <li className="navItem">
-              <a href="">Home</a>
+            <Link to = "/">Home</Link>
             </li>
 
             <li className="navItem">
-              <a href="">Services</a>
+            <Link to = "/restaurant">Restaurant</Link>
+                    
             </li>
 
             <li className="navItem">

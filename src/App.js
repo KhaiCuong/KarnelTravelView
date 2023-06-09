@@ -23,7 +23,7 @@ import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate"
 import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
-import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
+
 import Register from "./components/Admin/Login/Register";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectRouter from "./components/Admin/Login/Service/ProtectRouter";
@@ -33,6 +33,7 @@ import ListRestaurant from "./components/Admin/RestaurantManager/ListRestaurant"
 import CreateRestaurant from "./components/Admin/RestaurantManager/CreateRestaurant";
 import UpdateRestaurant from "./components/Admin/RestaurantManager/UpdateRestaurant";
 import DetailRestaurant from "./components/Admin/RestaurantManager/DetailRestaurant";
+import Restaurant from "./components/User/Restaurant/Restaurant";
 
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
             }
           />
           <Route path="accommodation" element={<Accommodation />} />
-          <Route path="restaurant" element={<ListRestaurant></ListRestaurant>}></Route>
+          <Route path="restaurant" element={<Restaurant/>}></Route>
         </Route>
         <Route path="register" element={<Register></Register>}>
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {  getLocations, getRestaurantByID } from './Service/ApiService';
+import {  getLocations, getRestaurantByID, getRestaurantImageByID } from './Service/ApiService';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { getRestaurantImageByID } from '../../User/Service/ApiService';
+
 
 function DetailRestaurant(props) {
     const [locations, setLocations] = useState([]);
