@@ -32,13 +32,13 @@ import TransportManager from "./components/Admin/Transport/TransportManager";
 import CreateTransport from "./components/Admin/Transport/CreateTransport";
 import TransportDetail from "./components/Admin/Transport/TransportDetail";
 import TransportUpdate from "./components/Admin/Transport/TransportUpdate";
-
+//import Admin Restauratn
 import ListRestaurant from "./components/Admin/RestaurantManager/ListRestaurant";
 import CreateRestaurant from "./components/Admin/RestaurantManager/CreateRestaurant";
 import UpdateRestaurant from "./components/Admin/RestaurantManager/UpdateRestaurant";
 import DetailRestaurant from "./components/Admin/RestaurantManager/DetailRestaurant";
+// import User Restaurant
 import Restaurant from "./components/User/Restaurant/Restaurant";
-
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 
 

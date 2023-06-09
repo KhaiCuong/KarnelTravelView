@@ -164,33 +164,16 @@ function DetailofRestaurant() {
                                     </div>
                                     <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
                                 </div>
-                                {/* <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                                /* <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Take A Tour</h4>
                                     <div className="block-16">
                                         <figure>
-                                            <img src={`http://localhost:5158/${restaurantImage[index][0]}`} alt="Image placeholder" className="img-fluid" />
+                                            <img src="" alt="Image placeholder" className="img-fluid" />
                                             <a href="https://vimeo.com/45830194" className="play-button popup-vimeo"><span className="icon-play"></span></a>
                                         </figure>
                                     </div>
-                                </div> */}
-                                 {restaurant.map((item, index) => (
-                                <div class="col-md-4 ftco-animate">
-                                    <div class="destination">
-                                        {imageRestaurant[index] && (
-                                            <div>
-                                                <div class="icon d-flex justify-content-center align-items-center" >
-                                                    <img src={`http://localhost:5158/${imageRestaurant[index][0]}`} />
-                                                    <span class="icon-search2" >
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        )}
-                                        
-                                    </div>
-                                </div>
-
-                            ))}
-                              
+                                </div> */
+                             
                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Our Rooms</h4>
                                     <div className="row">
