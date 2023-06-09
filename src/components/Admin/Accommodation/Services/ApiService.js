@@ -53,6 +53,7 @@ async function deleteAccommodationImage(id) {
     return data.data;
 }
 
+
 export {
     getListAccommodation,
     deleteAccommodation,
