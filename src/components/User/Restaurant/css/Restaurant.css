@@ -139,6 +139,31 @@
   padding: 5px;
 }
 
+.star-rating .star {
+  position: relative;
+  display: inline-block;
+  color: #ccc;
+  font-size: 24px;
+  transition: color .2s ease-in-out;
+}
+
+.star-rating .star:before {
+  content: '\2605'; /* ký tự sao unicode */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.star-rating .star:hover,
+.star-rating .star:hover ~ .star {
+  color: #ffd900;
+}
+
+.star-rating .star.selected:before {
+  content: '\2605';
+  color: #ffd900;
+}
+
 @media screen and (min-width: 500px) {
   .title {
     font-size: 1.5rem;

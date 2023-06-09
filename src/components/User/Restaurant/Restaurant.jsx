@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "./Restaurant.css";
+import "../Restaurant/css/Restaurant.css";
 import { Room, ContentPaste } from "@mui/icons-material";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,6 +44,23 @@ function Restaurant() {
 
     fetchRestaurantData();
   }, []);
+
+  const stars = document.querySelectorAll(".star");
+  stars.forEach(function (star) {
+    star.addEventListener("click", setRating);
+  });
+
+  function setRating(e) {
+    let selectedStar = e.target;
+    let rating = selectedStar.dataset.star;
+    stars.forEach(function (star) {
+      if (star.dataset.star <= rating) {
+        star.classList.add("selected");
+      } else {
+        star.classList.remove("selected");
+      }
+    });
+  }
 
   console.log("restaurantImage", restaurantImage);
 
@@ -139,100 +156,34 @@ function Restaurant() {
             </div>
             <div class="sidebar-wrap bg-light ftco-animate">
               <h3 class="heading mb-4">Star Rating</h3>
-              <form method="post" class="star-rating">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate">
-                      <span>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                      </span>
-                    </p>
+
+              <div class="star-rating">
+                <div class="star-rating">
+                  <input id="star-5" type="radio" name="rating" value="5" />
+                  <label for="star-5" class="star">
+                    &#9733;
+                  </label>
+                  <input id="star-4" type="radio" name="rating" value="4" />
+                  <label for="star-4" class="star">
+                    &#9733;
+                  </label>
+                  <input id="star-3" type="radio" name="rating" value="3" />
+                  <label for="star-3" class="star">
+                    &#9733;
+                  </label>
+                  <input id="star-2" type="radio" name="rating" value="2" />
+                  <label for="star-2" class="star">
+                    &#9733;
+                  </label>
+                  <input id="star-1" type="radio" name="rating" value="1" />
+                  <label for="star-1" class="star">
+                    &#9733;
                   </label>
                 </div>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate">
-                      <span>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star-o"></i>
-                      </span>
-                    </p>
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate">
-                      <span>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star-o"></i>
-                        <i class="icon-star-o"></i>
-                      </span>
-                    </p>
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate">
-                      <span>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star-o"></i>
-                        <i class="icon-star-o"></i>
-                        <i class="icon-star-o"></i>
-                      </span>
-                    </p>
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate">
-                      <span>
-                        <i class="icon-star"></i>
-                        <i class="icon-star-o"></i>
-                        <i class="icon-star-o"></i>
-                        <i class="icon-star-o"></i>
-                        <i class="icon-star-o"></i>
-                      </span>
-                    </p>
-                  </label>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
+
           <div className="col-lg-9">
             <div className="row">
               {/* ----------------------- */}
@@ -308,19 +259,15 @@ function Restaurant() {
                             </a>
                           </h3>
                           <p class="rate">
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-o"></i>
-                            <span>8 Rating</span>
+                            <p>
+                              {item.rate} <i class="fa fa-star-o"></i>
+                            </p>
                           </p>
                         </div>
                         <div class="two">
                           <span class="price per-price">
                             {item.price}
                             <br />
-                            <small>/night</small>
                           </span>
                         </div>
                       </div>
