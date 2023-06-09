@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getAccommodationImageByID, getListAccommodation } from './Services/ApiService';
-import './Accommodation.css'
+import '../Accommodation/css/Accommodation.css'
 import { Room, ContentPaste } from '@mui/icons-material';
 import 'aos/dist/aos.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Accommodation() {
+function UserAccommodation() {
     const [accommodation, setAccommodation] = useState([]);
     const [accommodationImage, setAccommodationImages] = useState([]);
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ function Accommodation() {
                     </h3>
                 </div>
                 <div className='row'>
-                    <div class="col-lg-3 sidebar">
+                    <div class="col-lg-3 sidebar pl-4">
                         <div class="sidebar-wrap bg-light ftco-animate">
                             <h3 class="heading mb-4">Find City</h3>
                             <form action="#">
@@ -88,13 +88,13 @@ function Accommodation() {
                                             <input value="50000" min="0" max="120000" step="500" type="range" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group button">
                                         <input type="submit" value="Search" class="btn btn-primary py-3 px-5" />
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="sidebar-wrap bg-light ftco-animate">
+                        {/* <div class="sidebar-wrap bg-light ftco-animate">
                             <h3 class="heading mb-4">Star Rating</h3>
                             <form method="post" class="star-rating">
                                 <div class="form-check">
@@ -128,7 +128,7 @@ function Accommodation() {
                                     </label>
                                 </div>
                             </form>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='col-lg-9'>
                         <div className='row'>
@@ -226,4 +226,4 @@ function Accommodation() {
     );
 }
 
-export default Accommodation;
+export default UserAccommodation;

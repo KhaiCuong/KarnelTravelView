@@ -3,7 +3,7 @@ import { deleteAccommodation, deleteAccommodationImage, getAccommodationByID, ge
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Height } from '@mui/icons-material';
-import "../AdminManager.css";
+import "./imageCarousel.css";
 
 function DetailAccommodation(props) {
     const [locations, setLocations] = useState([]);
@@ -191,14 +191,14 @@ function DetailAccommodation(props) {
                     <div className="row mx-auto my-auto justify-content-center">
                         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
+                                <div class="carousel-item admin-carousel active">
                                     {image.map((item, index) => {
                                         if (index < 4) {
                                             return (
                                                 <>
                                                     <div class="col-md-3">
                                                         <div class="card">
-                                                            <div class="card-img">
+                                                            <div key={index} class="card-img">
                                                                 <img src={`http://localhost:5158/${item}`} class="img-fluid" />
                                                             </div>
                                                         </div>
@@ -208,7 +208,7 @@ function DetailAccommodation(props) {
                                         }
                                     })}
                                 </div>
-                                <div class="carousel-item ">
+                                <div class="carousel-item admin-carousel">
                                     {image.map((item, index) => {
                                         if (index >= 4) {
                                             return (
