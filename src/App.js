@@ -11,7 +11,7 @@ import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommod
 import ListAccommodation from "./components/Admin/Accommodation/ListAccommodation";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UpdateAccommodation from "./components/Admin/Accommodation/UpdateAccommodation";
-import DetailAccommodation from "./components/User/Accommodation/DetailAccommodation";
+import UserDetailAccommodation from "./components/User/Accommodation/UserDetailAccommodation";
 import TourDetail from "./components/Admin/Tour/TourDetail";
 import { Details } from "@mui/icons-material";
 import CreateTour from "./components/Admin/Tour/TourCreate";
@@ -25,7 +25,8 @@ import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
 import Register from "./components/Admin/Login/Register";
 import NotFound from "./components/NotFound/NotFound";
-import Accommodation from "./components/User/Accommodation/Accommodation";
+import UserAccommodation from "./components/User/Accommodation/UserAccommodation";
+import DetailAccommodation from "./components/Admin/Accommodation/DetailAccommodation";
 
 
 function App() {
@@ -49,8 +50,8 @@ function App() {
             }
           />
           <Route path="accommodation">
-            <Route index element={<Accommodation />} />
-            <Route path="detail/:id" element={<DetailAccommodation />} />
+            <Route index element={<UserAccommodation />} />
+            <Route path="detail/:id" element={<UserDetailAccommodation />} />
           </Route>
         </Route>
         <Route path="register" element={<Register></Register>}>

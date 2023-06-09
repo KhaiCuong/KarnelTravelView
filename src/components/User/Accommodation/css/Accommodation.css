@@ -1,0 +1,283 @@
+
+/* sidebar */
+.sidebar {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.sidebar-wrap {
+  background-color: #f8f9fa;
+  animation-duration: 0.3s;
+
+}
+
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-top: 5px;
+}
+
+.fields {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap .icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.select-wrap select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding-right: 30px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.range-slider {
+  display: flex;
+  align-items: center;
+}
+
+.range-slider span {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.range-slider input[type='number'] {
+  width: 60px;
+  padding: 3px 5px;
+  text-align: right;
+}
+
+.range-slider input[type='range'] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  margin-top: 8px;
+  background-color: #e9ecef;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.range-slider input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background-color: #343a40;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.range-slider input[type='range']::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background-color: #343a40;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.destination {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid #ddd; /* Add border properties */
+  margin-bottom: 20px; /* Add some spacing between products */
+  background-color: #f5f5f5; /* Set a background color for the accommodation item */
+  padding: 20px; /* Add padding around the accommodation item */
+}
+
+
+.destination .icon {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.destination .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destination .icon .icon-search2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 24px;
+}
+
+.destination .text {
+  padding: 20px;
+}
+
+.destination .text h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.destination .text h3 a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.destination .text h3 a:hover {
+  color: #007bff;
+}
+
+.destination .text .rate {
+  font-size: 14px;
+  color: #333;
+}
+
+.destination .text .rate i {
+  color: #f5c518;
+  margin-right: 3px;
+}
+
+.destination .text .rate span {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #777;
+}
+
+.destination .text .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.destination .text .price small {
+  font-size: 12px;
+  color: #777;
+}
+
+.destination .text p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.destination .text hr {
+  margin: 15px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.destination .text .bottom-area {
+  font-size: 14px;
+  color: #777;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.destination .text .bottom-area span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.destination .text .bottom-area span i {
+  margin-right: 3px;
+}
+
+.destination .text .bottom-area a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.destination .text .bottom-area a:hover {
+  color: #fff;
+}
+
+.two {
+  flex: 1;
+  text-align: right; /* Align the content to the right */
+}
+
+.destination h3 a {
+  color: #333; /* Set the color of the accommodation name */
+}
+
+.destination p.rate {
+  color: #777; /* Set the color of the rating */
+}
+
+.price {
+  color: #ff6b6b; /* Set the color of the price */
+}
+
+.bottom-area a {
+  color: #fff; /* Set the color of the "Book Now" link */
+  background-color: #30D5C8; /* Set the background color of the "Book Now" link */
+  padding: 5px 10px; /* Add padding to the "Book Now" link */
+  border-radius: 5px; /* Add rounded corners to the "Book Now" link */
+}
+
+.bottom-area a:hover {
+  background-color: #333; /* Change the background color on hover */
+  color: #fff; /* Change the text color on hover */
+}
