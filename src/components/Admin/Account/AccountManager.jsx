@@ -14,7 +14,7 @@ const AccountManager = () => {
   return (
     <section>
       <div className="container-fluid">
-        <table class="table table-light">
+        <table class="table table-blue">
           <thead class="thead background-primary text-white">
             <tr>
               <th scope="col">User Id</th>
