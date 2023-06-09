@@ -74,7 +74,7 @@ function Register(props) {
 
   return (
     <section>
-      <div class="bg-gradient-primary">
+      <div class="bg-gradient-primary  vh-100 justify-content-center align-items-center d-flex">
         <div class="container">
           <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
