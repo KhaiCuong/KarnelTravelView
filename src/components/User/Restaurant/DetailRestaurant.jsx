@@ -122,37 +122,51 @@ function DetailofRestaurant() {
                         <div className="col-lg-9">
                             <div className="row">
                                 <div className="col-md-12 ftco-animate">
-                                    <div className="single-slider owl-carousel">
-                                        {imageRestaurant.map((item, index) => {
-                                            return (
-                                                <div key={index} className="item">
-                                                    <div className="hotel-img" style={{ backgroundImage: `url(http://localhost:5158/${item})` }}>
-                                                        {/* <img src={`http://localhost:5158/${item}`} alt="Accommodation" /> */}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
+                                
                                 </div>
                                 <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
                                     <span>Our Best Restaurants</span>
                                     <h2>{restaurant.restaurant_name}</h2>
                                     <p>{restaurant.rate} <i class="fa fa-star-o" ></i></p>
                                     <p class="groove">{restaurant.description}</p>
-                                    <div className="d-md-flex mt-5 mb-5">
-                                        
+                                    <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
+                                        <div className="carousel-inner">
+                                            <div className="carousel-item user-carousel active">
+                                                {imageRestaurant.map((item, index) => {
+                                                    if (index < 1) {
+                                                        return (
+                                                            <>
+
+                                                                <img src={`http://localhost:5158/${item}`} className="" alt={item} />
+                                                            </>
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
+                                            <div className="carousel-item user-carousel">
+                                                {imageRestaurant.map((item, index) => {
+                                                    if (index >= 1) {
+                                                        return (
+                                                            <>
+                                                                <img src={`http://localhost:5158/${item}`} className="" alt={item} />
+                                                            </>
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
+                                        </div>
+                                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Previous</span>
+                                        </button>
+                                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Next</span>
+                                        </button>
                                     </div>
                                     
                                 </div>
-                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                                    <h4 className="mb-4">Take A Tour</h4>
-                                    <div className="block-16">
-                                        <figure>
-                                            <img src="" alt="Image placeholder" className="img-fluid" />
-                                            <a href="https://vimeo.com/45830194" className="play-button popup-vimeo"><span className="icon-play"></span></a>
-                                        </figure>
-                                    </div>
-                                </div> 
+                                 
                              
                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Our Rooms</h4>
