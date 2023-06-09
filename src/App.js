@@ -34,6 +34,8 @@ import UpdateRestaurant from "./components/Admin/RestaurantManager/UpdateRestaur
 import DetailRestaurant from "./components/Admin/RestaurantManager/DetailRestaurant";
 import Restaurant from "./components/User/Restaurant/Restaurant";
 
+import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
+
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -59,6 +61,11 @@ function App() {
           <Route path="accommodation">
             <Route index element={<Accommodation />} />
             <Route path="detail/:id" element={<DetailAccommodation />} />
+          </Route>
+
+          <Route path="restaurant">
+            <Route index element={<Restaurant/>} />
+            <Route path="detail/:id" element={<DetailofRestaurant />} />
           </Route>
         </Route>
         <Route path="register" element={<Register></Register>}>
