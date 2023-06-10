@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getAccommodationByID, getAccommodationImageByID } from './Services/ApiService';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getAccommodationByID, getAccommodationImageByID, getListAccommodation } from './Services/ApiService';
+import '../Accommodation/css/DetailAccommodation.css';
 
-function DetailAccommodation() {
+
+function UserDetailAccommodation() {
     const { id } = useParams();
 
     const [accommodation, setAccommodation] = useState([]);
     const [imageAccommodation, setImageAccommodation] = useState([]);
+
+    const [extraAccommodation, setExtraAccommodation] = useState([]);
+    const [extraAccommodationImage, setExtraAccommodationImage] = useState([]);
+
+    const [accommodationID, setAccommodationID] = useState();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAccommodationDataByID = async () => {
@@ -26,17 +35,54 @@ function DetailAccommodation() {
                 console.log("error", error);
             }
         };
+
+        const fetchAccommodationData = async () => {
+            try {
+                const response = await getListAccommodation();
+                if (response.status === 200) {
+                    setExtraAccommodation(response.data);
+                    const accommodationImages = [];
+
+                    for (let index = 0; index < response.data.length; index++) {
+                        console.log("response", response);
+                        const imageResponse = await getAccommodationImageByID(response.data[index].accommodation_id);
+                        console.log("imageResponse", imageResponse);
+                        if (imageResponse.status === 200) {
+                            accommodationImages[index] = imageResponse.data;
+                        }
+                    }
+
+                    setExtraAccommodationImage(accommodationImages);
+                }
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
         fetchAccommodationDataByID();
-    }, [])
-    console.log("accommodation", accommodation);
-    console.log("imageAccommodation", imageAccommodation);
+        fetchAccommodationData();
+
+    }, [accommodationID])
+
+    // useEffect(() => {
+
+    // }, []);
+
+    const handleDetailAccommodation = (id) => {
+        setAccommodationID(id);
+        navigate(`/accommodation/detail/${id}`);
+
+        //window.location.reload(`accommodation/detail/:${id}`);
+        //console.log("id", id);
+    }
+    // console.log("accommodation", accommodation);
+    // console.log("imageAccommodation", imageAccommodation);
     return (
         <div>
             <br />
             <br />
             <br />
             <br />
-
+            <br />
             <section className="ftco-section ftco-degree-bg">
                 <div className="container">
                     <div className="row">
@@ -76,13 +122,13 @@ function DetailAccommodation() {
                                                 <input value="50000" min="0" max="120000" step="500" type="range" />
                                             </div>
                                         </div>
-                                        <div className="form-group">
+                                        <div className="form-group button">
                                             <input type="submit" value="Search" className="btn btn-primary py-3 px-5" />
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div className="sidebar-wrap bg-light ftco-animate">
+                            {/* <div className="sidebar-wrap bg-light ftco-animate">
                                 <h3 className="heading mb-4">Star Rating</h3>
                                 <form method="post" className="star-rating">
                                     <div className="form-check">
@@ -116,21 +162,45 @@ function DetailAccommodation() {
                                         </label>
                                     </div>
                                 </form>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="col-lg-9">
                             <div className="row">
                                 <div className="col-md-12 ftco-animate">
-                                    <div className="single-slider owl-carousel">
-                                        {imageAccommodation.map((item, index) => {
-                                            return (
-                                                <div key={index} className="item">
-                                                    <div className="hotel-img" style={{ backgroundImage: `url(http://localhost:5158/${item})` }}>
-                                                        {/* <img src={`http://localhost:5158/${item}`} alt="Accommodation" /> */}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
+                                    <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
+                                        <div className="carousel-inner">
+                                            <div className="carousel-item user-carousel active">
+                                                {imageAccommodation.map((item, index) => {
+                                                    if (index < 1) {
+                                                        return (
+                                                            <>
+
+                                                                <img src={`http://localhost:5158/${item}`} className="" alt={item} />
+                                                            </>
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
+                                            <div className="carousel-item user-carousel">
+                                                {imageAccommodation.map((item, index) => {
+                                                    if (index >= 1) {
+                                                        return (
+                                                            <>
+                                                                <img src={`http://localhost:5158/${item}`} className="" alt={item} />
+                                                            </>
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
+                                        </div>
+                                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Previous</span>
+                                        </button>
+                                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Next</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
@@ -138,6 +208,7 @@ function DetailAccommodation() {
                                     <h2>{accommodation.accommodation_name}</h2>
                                     <p className="rate mb-5">
                                         <span className="loc"><a href="#"><i className="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
+                                        &nbsp;
                                         <span className="star">
                                             <i className="icon-star"></i>
                                             <i className="icon-star"></i>
@@ -147,23 +218,8 @@ function DetailAccommodation() {
                                             8 Rating</span>
                                     </p>
                                     <p>{accommodation.description}</p>
-                                    <div className="d-md-flex mt-5 mb-5">
-                                        <ul>
-                                            <li>The Big Oxmox advised her not to do so</li>
-                                            <li>When she reached the first hills of the Italic Mountains</li>
-                                            <li>She had a last view back on the skyline of her hometown </li>
-                                            <li>Bookmarksgrove, the headline of Alphabet </li>
-                                        </ul>
-                                        <ul className="ml-md-5">
-                                            <li>Question ran over her cheek, then she continued</li>
-                                            <li>Pityful a rethoric question ran</li>
-                                            <li>Mountains, she had a last view back on the skyline</li>
-                                            <li>Headline of Alphabet Village and the subline</li>
-                                        </ul>
-                                    </div>
-                                    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
                                 </div>
-                                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                                {/* <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Take A Tour</h4>
                                     <div className="block-16">
                                         <figure>
@@ -171,99 +227,52 @@ function DetailAccommodation() {
                                             <a href="https://vimeo.com/45830194" className="play-button popup-vimeo"><span className="icon-play"></span></a>
                                         </figure>
                                     </div>
-                                </div>
-                                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                                </div> */}
+                                {/* <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Our Rooms</h4>
                                     <div className="row">
-                                        <div className="col-md-4">
-                                            <div className="destination">
-                                                <a href="hotel-single.html" className="img img-2" style={{ backgroundImage: "url(images/hotel-2.jpg)" }}></a>
-                                                <div className="text p-3">
-                                                    <div className="d-flex">
-                                                        <div className="one">
-                                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                            <p className="rate">
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star-o"></i>
-                                                                <span>8 Rating</span>
-                                                            </p>
+                                        {extraAccommodation.map((item, index) => (
+                                            <div class="col-md-4 ftco-animate">
+                                                <div class="destination">
+                                                    {extraAccommodationImage[index] && (
+                                                        <div>
+                                                            <div class="icon d-flex justify-content-center align-items-center">
+                                                                <img src={`http://localhost:5158/${extraAccommodationImage[index][0]}`} />
+                                                                <span class="icon-search2" >
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                        <div className="two">
-                                                            <span className="price per-price">$40<br /><small>/night</small></span>
+                                                    )}
+                                                    <div class="text p-3">
+                                                        <div class="d-flex">
+                                                            <div class="one">
+                                                                <h3><a href={`accommodation/detail/${item.accommodation_id}`}>{item.accommodation_name}</a></h3>
+                                                                <p class="rate">
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star-o"></i>
+                                                                    <span>8 Rating</span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="two">
+                                                                <span class="price per-price">{item.price}<br /><small>/night</small></span>
+                                                            </div>
                                                         </div>
+                                                        <p>{item.description}</p>
+                                                        <hr />
+                                                        <p class="bottom-area d-flex">
+                                                            <span><i class="icon-map-o"></i> {item.location_id}</span>
+                                                            <span class="ml-auto"><Link to="#">Book Now</Link></span>
+                                                        </p>
                                                     </div>
-                                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                                    <hr />
-                                                    <p className="bottom-area d-flex">
-                                                        <span><i className="icon-map-o"></i> Miami, Fl</span>
-                                                        <span className="ml-auto"><a href="#">Book Now</a></span>
-                                                    </p>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <div className="destination">
-                                                <a href="hotel-single.html" className="img img-2" style={{ backgroundImage: "url(images/hotel-2.jpg)" }}></a>
-                                                <div className="text p-3">
-                                                    <div className="d-flex">
-                                                        <div className="one">
-                                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                            <p className="rate">
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star-o"></i>
-                                                                <span>8 Rating</span>
-                                                            </p>
-                                                        </div>
-                                                        <div className="two">
-                                                            <span className="price per-price">$40<br /><small>/night</small></span>
-                                                        </div>
-                                                    </div>
-                                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                                    <hr />
-                                                    <p className="bottom-area d-flex">
-                                                        <span><i className="icon-map-o"></i> Miami, Fl</span>
-                                                        <span className="ml-auto"><a href="#">Book Now</a></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <div className="destination">
-                                                <a href="hotel-single.html" className="img img-2" style={{ backgroundImage: "url(images/hotel-2.jpg)" }}></a>
-                                                <div className="text p-3">
-                                                    <div className="d-flex">
-                                                        <div className="one">
-                                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                            <p className="rate">
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star-o"></i>
-                                                                <span>8 Rating</span>
-                                                            </p>
-                                                        </div>
-                                                        <div className="two">
-                                                            <span className="price per-price">$40<br /><small>/night</small></span>
-                                                        </div>
-                                                    </div>
-                                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                                    <hr />
-                                                    <p className="bottom-area d-flex">
-                                                        <span><i className="icon-map-o"></i> Miami, Fl</span>
-                                                        <span className="ml-auto"><a href="#">Book Now</a></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        ))}
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-5">Check Availability &amp; Booking</h4>
                                     <div className="fields">
@@ -366,93 +375,46 @@ function DetailAccommodation() {
                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-5">
                                     <h4 className="mb-4">Related Hotels</h4>
                                     <div className="row">
-                                        <div className="col-md-4">
-                                            <div className="destination">
-                                                <a href="hotel-single.html" className="img img-2" style={{ backgroundImage: "url(images/hotel-2.jpg)" }}></a>
-                                                <div className="text p-3">
-                                                    <div className="d-flex">
-                                                        <div className="one">
-                                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                            <p className="rate">
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star-o"></i>
-                                                                <span>8 Rating</span>
-                                                            </p>
+                                        {extraAccommodation.slice(0, 3).map((item, index) => (
+                                            <div class="col-md-4 ftco-animate" key={index}>
+                                                <div class="destination">
+                                                    {extraAccommodationImage[index] && (
+                                                        <div>
+                                                            <div class="icon d-flex justify-content-center align-items-center" onClick={() => (handleDetailAccommodation(item.accommodation_id))}>
+                                                                <img src={`http://localhost:5158/${extraAccommodationImage[index][0]}`} />
+                                                                <span class="icon-search2" >
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                        <div className="two">
-                                                            <span className="price per-price">$40<br /><small>/night</small></span>
+                                                    )}
+                                                    <div class="text p-3">
+                                                        <div class="d-flex">
+                                                            <div class="one">
+                                                                <h3><a >{item.accommodation_name}</a></h3>
+                                                                <p class="rate">
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star"></i>
+                                                                    <i class="icon-star-o"></i>
+                                                                    <span>8 Rating</span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="two">
+                                                                <span class="price per-price">{item.price}<br /><small>/night</small></span>
+                                                            </div>
                                                         </div>
+                                                        <p>{item.description}</p>
+                                                        <hr />
+                                                        <p class="bottom-area d-flex">
+                                                            <span><i class="icon-map-o"></i> {item.location_id}</span>
+                                                            <span class="ml-auto"><Link to="#">Book Now</Link></span>
+                                                        </p>
                                                     </div>
-                                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                                    <hr />
-                                                    <p className="bottom-area d-flex">
-                                                        <span><i className="icon-map-o"></i> Miami, Fl</span>
-                                                        <span className="ml-auto"><a href="#">Book Now</a></span>
-                                                    </p>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <div className="destination">
-                                                <a href="hotel-single.html" className="img img-2" style={{ backgroundImage: "url(images/hotel-2.jpg)" }}></a>
-                                                <div className="text p-3">
-                                                    <div className="d-flex">
-                                                        <div className="one">
-                                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                            <p className="rate">
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star-o"></i>
-                                                                <span>8 Rating</span>
-                                                            </p>
-                                                        </div>
-                                                        <div className="two">
-                                                            <span className="price per-price">$40<br /><small>/night</small></span>
-                                                        </div>
-                                                    </div>
-                                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                                    <hr />
-                                                    <p className="bottom-area d-flex">
-                                                        <span><i className="icon-map-o"></i> Miami, Fl</span>
-                                                        <span className="ml-auto"><a href="#">Book Now</a></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <div className="destination">
-                                                <a href="hotel-single.html" className="img img-2" style={{ backgroundImage: "url(images/hotel-2.jpg)" }}></a>
-                                                <div className="text p-3">
-                                                    <div className="d-flex">
-                                                        <div className="one">
-                                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                            <p className="rate">
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star"></i>
-                                                                <i className="icon-star-o"></i>
-                                                                <span>8 Rating</span>
-                                                            </p>
-                                                        </div>
-                                                        <div className="two">
-                                                            <span className="price per-price">$40<br /><small>/night</small></span>
-                                                        </div>
-                                                    </div>
-                                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                                    <hr />
-                                                    <p className="bottom-area d-flex">
-                                                        <span><i className="icon-map-o"></i> Miami, Fl</span>
-                                                        <span className="ml-auto"><a href="#">Book Now</a></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        ))}
                                     </div>
                                 </div>
 
@@ -467,4 +429,4 @@ function DetailAccommodation() {
     );
 }
 
-export default DetailAccommodation;
+export default UserDetailAccommodation;
