@@ -1,12 +1,11 @@
 import { React, useEffect, useState } from "react";
 import "./header.css";
 import { FlightOutlined, Cancel, Apps } from "@mui/icons-material";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ setShowModal, showModal }) => {
   useEffect(() => {
     AOS.init({ duration: 3000 });
   }, []);
@@ -21,6 +20,15 @@ const Header = () => {
   const showNavigation = () => {
     // Cập nhật lại giá trị active add class navBar + activeNavbar
     setActive("navBar activeNavbar");
+  };
+
+  const showModalCart = (e) => {
+    e.preventDefault();
+    if (showModal) {
+      setShowModal(false);
+    } else {
+      setShowModal(true);
+    }
   };
 
   // remove navbar
@@ -55,7 +63,7 @@ const Header = () => {
             </li>
 
             <li className="navItem">
-              <a href="">Services</a>
+              <Link to="/accommodation">Accommodation</Link>
             </li>
 
             <li className="navItem">
@@ -75,6 +83,12 @@ const Header = () => {
             </li>
 
             <li className="navItem">
+              <a href="" onClick={showModalCart}>
+                Cart
+              </a>
+            </li>
+
+            <li className="navItem">
               <a href="">Contacts</a>
             </li>
             {token == null ? (
@@ -83,11 +97,10 @@ const Header = () => {
               </button>
             ) : (
               <>
-            <li className="nav-item dropdown no-arrow w-10">
-
+                <li className="nav-item dropdown no-arrow w-10">
                   <a className="ml-3 nav-link dropdown-toggle d-flex justify-content-end w-90 align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img className="img-profile rounded-circle " src="img/undraw_profile.svg" />
-                        <i className="fa fa-angle-down"></i>      
+                    <img className="img-profile rounded-circle " src="img/undraw_profile.svg" />
+                    <i className="fa fa-angle-down"></i>
                   </a>
 
                   <div className="dropdown-menu menu-left" aria-labelledby="userDropdown">
@@ -109,8 +122,7 @@ const Header = () => {
                       Logout
                     </button>
                   </div>
-                  </li>
-
+                </li>
               </>
             )}
           </ul>

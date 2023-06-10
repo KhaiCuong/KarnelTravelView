@@ -11,6 +11,9 @@ const TourDetail = () => {
   const navigate = useNavigate();
   let [count, setCount] = useState(0);
   const { id } = useParams();
+ 
+
+  
 
   const handleBack = () => {
     navigate("/admin/tour");

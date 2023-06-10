@@ -9,13 +9,14 @@ const TourManager = () => {
   const [status, setStatus] = useState([]);
   const [checkedToggle, setCheckedToggle] = useState(false);
 
+
   const contextTour = useContext(TourContext);
   const { itemTour, setItemTour } = contextTour;
 
   const navigate = useNavigate();
 
   const handleGetPageDetail = (item) => {
-    navigate(`/admin/tour/detail/${item}`);
+    navigate(`/booking/${item}`);
   };
   const handleGetPageCreate = (item) => {
     navigate("/admin/tour/create");
@@ -94,7 +95,7 @@ const TourManager = () => {
                         <button
                           className="btn btn-warning"
                           onClick={() => {
-                            setItemTour(item.tour_id);
+                            setItemTour(item);
                             handleGetPageDetail(item.tour_id);
                           }}
                         >
