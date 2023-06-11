@@ -3,6 +3,7 @@ import { getLocations, postAccommodation, postAccommodationImage } from './Servi
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+
 function CreateAccommodation() {
     const navigate = useNavigate();
     const initialState = {

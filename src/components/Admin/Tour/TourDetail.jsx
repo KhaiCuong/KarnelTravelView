@@ -11,6 +11,9 @@ const TourDetail = () => {
   const navigate = useNavigate();
   let [count, setCount] = useState(0);
   const { id } = useParams();
+ 
+
+  
 
   const handleBack = () => {
     navigate("/admin/tour");
@@ -71,6 +74,8 @@ const TourDetail = () => {
           .then((c) => {
             if (c < spot.length) {
               setCount(count++);
+              console.log("count", count)
+
             }
           })
           .then((error) => console.log(error));
