@@ -88,7 +88,7 @@ function UserAccommodation() {
                                             <input value="50000" min="0" max="120000" step="500" type="range" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group button">
                                         <input type="submit" value="Search" class="btn btn-primary py-3 px-5" />
                                     </div>
                                 </div>

@@ -122,13 +122,13 @@ function UserDetailAccommodation() {
                                                 <input value="50000" min="0" max="120000" step="500" type="range" />
                                             </div>
                                         </div>
-                                        <div className="form-group">
+                                        <div className="form-group button">
                                             <input type="submit" value="Search" className="btn btn-primary py-3 px-5" />
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div className="sidebar-wrap bg-light ftco-animate">
+                            {/* <div className="sidebar-wrap bg-light ftco-animate">
                                 <h3 className="heading mb-4">Star Rating</h3>
                                 <form method="post" className="star-rating">
                                     <div className="form-check">
@@ -162,7 +162,7 @@ function UserDetailAccommodation() {
                                         </label>
                                     </div>
                                 </form>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="col-lg-9">
                             <div className="row">

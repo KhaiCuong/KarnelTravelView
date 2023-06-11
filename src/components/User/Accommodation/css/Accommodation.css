@@ -129,6 +129,10 @@
   border-color: #007bff;
 }
 
+.button{
+  padding-bottom: 20px;
+}
+
 .btn-primary:hover {
   color: #fff;
   background-color: #0069d9;
