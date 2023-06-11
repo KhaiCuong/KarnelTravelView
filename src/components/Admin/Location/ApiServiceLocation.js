@@ -26,3 +26,7 @@ export const updateLocationImage = async (id, formData) => {
   const response = await axios.put(`http://localhost:5158/api/LocationImage/${id}`, formData);
    return response.data.data;
 };  
+export const getLocationImage = async (id) => {
+  const response = await axios.put(`http://localhost:5158/api/LocationImage/${id}`);
+   return response.data.data;
+}; 
