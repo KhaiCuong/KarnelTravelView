@@ -41,6 +41,8 @@ import DetailRestaurant from "./components/Admin/RestaurantManager/DetailRestaur
 // import User Restaurant
 import Restaurant from "./components/User/Restaurant/Restaurant";
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
+import UserTransport from "./components/User/Transport/UserTransport";
+import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
 
 
 function App() {
@@ -67,11 +69,6 @@ function App() {
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
-          </Route>
-
-          <Route path="restaurant">
-            <Route index element={<Restaurant/>} />
-            <Route path="detail/:id" element={<DetailofRestaurant />} />
           </Route>
         </Route>
         <Route path="register" element={<Register></Register>}>
@@ -107,6 +104,11 @@ function App() {
             <Route path="create" element={<CreateTransport />} />
             <Route path="detail/:id" element={<TransportDetail />} />
             <Route path="update/:id" element={<TransportUpdate />} />
+          </Route>
+          {/* View transport user */}
+          <Route path="usertransport">
+            <Route index element={<UserTransport />} />
+            <Route path="detail/:id" element={<UserDetailTransport/>} />
           </Route>
 
           <Route path="restaurant" >
