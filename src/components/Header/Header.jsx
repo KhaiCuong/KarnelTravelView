@@ -43,7 +43,7 @@ const Header = () => {
         <div className="logoDiv">
           <a href="" className="logo flex">
             <h1>
-              <FlightOutlined className="icon" /> Karnel Travel{" "}
+              <FlightOutlined className="icon" /> Karnel Travel
             </h1>
           </a>
         </div>
@@ -51,7 +51,7 @@ const Header = () => {
         <div className={active}>
           <ul className="navLists flex navbar-nav justify-content-end">
             <li className="navItem">
-              <a href="">Home</a>
+            <Link to = "/">Home</Link>
             </li>
 
             <li className="navItem">
@@ -59,7 +59,12 @@ const Header = () => {
             </li>
 
             <li className="navItem">
-              <Link to ="/usertransport">Transport</Link>
+            <Link to="/restaurant">Restaurant</Link>
+              
+            </li>
+
+            <li className="navItem">
+            <Link to ="/usertransport">Transport</Link>
             </li>
 
             <li className="navItem">

@@ -23,6 +23,7 @@ import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate"
 import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
+
 import Register from "./components/Admin/Login/Register";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -32,6 +33,14 @@ import TransportManager from "./components/Admin/Transport/TransportManager";
 import CreateTransport from "./components/Admin/Transport/CreateTransport";
 import TransportDetail from "./components/Admin/Transport/TransportDetail";
 import TransportUpdate from "./components/Admin/Transport/TransportUpdate";
+//import Admin Restauratn
+import ListRestaurant from "./components/Admin/RestaurantManager/ListRestaurant";
+import CreateRestaurant from "./components/Admin/RestaurantManager/CreateRestaurant";
+import UpdateRestaurant from "./components/Admin/RestaurantManager/UpdateRestaurant";
+import DetailRestaurant from "./components/Admin/RestaurantManager/DetailRestaurant";
+// import User Restaurant
+import Restaurant from "./components/User/Restaurant/Restaurant";
+import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 import UserTransport from "./components/User/Transport/UserTransport";
 import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
 
@@ -53,17 +62,13 @@ function App() {
             element={
               <MainContent>
                 <Home />
+                
               </MainContent>
             }
           />
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
-          </Route>
-
-          <Route path="usertransport">
-            <Route index element={<UserTransport />} />
-            <Route path="detail/:id" element={<UserDetailTransport/>} />
           </Route>
         </Route>
         <Route path="register" element={<Register></Register>}>
@@ -100,7 +105,18 @@ function App() {
             <Route path="detail/:id" element={<TransportDetail />} />
             <Route path="update/:id" element={<TransportUpdate />} />
           </Route>
+          {/* View transport user */}
+          <Route path="usertransport">
+            <Route index element={<UserTransport />} />
+            <Route path="detail/:id" element={<UserDetailTransport/>} />
+          </Route>
 
+          <Route path="restaurant" >
+          <Route index element={<ListRestaurant />} />
+          <Route path="detailRestaurant/:id" element={<DetailRestaurant/>} />
+          <Route path="createRestaurant" element={<CreateRestaurant/>} />
+          <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
+        </Route>
           <Route path="account" element={<AccountManager />} />
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
