@@ -140,27 +140,28 @@
 }
 
 .star-rating .star {
-  position: relative;
   display: inline-block;
-  color: #ccc;
-  font-size: 24px;
-  transition: color .2s ease-in-out;
+  width: 30px;
+  height: 30px;
+  margin: 0 4px;
+  position: relative;
+  cursor: pointer;
+  justify-content: center;
+  
 }
 
 .star-rating .star:before {
-  content: '\2605'; /* ký tự sao unicode */
+  content: "\2606";
   position: absolute;
   top: 0;
   left: 0;
+  color: #ccc;
+  transition: color .2s ease-in-out;
 }
 
-.star-rating .star:hover,
-.star-rating .star:hover ~ .star {
-  color: #ffd900;
-}
-
+.star-rating .star:hover:before,
+.star-rating .star:hover ~ .star:before,
 .star-rating .star.selected:before {
-  content: '\2605';
   color: #ffd900;
 }
 

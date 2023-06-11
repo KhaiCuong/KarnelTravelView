@@ -45,23 +45,25 @@ function Restaurant() {
     fetchRestaurantData();
   }, []);
 
-  const stars = document.querySelectorAll(".star");
-  stars.forEach(function (star) {
-    star.addEventListener("click", setRating);
+  const stars = document.querySelectorAll('.star-rating .star');
+let rating = 0;
+
+stars.forEach(function(star) {
+  star.addEventListener('click', function() {
+    rating = star.dataset.rating;
+    applyRating(rating);
   });
+});
 
-  function setRating(e) {
-    let selectedStar = e.target;
-    let rating = selectedStar.dataset.star;
-    stars.forEach(function (star) {
-      if (star.dataset.star <= rating) {
-        star.classList.add("selected");
-      } else {
-        star.classList.remove("selected");
-      }
-    });
-  }
-
+function applyRating(rating) {
+  stars.forEach(function(star) {
+    if (star.dataset.rating <= rating) {
+      star.classList.add('selected');
+    } else {
+      star.classList.remove('selected');
+    }
+  });
+}
   console.log("restaurantImage", restaurantImage);
 
   const handleDetailRestaurant = (id) => {
@@ -154,33 +156,20 @@ function Restaurant() {
                 </div>
               </form>
             </div>
+            <div class="groove">
             <div class="sidebar-wrap bg-light ftco-animate">
               <h3 class="heading mb-4">Star Rating</h3>
 
               <div class="star-rating">
                 <div class="star-rating">
-                  <input id="star-5" type="radio" name="rating" value="5" />
-                  <label for="star-5" class="star">
-                    &#9733;
-                  </label>
-                  <input id="star-4" type="radio" name="rating" value="4" />
-                  <label for="star-4" class="star">
-                    &#9733;
-                  </label>
-                  <input id="star-3" type="radio" name="rating" value="3" />
-                  <label for="star-3" class="star">
-                    &#9733;
-                  </label>
-                  <input id="star-2" type="radio" name="rating" value="2" />
-                  <label for="star-2" class="star">
-                    &#9733;
-                  </label>
-                  <input id="star-1" type="radio" name="rating" value="1" />
-                  <label for="star-1" class="star">
-                    &#9733;
-                  </label>
+                  <span class="star" data-rating="1"></span>
+                  <span class="star" data-rating="2"></span>
+                  <span class="star" data-rating="3"></span>
+                  <span class="star" data-rating="4"></span>
+                  <span class="star" data-rating="5"></span>
                 </div>
               </div>
+            </div>
             </div>
           </div>
 
@@ -267,6 +256,7 @@ function Restaurant() {
                         <div class="two">
                           <span class="price per-price">
                             {item.price}
+                            <i class="fa fa-dollar"></i>
                             <br />
                           </span>
                         </div>
