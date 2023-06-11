@@ -54,7 +54,7 @@ export default function Booking() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+ 
     axios
       .post("http://localhost:5158/api/Booking/AddBooking", dataBooking)
       .then((result) => {})

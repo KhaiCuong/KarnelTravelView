@@ -5,26 +5,16 @@ import { TourContext } from "../../Admin/contexts/TourContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ReactModal from "react-modal";
+import { useShoppingCart } from "../Context/ShoppingCartContext";
+import { CartItem } from "./CartItem";
+import Swal from "sweetalert2";
 
 const BookingModal = ({ setShowModal, showModal }) => {
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // const contextTour = useContext(TourContext);
-  // const { itemTour } = contextTour;
-
-  let [count, setCount] = useState(1);
-  function incrementCount() {
-    count = count + 1;
-    setCount(count);
-  }
-  function decrementCount() {
-    count = count - 1;
-    setCount(count);
-  }
-
+  const { cartItems } = useShoppingCart();
   const usertoken = JSON.parse(localStorage.getItem("userToken"));
   let [change, setChange] = useState(0);
-  // lay thong tin cu
   let [user, setUser] = useState([]);
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -51,17 +41,55 @@ const BookingModal = ({ setShowModal, showModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    for (let i = 0; i < cartItems.length; i++) {
+      axios
+        .post("http://localhost:5158/api/Booking/AddBooking", {
+          user_id: user.user_id,
+          accommodation_id: cartItems[i].id,
+          quantity: cartItems[i].quantity,
+          // created_at: cartItems[i].times.timeIn,
+          // update_at: cartItems[i].times.timeOut,
+        })
+        .then((result) => {})
+        .catch((err) => console.log(err));
+    }
+
     if (change > 0) {
       axios
         .put(`http://localhost:5158/api/User/UpdateUser/${user.user_id}`, dataUser)
         .then((result) => {
           if (result.status === 200) {
-            navigate("/");
+            Swal.fire({
+              title: "Custom animation with Animate.css",
+              showClass: {
+                popup: "animate__animated animate__fadeInDown",
+              },
+              hideClass: {
+                popup: "animate__animated animate__fadeOutUp",
+              },
+            }).then(() => {
+              setShowModal(false);
+              localStorage.removeItem("shopping-cart");
+              window.location.reload();
+            });
           }
         })
+
         .catch((err) => console.log(err));
     } else {
-      navigate("/");
+      Swal.fire({
+        title: "Custom animation with Animate.css",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      }).then(() => {
+        setShowModal(false);
+        localStorage.removeItem("shopping-cart");
+        window.location.reload();
+      });
     }
   };
 
@@ -72,24 +100,9 @@ const BookingModal = ({ setShowModal, showModal }) => {
         setUser(res.data.data);
       })
       .then((error) => console.log(error));
-
-    // axios
-    //   .get(`http://localhost:5158/api/TouristSpotTour/GetListByTourId/${itemTour.tour_id}`)
-    //   .then((s) => {
-
-    //     return s.data.data;
-    //   })
-    //   .then((spot) => {
-    //     axios
-    //       .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${spot[0].touristSpot_id}`)
-    //       .then((i) => {
-    //         setImg(i.data.data[0]);
-    //         console.log("i", i.data.data[0])
-    //       })
-    //       .then((error) => console.log(error));
-    //   })
-    //   .then((error) => console.log(error));
   }, []);
+
+  console.log("cartItem", cartItems);
   return (
     <ReactModal isOpen={showModal} style={{ zIndex: 1000 }} className="Modal shopping-cart text-black" overlayClassName="Overlay">
       <button className="closeBtn" onClick={() => setShowModal(false)}>
@@ -97,41 +110,15 @@ const BookingModal = ({ setShowModal, showModal }) => {
       </button>
 
       <MDBRow>
-        <MDBCol lg="7" className="px-5 py-4">
+        <MDBCol lg="7" className="px-4 py-4">
           <MDBTypography tag="h3" className="mb-5 pt-2 text-center fw-bold text-uppercase">
             Your products
           </MDBTypography>
 
-          <div className="d-flex align-items-center mb-5">
-            <div className="flex-shrink-0">
-              <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp" fluid style={{ width: "150px" }} alt="Generic placeholder image" />
-            </div>
-
-            <div className="flex-grow-1 ms-3">
-              <a href="#!" className="float-end text-black">
-                <MDBIcon fas icon="times" />
-              </a>
-              <MDBTypography tag="h5" className="text-primary"></MDBTypography>
-              <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-                Departur Day :
-              </MDBTypography>
-              <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-                Times:
-              </MDBTypography>
-              <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-                Discount:
-              </MDBTypography>
-
-              <div className="d-flex align-items-center">
-                <p className="fw-bold mb-0 me-5 pe-3">$</p>
-
-                <div className="def-number-input number-input safari_only align-items-center">
-                  <button className="minus" onClick={decrementCount}></button>
-                  <input className="quantity fw-bold text-black" min={0} value={count} type="number" />
-                  <button className="plus" onClick={incrementCount}></button>
-                </div>
-              </div>
-            </div>
+          <div className="p-4" style={{ overflowY: "scroll", height: "360px" }}>
+            {cartItems.map((item) => (
+              <CartItem key={item.id} {...item} />
+            ))}
           </div>
 
           <hr
@@ -183,7 +170,7 @@ const BookingModal = ({ setShowModal, showModal }) => {
             </button>
 
             <MDBTypography tag="h5" className="fw-bold mb-5" style={{ position: "absolute", bottom: "0" }}>
-              <a href="#!">
+              <a href="#!" onClick={() => setShowModal(false)}>
                 <MDBIcon fas icon="angle-left me-2" />
                 Back to shopping
               </a>

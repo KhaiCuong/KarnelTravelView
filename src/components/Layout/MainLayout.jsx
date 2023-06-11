@@ -5,7 +5,8 @@ import ModaBooking from "../User/Booking/ModalBooking";
 
 import { Outlet } from "react-router-dom";
 import { TourContext } from "../Admin/contexts/TourContext";
-import CartProvider from "../User/Context/CartContext";
+import ShoppingCartProvider from "../User/Context/ShoppingCartContext";
+// import CartProvider from "../User/Context/CartContext";
 
 function MainLayout({ children }) {
   // const contextTour = useContext(TourContext);
@@ -15,16 +16,19 @@ function MainLayout({ children }) {
 
   return (
     <>
-      <CartProvider>
+      
+      <ShoppingCartProvider>
+
         <ModaBooking setShowModal={setShowModal} showModal={showModal} />
         <div>
+          
           <Header setShowModal={setShowModal} showModal={showModal} />
 
           <Outlet />
 
           <Footer />
         </div>
-      </CartProvider>
+      </ShoppingCartProvider>
     </>
   );
 }
