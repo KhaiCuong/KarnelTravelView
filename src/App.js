@@ -16,6 +16,10 @@ import CreateTouristSpot from "./components/Admin/TouristSpot/TouristSpotCreate"
 import UpdateTour from "./components/Admin/Tour/TourUpdate";
 import TouristSpotDetail from "./components/Admin/TouristSpot/TouristSpotDetail";
 import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate";
+import ListLocations from "./components/Admin/Location/ListLocations";
+import CreateLocation from "./components/Admin/Location/CreateLocation";
+import EditLocationModel from "./components/Admin/Location/EditLocationModal";
+import LocationDetail from "./components/Admin/Location/LocationDetail";
 
 function App() {
   return (
@@ -51,6 +55,18 @@ function App() {
             <Route path="create" element={<CreateTouristSpot />} />
             <Route path="update/:id" element={<UpdateTouristSpot />} />
           </Route>
+
+          {/* Location Route */}
+          <Route path="location">
+            <Route index element={<ListLocations/>}/>
+            <Route path="create" element={<CreateLocation/>}/>
+            <Route path="update/:id" element={<EditLocationModel/>}/>
+            <Route path="detail/:id" element={<LocationDetail />} />
+
+
+
+          </Route>
+
         </Route>
       </Routes>
     </>
