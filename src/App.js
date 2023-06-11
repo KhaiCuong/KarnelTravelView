@@ -32,6 +32,8 @@ import TransportManager from "./components/Admin/Transport/TransportManager";
 import CreateTransport from "./components/Admin/Transport/CreateTransport";
 import TransportDetail from "./components/Admin/Transport/TransportDetail";
 import TransportUpdate from "./components/Admin/Transport/TransportUpdate";
+import UserTransport from "./components/User/Transport/UserTransport";
+import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
 
 
 function App() {
@@ -57,6 +59,11 @@ function App() {
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
+          </Route>
+
+          <Route path="usertransport">
+            <Route index element={<UserTransport />} />
+            <Route path="detail/:id" element={<UserDetailTransport/>} />
           </Route>
         </Route>
         <Route path="register" element={<Register></Register>}>
