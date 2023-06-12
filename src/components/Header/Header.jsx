@@ -10,6 +10,9 @@ import { useShoppingCart } from "../User/Context/ShoppingCartContext";
 const Header = ({ setShowModal, showModal }) => {
   const { openCart, cartQuantity } = useShoppingCart();
 
+ // const ProfileUser = ({ showProfile, setShowProfile}) =>  {
+ //   const { openUserDetail, detailUser  } = 
+ // }
   useEffect(() => {
     AOS.init({ duration: 3000 });
   }, []);
@@ -29,6 +32,15 @@ const Header = ({ setShowModal, showModal }) => {
   const showModalCart = (e) => {
     e.preventDefault();
     if (showModal) {
+      setShowModal(false);
+    } else {
+      setShowModal(true);
+    }
+  };
+
+  const showProfile = (e) => {
+    e.preventDefault();
+    if (showProfile) {
       setShowModal(false);
     } else {
       setShowModal(true);

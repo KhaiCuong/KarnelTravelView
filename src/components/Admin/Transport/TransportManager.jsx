@@ -51,7 +51,7 @@ const TransportManager = () => {
               <th scope="col">Transport Id</th>
               <th scope="col">Transport name</th>
               <th scope="col">Start position</th>
-              
+
               <th scope="col">Discount</th>
               <th scope="col">Location Id</th>
               <th scope="col">Price</th>
