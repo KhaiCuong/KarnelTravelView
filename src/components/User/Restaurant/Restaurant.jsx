@@ -9,12 +9,26 @@ import {
   getRestaurantImageByID,
 } from "../../User/Restaurant/Service/ApiService";
 
+
+//Booking
+import { useShoppingCart } from "../Context/ShoppingCartContext";
+
 function Restaurant() {
   const [restaurant, setRestaurant] = useState([]);
   const [restaurantImage, setRestaurantImages] = useState([]);
   const [fullDescription, setFullDescription] = useState(false);
   const description = "Description";
   const navigate = useNavigate();
+
+    //Booking
+    var today = new Date();
+    const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
+    const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart();
+    let times = {
+      timeIn : date,
+      timeOut : "09:00",
+
+    }
 
   useEffect(() => {
     const fetchRestaurantData = async () => {
@@ -175,52 +189,7 @@ function applyRating(rating) {
 
           <div className="col-lg-9">
             <div className="row">
-              {/* ----------------------- */}
-              {/* <div className="secContent grid">
-
-                                {accommodation.map((item, index) => (
-                                    <div key={index} data-aos="fade-up-right" className='singleDestination'>
-                                        {accommodationImage[index] && (
-                                            <div className="imageDiv">
-                                                <img src={`http://localhost:5158/${accommodationImage[index][0]}`} alt={item.accommodation_name} />
-                                            </div>
-                                        )}
-
-                                        <div className="cardInfo">
-                                            <h4 className="destTitle">
-                                                {item.accommodation_name}
-                                            </h4>
-                                            <span className="continent flex">
-                                                <Room className="icon" />
-                                                <span className="name">
-                                                    {item.location_id}
-                                                </span>
-                                            </span>
-
-                                            <div className="fees flex">
-                                                <div className="grade">
-                                                    <span>
-                                                        {item.type === true ? "Resort" : "Hotel"}
-                                                        {/* <small> +1</small> */}
-              {/* </span>
-                                                </div>
-                                                <div className="price">
-                                                    <h5>{item.price}</h5>
-                                                </div>
-                                            </div>
-
-                                            <div className="description">
-                                                <p>{item.description}</p>
-                                            </div>
-
-                                            <button className='btn flex'>
-                                                DETAILS <ContentPaste className='icon' />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div> */}
-              {/* ----------------------- */}
+     
               {restaurant.map((item, index) => (
                 <div class="col-md-4 ftco-animate">
                   <div class="destination">
@@ -279,7 +248,7 @@ function applyRating(rating) {
                           <i class="icon-map-o"></i> {item.location_id}
                         </span>
                         <span class="ml-auto">
-                          <Link to="#">Book Now</Link>
+                          <Link onClick={() => increaseCartQuantity(item.restaurant_id, "Restaurant",times)}>Book Now</Link>
                         </span>
                       </p>
                     </div>
