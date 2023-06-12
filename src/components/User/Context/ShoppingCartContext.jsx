@@ -155,6 +155,17 @@ function ShoppingCartProvider({ children }) {
         }
       });
     },
+    SetPrice(id, pri) {
+      setCartItems((currItems) => {
+        return currItems.map((item) => {
+          if (item.id === id) {
+            return   { ...item, price: Number(pri)};
+          } else {
+            return item;
+          }
+        });
+      });
+    },
     removeFromCart(id) {
       setCartItems((currItems) => {
         return currItems.filter((item) => item.id !== id);

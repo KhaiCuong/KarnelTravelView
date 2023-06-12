@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export function CartItem({ id, quantity, type, times }) {
-  const { removeFromCart, increaseCartQuantity, decreaseCartQuantity, changeQuantity, changeDate } = useShoppingCart();
+  const { removeFromCart, increaseCartQuantity, decreaseCartQuantity, changeQuantity, changeDate,SetPrice } = useShoppingCart();
   const [item, setItem] = useState([]);
   const [location, setLocation] = useState([]);
+  const [img, setImg] = useState([]);
 
   // var today = new Date();
   // const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
@@ -35,8 +36,7 @@ export function CartItem({ id, quantity, type, times }) {
         .get(`http://localhost:5158/api/Accommodation/GetAccommodation/${id}`)
         .then((t) => {
           setItem(t.data.data);
-          //
-          // setTimeOut(t.data.data.update_at.slice(0, 10).split("-").reverse().join("-"))
+          SetPrice(id,t.data.data.price);
           return t.data.data;
         })
         .then((item) => {
@@ -46,13 +46,50 @@ export function CartItem({ id, quantity, type, times }) {
               setLocation(t.data.data.location_name);
             })
             .then((error) => console.log(error));
+
+          axios
+            .get(`http://localhost:5158/api/AccommodationImage/GetImagesByTouristSpotId/${id}`)
+            .then((t) => {
+              setImg(t.data.data[0]);
+            })
+            .then((error) => console.log(error));
+        })
+        .then((error) => console.log(error));
+    } else if (type === "Restaurant") {
+      axios
+        .get(`http://localhost:5158/api/Restaurant/GetRestaurantById/${id}`)
+        .then((t) => {
+          setItem(t.data.data);
+          SetPrice(id,t.data.data.price);
+
+          return t.data.data;
+        })
+        .then((item) => {
+          axios
+            .get(`http://localhost:5158/api/Location/GetLocation/${item.location_id}`)
+            .then((t) => {
+              setLocation(t.data.data.location_name);
+            })
+            .then((error) => console.log(error));
+
+          axios
+            .get(`http://localhost:5158/api/ResImg/GetImagesByRestaurantId/${id}`)
+            .then((t) => {
+              setImg(t.data.data[0]);
+            })
+            .then((error) => console.log(error));
         })
         .then((error) => console.log(error));
     }
+
   }, []);
+console.log(item.price);
+
   const handleChangeInput = (e) => {
-    setCount(e.target.value);
-    changeQuantity(item.accommodation_id, e.target.value, "Accommodation");
+    if (type === "Accommodation") {
+      setCount(e.target.value);
+      changeQuantity(item.accommodation_id, e.target.value, "Accommodation");
+    }
   };
 
   const handleChangeDateIn = (e) => {
@@ -68,19 +105,28 @@ export function CartItem({ id, quantity, type, times }) {
   };
 
   return (
-    <div className="d-flex align-items-center mb-5">
+    <div className="d-flex align-items-center mb-3 border border-primary rounded p-3">
       <div className="flex-shrink-0">
-        <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp" fluid style={{ width: "150px" }} alt="Generic placeholder image" />
+        <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" />
       </div>
 
       <div className="flex-grow-1 ms-3">
-        <button className="float-end text-black border-0 bg-white" onClick={() => removeFromCart(item.accommodation_id)}>
+        <button
+          className="float-end text-black border-0 bg-white"
+          onClick={() => {
+            if (type === "Accommodation") {
+              removeFromCart(item.accommodation_id);
+            } else if (type === "Restaurant") {
+              removeFromCart(item.restaurant_id);
+            }
+          }}
+        >
           <MDBIcon fas icon="times" />
         </button>
 
         <MDBTypography tag="h5" className="text-primary">
-          {/* {item.tour_name} */}
-          {item.accommodation_name}
+          {type === "Accommodation" && item.accommodation_name}
+          {type === "Restaurant" && item.restaurant_name}
 
           {type === "Accommodation" && <i class="fas fa-home ml-3"></i>}
           {type === "Transport" && <i class="fas fa-car-side ml-3"></i>}
@@ -91,21 +137,31 @@ export function CartItem({ id, quantity, type, times }) {
           {/* Departur Day : {item.depature_date.slice(0, 10).split("-").reverse().join("-")} */}
         </MDBTypography>
         <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-          {/* Times: {item.times} */}
           Location : {location}
         </MDBTypography>
+
         <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-          {/* Times: {item.times} */}
           Check-in date :{timeIn}
-          <input type="date" id="checkin_date" onChange={handleChangeDateIn} onBlur={handleSaveDate} className="form-control" />
-          {timeIn > timeOut && <span className="text-danger"> Date must be less than Check-out Date</span>}
+          <input type="date" id="checkin_date" onChange={handleChangeDateIn} onBlur={handleSaveDate} className="form-control"  />
+          {type === "Accommodation" && timeIn > timeOut && <span className="text-danger "> Date must be less than Check-out Date</span>}
+          {type === "Restaurant" && <span class="validity position-relative"></span>}
         </MDBTypography>
-        <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-          Check-out date :{timeOut}
-          <input type="date" id="checkout_date" onChange={handleChangeDateOut} onBlur={handleSaveDate} className="form-control" />
-          {timeOut < timeIn && <span className="text-danger"> Date must be greater than Check-in Date</span>}
-          {/* Discount: {item.total_payment > 3000 ? 10 : 0} % */}
-        </MDBTypography>
+
+        {type === "Accommodation" && (
+          <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
+            Check-out date : {timeOut}
+            <input type="date" id="checkout_date" onChange={handleChangeDateOut} onBlur={handleSaveDate} className="form-control" />
+            {timeOut < timeIn && <span className="text-danger "> Date must be greater than Check-in Date</span>}
+          </MDBTypography>
+        )}
+
+        {type === "Restaurant" && (
+          <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
+            Check-out date :{timeOut} ( From 9am To 10pm)
+            <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} className="form-control" min="09:00" max="22:00" required></input>
+            <span class="validity position-relative" ></span>
+          </MDBTypography>
+        )}
 
         <div className="d-flex align-items-center">
           <p className="fw-bold mb-0 me-5 pe-3">{item.price}$</p>
@@ -114,7 +170,12 @@ export function CartItem({ id, quantity, type, times }) {
             <button
               className="minus"
               onClick={() => {
-                decreaseCartQuantity(item.accommodation_id);
+                if (type === "Accommodation") {
+                  decreaseCartQuantity(item.accommodation_id);
+                } else if (type === "Restaurant") {
+                  increaseCartQuantity(item.restaurant_id);
+                }
+
                 decrementCount();
               }}
             ></button>
@@ -122,7 +183,12 @@ export function CartItem({ id, quantity, type, times }) {
             <button
               className="plus"
               onClick={() => {
-                increaseCartQuantity(item.accommodation_id);
+                if (type === "Accommodation") {
+                  increaseCartQuantity(item.accommodation_id);
+                } else if (type === "Restaurant") {
+                  increaseCartQuantity(item.restaurant_id);
+                }
+
                 incrementCount();
               }}
             ></button>
