@@ -1,15 +1,14 @@
 import { React, useContext, useEffect, useState } from "react";
 import "../AdminManager.css";
 import axios from "axios";
-import { TourContext } from "../contexts/TourContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const TouristSpotDetail = () => {
+  const { id } = useParams();
   const [img, setImg] = useState([]);
   const [spot, setSpot] = useState([]);
-  const contextTour = useContext(TourContext);
-  const { itemTour, setItemTour } = contextTour;
+
   const navigate = useNavigate();
   let [count, setCount] = useState(0);
 
@@ -45,21 +44,20 @@ const TouristSpotDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5158/api/TouristSpot/GetTouristSpotById/${itemTour}`)
+      .get(`http://localhost:5158/api/TouristSpot/GetTouristSpotById/${id}`)
       .then((t) => {
         setSpot(t.data.data);
       })
       .then((error) => console.log(error));
 
     axios
-      .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${itemTour}`)
+      .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${id}`)
       .then((s) => {
         setImg(s.data.data);
         return s.data.data;
       })
       .then((error) => console.log(error));
   }, []);
-console.log("itemTour", itemTour);
   return (
     <section>
       <h2 class="text-center font-weight-bold">{spot.touristSpot_name}</h2>
@@ -117,7 +115,9 @@ console.log("itemTour", itemTour);
       </div>
       <div lassName="container-fluid ">
         <div class="container text-center my-3">
-          <h2 class="font-weight-light pt-4">Tour Image</h2>
+          <h2 class="font-weight-light pt-4">Tourist Spot Image</h2>
+          { (img != null) && (img != "")  ? (
+            <>
           <div class="row mx-auto my-auto justify-content-center pb-5">
             <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner" role="listbox">
@@ -165,19 +165,22 @@ console.log("itemTour", itemTour);
               </a>
             </div>
           </div>
+          </> ) : (
+                <div className="mt-3 mb-3">No image found.</div>
+          )}
+
         </div>
       </div>
 
       <div className="d-flex justify-content-around align-items-center mt-4">
         <div className="d-flex justify-content-between align-items-center w-50 mb-4">
-          <button className="btn btn-warning background-dark" onClick={() => handleBack()}>
+          <button className="btn btn-warning  " onClick={() => handleBack()}>
             Back
           </button>
 
           <button
             className="btn btn-warning background-blue"
             onClick={() => {
-              setItemTour(spot.touristSpot_id);
               handleGetPageUpdate(spot.touristSpot_id);
             }}
           >

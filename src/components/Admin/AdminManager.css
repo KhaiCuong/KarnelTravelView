@@ -25,7 +25,7 @@ ul {
 
 
 .background-primary {
-    background: linear-gradient(to right, hsl(187,85%, 43%), hsl(199, 100%, 33%));
+    background: linear-gradient(to right, hsl(187,85%, 43%), hsl(199, 100%, 33%)) !important;
 }
 
 
