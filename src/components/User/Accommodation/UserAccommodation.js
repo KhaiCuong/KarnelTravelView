@@ -4,18 +4,19 @@ import "../Accommodation/css/Accommodation.css";
 import { Room, ContentPaste } from "@mui/icons-material";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
+
+//Booking
 import { useShoppingCart } from "../Context/ShoppingCartContext";
 
 function UserAccommodation() {
   const [accommodation, setAccommodation] = useState([]);
   const [accommodationImage, setAccommodationImages] = useState([]);
   const navigate = useNavigate();
+  
+  //Booking
   var today = new Date();
   const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-
   const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart();
-  // const quantity = getItemQuantity(id);
-
   let times = {
     timeIn : date,
     timeOut: date
@@ -47,8 +48,6 @@ function UserAccommodation() {
 
     fetchAccommodationData();
   }, []);
-
-  console.log("accommodationImage", accommodationImage);
 
   const handleDetailAccommodation = (id) => {
     navigate(`detail/${id}`);
@@ -105,90 +104,10 @@ function UserAccommodation() {
                 </div>
               </form>
             </div>
-            {/* <div class="sidebar-wrap bg-light ftco-animate">
-                            <h3 class="heading mb-4">Star Rating</h3>
-                            <form method="post" class="star-rating">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                            </form>
-                        </div> */}
           </div>
           <div className="col-lg-9">
             <div className="row">
-              {/* ----------------------- */}
-              {/* <div className="secContent grid">
-
-                                {accommodation.map((item, index) => (
-                                    <div key={index} data-aos="fade-up-right" className='singleDestination'>
-                                        {accommodationImage[index] && (
-                                            <div className="imageDiv">
-                                                <img src={`http://localhost:5158/${accommodationImage[index][0]}`} alt={item.accommodation_name} />
-                                            </div>
-                                        )}
-
-                                        <div className="cardInfo">
-                                            <h4 className="destTitle">
-                                                {item.accommodation_name}
-                                            </h4>
-                                            <span className="continent flex">
-                                                <Room className="icon" />
-                                                <span className="name">
-                                                    {item.location_id}
-                                                </span>
-                                            </span>
-
-                                            <div className="fees flex">
-                                                <div className="grade">
-                                                    <span>
-                                                        {item.type === true ? "Resort" : "Hotel"}
-                                                        {/* <small> +1</small> */}
-              {/* </span>
-                                                </div>
-                                                <div className="price">
-                                                    <h5>{item.price}</h5>
-                                                </div>
-                                            </div>
-
-                                            <div className="description">
-                                                <p>{item.description}</p>
-                                            </div>
-
-                                            <button className='btn flex'>
-                                                DETAILS <ContentPaste className='icon' />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div> */}
-              {/* ----------------------- */}
+          
               {accommodation.map((item, index) => (
                 <div class="col-md-4 ftco-animate">
                   <div class="destination">
@@ -230,6 +149,7 @@ function UserAccommodation() {
                           <i class="icon-map-o"></i> {item.location_id}
                         </span>
                         <span class="ml-auto">
+                           {/* Booking */}
                           <Link onClick={() => increaseCartQuantity(item.accommodation_id, "Accommodation",times)}>Book Now</Link>
                         </span>
                       </p>

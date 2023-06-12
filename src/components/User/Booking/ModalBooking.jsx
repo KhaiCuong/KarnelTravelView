@@ -8,6 +8,7 @@ import ReactModal from "react-modal";
 import { useShoppingCart } from "../Context/ShoppingCartContext";
 import { CartItem } from "./CartItem";
 import Swal from "sweetalert2";
+import emailjs from "emailjs-com";
 
 const BookingModal = ({ setShowModal, showModal }) => {
   const navigate = useNavigate();
@@ -16,6 +17,14 @@ const BookingModal = ({ setShowModal, showModal }) => {
   const usertoken = JSON.parse(localStorage.getItem("userToken"));
   let [change, setChange] = useState(0);
   let [user, setUser] = useState([]);
+
+  const [outEmail, SetOutEmail] = useState([]);
+
+  // let [totalPrice, setTotalPrice] = useState(0);
+
+
+
+  // let SendMail;
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -34,7 +43,7 @@ const BookingModal = ({ setShowModal, showModal }) => {
     role: user.role,
     total_payment: user.total_payment,
     status_User: user.status_User,
-    email: user.email,
+    email: outEmail,
     password: user.password,
   };
 
@@ -42,67 +51,83 @@ const BookingModal = ({ setShowModal, showModal }) => {
     e.preventDefault();
 
     for (let i = 0; i < cartItems.length; i++) {
-      axios
-        .post("http://localhost:5158/api/Booking/AddBooking", {
-          user_id: user.user_id,
-          accommodation_id: cartItems[i].id,
-          quantity: cartItems[i].quantity,
-          // created_at: cartItems[i].times.timeIn,
-          // update_at: cartItems[i].times.timeOut,
-        })
-        .then((result) => {})
-        .catch((err) => console.log(err));
+      if (cartItems[i].type === "Accommodation") {
+        axios
+          .post("http://localhost:5158/api/Booking/AddBooking", {
+            user_id: user.user_id,
+            accommodation_id: cartItems[i].id,
+            quantity: cartItems[i].quantity,
+            // created_at: cartItems[i].times.timeIn,
+            // update_at: cartItems[i].times.timeOut,
+          })
+          .then((result) => {})
+          .catch((err) => console.log(err));
+      } else if (cartItems[i].type === "Restaurant") {
+        axios
+          .post("http://localhost:5158/api/Booking/AddBooking", {
+            user_id: user.user_id,
+            restaurant_id: cartItems[i].id,
+            quantity: cartItems[i].quantity,
+            // created_at: cartItems[i].times.timeIn,
+            // update_at: cartItems[i].times.timeOut,
+          })
+          .then((result) => {})
+          .catch((err) => console.log(err));
+      }
     }
 
     if (change > 0) {
       axios
         .put(`http://localhost:5158/api/User/UpdateUser/${user.user_id}`, dataUser)
-        .then((result) => {
-          if (result.status === 200) {
-            Swal.fire({
-              title: "Custom animation with Animate.css",
-              showClass: {
-                popup: "animate__animated animate__fadeInDown",
-              },
-              hideClass: {
-                popup: "animate__animated animate__fadeOutUp",
-              },
-            }).then(() => {
-              setShowModal(false);
-              localStorage.removeItem("shopping-cart");
-              window.location.reload();
-            });
-          }
-        })
-
+        .then((result) => {})
         .catch((err) => console.log(err));
-    } else {
-      Swal.fire({
-        title: "Custom animation with Animate.css",
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      }).then(() => {
-        setShowModal(false);
-        localStorage.removeItem("shopping-cart");
-        window.location.reload();
-      });
     }
+
+    emailjs.sendForm("service_tlh95nr", "template_znexvyp", e.target, "ln74ETO3efEPHlj0M").then(
+      (result) => {
+        Swal.fire({
+          title: "Custom animation with Animate.css",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        }).then(() => {
+          setShowModal(false);
+          localStorage.removeItem("shopping-cart");
+          window.location.reload();
+        });
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
   };
 
+  let total = 0;
+  for (let i = 0; i < cartItems.length; i++) {
+    total = total +  (Number(cartItems[i].price) *  Number(cartItems[i].quantity));
+  }
+
   useEffect(() => {
-    axios
+    if(usertoken != null) {
+      axios
       .get(`http://localhost:5158/api/User/GetUser/${usertoken.user_id}`)
       .then((res) => {
         setUser(res.data.data);
+        SetOutEmail(res.data.data.email); 
+
+
+
       })
       .then((error) => console.log(error));
-  }, []);
+    }
 
-  console.log("cartItem", cartItems);
+
+      
+  }, []);
+console.log("outEmail" ,outEmail);
   return (
     <ReactModal isOpen={showModal} style={{ zIndex: 1000 }} className="Modal shopping-cart text-black" overlayClassName="Overlay">
       <button className="closeBtn" onClick={() => setShowModal(false)}>
@@ -115,7 +140,7 @@ const BookingModal = ({ setShowModal, showModal }) => {
             Your products
           </MDBTypography>
 
-          <div className="p-4" style={{ overflowY: "scroll", height: "360px" }}>
+          <div className="p-2" style={{ overflowY: "scroll", height: "360px" }}>
             {cartItems.map((item) => (
               <CartItem key={item.id} {...item} />
             ))}
@@ -131,12 +156,12 @@ const BookingModal = ({ setShowModal, showModal }) => {
           />
 
           <div className="d-flex justify-content-between px-x">
-            <p className="fw-bold">Discount: </p>
+            <p className="fw-bold">Discount: 0</p>
             <p className="fw-bold">$</p>
           </div>
           <div className="d-flex justify-content-between p-2 mb-2" style={{ backgroundColor: "#e1f5fe" }}>
             <MDBTypography tag="h5" className="fw-bold mb-0">
-              Total:
+              Total: {total} $
             </MDBTypography>
             <MDBTypography tag="h5" className="fw-bold mb-0"></MDBTypography>
           </div>
@@ -159,7 +184,9 @@ const BookingModal = ({ setShowModal, showModal }) => {
             <div className="mb-3">
               <MDBInput type="text" size="lg" name="email" value={user.email} onChange={handleChangeInput} />
             </div>
-
+              <div hidden>
+                <input type="number" name="totalPrice" value={total}  />
+              </div>
             <p className="mb-5">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit
               <a href="#!"> obcaecati sapiente</a>.
