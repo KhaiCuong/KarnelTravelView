@@ -32,6 +32,8 @@ import TransportManager from "./components/Admin/Transport/TransportManager";
 import CreateTransport from "./components/Admin/Transport/CreateTransport";
 import TransportDetail from "./components/Admin/Transport/TransportDetail";
 import TransportUpdate from "./components/Admin/Transport/TransportUpdate";
+import Tour from "./components/User/Tour/Tour";
+import DetailTour from "./components/User/Tour/DetailTour";
 
 
 function App() {
@@ -57,6 +59,10 @@ function App() {
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
+          </Route>
+          <Route path="tour">
+            <Route index element={<Tour />} />
+            <Route path="detail/:id" element={<DetailTour/>}/>
           </Route>
         </Route>
         <Route path="register" element={<Register></Register>}>
@@ -88,7 +94,7 @@ function App() {
           </Route>
 
           <Route path="transport">
-            <Route index element={<TransportManager/>} />
+            <Route index element={<TransportManager />} />
             <Route path="create" element={<CreateTransport />} />
             <Route path="detail/:id" element={<TransportDetail />} />
             <Route path="update/:id" element={<TransportUpdate />} />
