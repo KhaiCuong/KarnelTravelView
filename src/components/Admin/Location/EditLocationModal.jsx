@@ -4,21 +4,14 @@ import { useNavigate, useParams } from "react-router-dom/dist";
 import { TourContext } from "../contexts/TourContext";
 import axios from "axios";
 
-
-
-
 function EditLocationModel(props) {
   const navigate = useNavigate();
-  //truyen du lieu qua cac component
-  //  const contextTour = useContext(TourContext);
-  //  const { itemLocation, setItemLocation } = contextTour;
-
   // lấy id từ ListLocation để sử dụng
   const { id } = useParams()
   const [dataInput, setDataInput] = useState([]);
   const [errors, setErrors] = useState({});
   const [img, setImg] = useState([]);
-
+  const [newImg, setNewImg] = useState([]);
 
 
   useEffect(() => {
@@ -26,14 +19,13 @@ function EditLocationModel(props) {
     getLocation(id)
       .then((response) => {
         console.log("Location by id", response);
-
         setDataInput(response);
       })
       .catch((error) => {
         console.log(error);
       });
-      axios
-      .get(`http://localhost:5158/api/LocationImage/${id}`)
+    axios
+      .get(`http://localhost:5158/api/LocationImage/GetLocationImagesByLocationId/${id}`)
       .then((s) => {
         setImg(s.data.data);
         return s.data.data;
@@ -42,6 +34,7 @@ function EditLocationModel(props) {
 
 
   }, []);
+
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -59,6 +52,8 @@ function EditLocationModel(props) {
   // Upload hinh
   const formData = new FormData();
   const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setNewImg(files);
     for (var i = 0; i < e.target.files.length; i++) {
       formData.append("files", e.target.files[i]);
     }
@@ -66,7 +61,6 @@ function EditLocationModel(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = validateForm(dataInput);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -74,30 +68,40 @@ function EditLocationModel(props) {
     }
 
     // Gọi API để cập nhật location form
-      updateLocation(id, dataInput)
+    updateLocation(id, dataInput)
       .then((response) => {
         // Xử lý thành công
-        // return response.data.location_id;
       });
-      
-        // Upload hinh
-          updateLocationImage(id,formData)
-          .then((response) => {
-            console.log("Image after Update:", response);
 
-            // if (response.status === 200) {
-              navigate(`/admin/location/detail/${id}`);
-            // }
-          })
-          .catch((error) => console.log(error));
-     
-    
+    // Upload hinh
+    // updateLocationImage(id,formData)
+    // .then((response) => {
+    //   console.log("Image after Update:", response);
+
+    //   // if (response.status === 200) {
+    //     navigate(`/admin/location/detail/${id}`);
+    //   // }
+    // })
+    // .catch((error) => console.log(error));
+
+    if (newImg.length > 0) {
+      const formData = new FormData();
+      newImg.forEach((file) => {
+        formData.append("files", file);
+      });
+      // Gọi API để cập nhật hình mới
+      updateLocationImage(id, formData)
+        .then((response) => {
+          console.log("Image after Update:", response);
+          navigate(`/admin/location/detail/${id}`);
+        })
+        .catch((error) => console.log(error));
+    }
 
     // Tạm thời in ra console để kiểm tra dữ liệu được gửi đi
-    console.log("Updated Location:", dataInput);
-
-    // navigate(`/admin/location/detail`);
+    console.log("Updated Location data:", dataInput);
   };
+
   //chuyen trang
   const handleGetPageList = () => {
     navigate(`/admin/location`);
@@ -106,12 +110,22 @@ function EditLocationModel(props) {
   const validateForm = (dataInput) => {
     let errors = {};
 
+    if (!dataInput.location_id) {
+      errors.location_id = "Location ID is required";
+    }
+
     if (!dataInput.location_name) {
       errors.location_name = "Location Name is required";
+    } else if (dataInput.location_name.length < 3 || dataInput.location_name.length > 30) {
+      errors.location_name = "Location Name must be between 3 - 30 characters";
     }
 
     if (!dataInput.description) {
       errors.description = "Description is required";
+    }
+
+    if (!dataInput.status_Location) {
+      errors.status_Location = "Status is required";
     }
 
     return errors;

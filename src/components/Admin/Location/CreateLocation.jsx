@@ -2,9 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom/dist";
 
-
-
-
 function CreateLocation() {
   const navigate = useNavigate();
   const initalValue = {
@@ -15,7 +12,6 @@ function CreateLocation() {
   };
   const [dataInput, setDataInput] = useState(initalValue);
   const [errors, setErrors] = useState({});
-
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -39,7 +35,7 @@ function CreateLocation() {
 
   const formData = new FormData();
 
-  // Upload hinh
+  // Create photo
   const handleFileChange = (e) => {
     for (var i = 0; i < e.target.files.length; i++) {
       formData.append("files", e.target.files[i]);
@@ -53,33 +49,40 @@ function CreateLocation() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //kiem tra loi truoc khi nhap
+    //Validate form before call API to create
     const newErrors = validateForm(dataInput);
+    
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
     axios
-      .post("http://localhost:5158/api/Location", data)
+      .post("http://localhost:5158/api/Location/AddLocation", data)
       .then((result) => {
         console.log(result.data)
         return result.data.location_id;
       })
-      .then((location_id) => {
-        // Upload hinh
+     .then((location_id) => {
+      if (formData.get("files")) {
+        // Create photo only if files are present
         axios
-          .post(`http://localhost:5158/api/LocationImage?Location_id=${dataInput.location_id}`, formData)
+          .post(`http://localhost:5158/api/LocationImage/PostLocationImages?Location_id=${dataInput.location_id}`, formData)
           .then((result) => {
-            console.log("result", result)
+            console.log("result", result);
             if (result.data.status === 200) {
               navigate(`/admin/location`);
-
             }
           })
           .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
-  };
+      } else {
+        // No files, directly navigate to the next page
+        navigate(`/admin/location`);
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+  // Validate
   const validateForm = (dataInput) => {
     let errors = {};
 
@@ -89,6 +92,8 @@ function CreateLocation() {
 
     if (!dataInput.location_name) {
       errors.location_name = "Location Name is required";
+    } else if (dataInput.location_name.length < 3 || dataInput.location_name.length > 30) {
+      errors.location_name = "Location Name must be between 3 - 30 characters";
     }
 
     if (!dataInput.description) {

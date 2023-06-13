@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from "react";
-import { getLocation, updateLocation } from "./ApiServiceLocation";
+import { deleteLocation, getLocation, updateLocation } from "./ApiServiceLocation";
 import "../AdminManager.css";
 import axios from "axios";
 import { TourContext } from "../contexts/TourContext";
@@ -38,10 +38,11 @@ const LocationDetail = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        handleDeleteLocation(location_id)
+        deleteLocation(location_id)
           .then((s) => {
         
-        setLocation(location.filter((item) => item.location_id !== location_id));
+     
+            navigate("/admin/location");
 
           })
           .then((error) => console.log(error));
@@ -60,7 +61,7 @@ const LocationDetail = () => {
       })
       .then((loca) => {
         axios
-        .get(`http://localhost:5158/api/LocationImage/${id}`)
+        .get(`http://localhost:5158/api/LocationImage/GetLocationImagesByLocationId/${id}`)
         .then((i) => {
             if (img.length > 0) {
               var list = Object.values(img).concat(Object.values(i.data.data));

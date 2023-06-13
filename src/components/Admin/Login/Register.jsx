@@ -16,6 +16,7 @@ function Register(props) {
   };
 
   const [dataInput, setDataInput] = useState(initialState);
+  const [errors, setErrors] = useState({});
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -23,6 +24,10 @@ function Register(props) {
     setDataInput({
       ...dataInput,
       [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: "",
     });
   };
 
@@ -49,11 +54,19 @@ function Register(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //Validate form before call API to create
+    const newErrors = validateForm(dataInput);
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     axios
       .post("http://localhost:5158/api/User/addUser", data)
       .then((result) => {
         console.log(result.data);
-        if(result.data.status===201){
+        if (result.data.status === 201) {
           navigate("/");
         }
         // return result.data.user_id;
@@ -70,6 +83,41 @@ function Register(props) {
       //     .catch((err) => console.log(err));
       // })
       .catch((err) => console.log(err));
+  };
+
+  // Validate message
+  const validateForm = (dataInput) => {
+    let errors = {};
+
+    if (!dataInput.user_name) {
+      errors.user_name = "User Name is required";
+    } else if (dataInput.user_name.length < 3 || dataInput.user_name.length > 30) {
+      errors.user_name = "User Name must be between 3 - 30 characters";
+    }
+
+    if (!dataInput.phone_number) {
+      errors.phone_number = "Phone Number is required";
+    }
+    if (!dataInput.email) {
+      errors.email = "email is required";
+    } else if (!/\S+@\S+\.\S+/.test(dataInput.email)) {
+      errors.email = "Invalid email format";
+    }
+
+    if (!dataInput.role) {
+      errors.role = "Role is required. Please enter Admin/User";
+    }
+
+    if (!dataInput.total_payment) {
+      errors.total_payment = "Total_payment is required";
+    }
+    if (!dataInput.password) {
+      errors.password = "password is required";
+    } else if (dataInput.password.length < 6 || dataInput.password.length > 20) {
+      errors.password = "Password must be between 6 - 20 characters";
+    }
+
+    return errors;
   };
 
   return (
@@ -90,22 +138,25 @@ function Register(props) {
                         <div class="col-sm-6 mb-3 mb-sm-0">
                           <input
                             type="text"
-                            class="form-control form-control-user"
+                            className={`form-control form-control-user ${errors.user_name ? "is-invalid" : ""}`}
                             id="username"
                             placeholder="user name"
                             name="user_name"
                             onChange={handleChangeInput}
                           />
+                          {errors.user_name && <div className="invalid-feedback">{errors.user_name}</div>}
+
                         </div>
                         <div class="col-sm-6">
                           <input
                             type="text"
-                            class="form-control form-control-user"
+                            className={`form-control form-control-user ${errors.phone_number ? "is-invalid" : ""}`}
                             id="phonenumber"
                             placeholder="phone number"
                             name="phone_number"
                             onChange={handleChangeInput}
                           />
+                          {errors.phone_number && <div className="invalid-feedback">{errors.phone_number}</div>}
                         </div>
                       </div>
                       <div class="form-group">
@@ -121,36 +172,39 @@ function Register(props) {
                       <div class="form-group">
                         <input
                           type="email"
-                          class="form-control form-control-user"
+                          className={`form-control form-control-user ${errors.email ? "is-invalid" : ""}`}
                           id="email"
                           placeholder="Email Address"
                           name="email"
                           onChange={handleChangeInput}
                         />
+                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                       </div>
                       <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                           <input
                             type="password"
-                            class="form-control form-control-user"
+                            className={`form-control form-control-user ${errors.password ? "is-invalid" : ""}`}
                             id="password"
                             placeholder="Password"
                             name="password"
                             onChange={handleChangeInput}
                           />
+                          {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                         </div>
                         <div class="col-sm-6">
-                        <input hidden
-                          type="text"
-                          class="form-control form-control-user"
-                          id="role"
-                          name="role"
-                          value={dataInput.role}
-                          onChange={handleChangeInput}
-                        />
+                          <input hidden
+                            type="text"
+                            className={`form-control form-control-user ${errors.role ? "is-invalid" : ""}`}
+                            id="role"
+                            name="role"
+                            value={dataInput.role}
+                            onChange={handleChangeInput}
+                          />
+                          {errors.role && <div className="invalid-feedback">{errors.role}</div>}
+                        </div>
                       </div>
-                      </div>
-                      <button  class="btn btn-primary btn-user btn-block">
+                      <button class="btn btn-primary btn-user btn-block">
                         Register Account
                       </button>
 
