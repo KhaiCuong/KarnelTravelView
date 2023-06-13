@@ -75,6 +75,11 @@ function App() {
             <Route path="detail/:id" element={<UserDetailTransport />} />
           </Route>
 
+          <Route path="restaurant">
+            <Route index element={<Restaurant />} />
+            <Route path="detail/:id" element={<DetailofRestaurant />} />
+          </Route>
+
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />

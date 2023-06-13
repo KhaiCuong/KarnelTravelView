@@ -79,7 +79,7 @@ const Header = ({ setShowModal, showModal }) => {
             <Link to ="/usertransport">Transport</Link>
             </li>
 
-            <li className="navItem">
+            {/* <li className="navItem">
               <a href="">About</a>
             </li>
 
@@ -89,7 +89,7 @@ const Header = ({ setShowModal, showModal }) => {
 
             <li className="navItem">
               <a href="">News</a>
-            </li>
+            </li> */}
             <li className="navItem">
               <a href="">Contacts</a>
             </li>
@@ -100,8 +100,8 @@ const Header = ({ setShowModal, showModal }) => {
             ) : (
               <>
                 <li className="nav-item dropdown no-arrow w-10">
-                  <a className="ml-3 nav-link dropdown-toggle d-flex justify-content-end w-90 align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img className="img-profile rounded-circle w-35 " src="img/undraw_profile.svg" />
+                  <a className="  nav-link dropdown-toggle d-flex justify-content-end w-90 align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img className="img-profile rounded-circle w-30 " src="/img/undraw_profile.svg" />
                     <div className="ml-1">
                       <a href="">Account</a>
                     </div>
