@@ -82,130 +82,7 @@ function DetailofRestaurant() {
       <section className="ftco-section ftco-degree-bg">
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 sidebar">
-              <div className="sidebar-wrap bg-light ftco-animate">
-                <h3 className="heading mb-4">Find City</h3>
-                <form action="#">
-                  <div className="fields">
-                    <div className="form-group">
-                      <input type="text" className="form-control" placeholder="Destination, City" />
-                    </div>
-                    <div className="form-group">
-                      <div className="select-wrap one-third">
-                        <div className="icon">
-                          <span className="ion-ios-arrow-down"></span>
-                        </div>
-                        <select name="" id="" className="form-control" placeholder="Keyword search">
-                          <option value="">Select Location</option>
-                          <option value="">San Francisco USA</option>
-                          <option value="">Berlin Germany</option>
-                          <option value="">Lodon United Kingdom</option>
-                          <option value="">Paris Italy</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <input type="text" id="checkin_date" className="form-control" placeholder="Date from" />
-                    </div>
-                    <div className="form-group">
-                      <input type="text" id="checkin_date" className="form-control" placeholder="Date to" />
-                    </div>
-                    <div className="form-group">
-                      <div className="range-slider">
-                        <span>
-                          <input type="number" value="25000" min="0" max="120000" /> -
-                          <input type="number" value="50000" min="0" max="120000" />
-                        </span>
-                        <input value="1000" min="0" max="120000" step="500" type="range" />
-                        <input value="50000" min="0" max="120000" step="500" type="range" />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <input type="submit" value="Search" className="btn btn-primary py-3 px-5" />
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div className="sidebar-wrap bg-light ftco-animate">
-                <h3 className="heading mb-4">Star Rating</h3>
-                <form method="post" className="star-rating">
-                  <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" for="exampleCheck1">
-                      <p className="rate">
-                        <span>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                        </span>
-                      </p>
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" for="exampleCheck1">
-                      <p className="rate">
-                        <span>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star-o"></i>
-                        </span>
-                      </p>
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" for="exampleCheck1">
-                      <p className="rate">
-                        <span>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star-o"></i>
-                          <i className="icon-star-o"></i>
-                        </span>
-                      </p>
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" for="exampleCheck1">
-                      <p className="rate">
-                        <span>
-                          <i className="icon-star"></i>
-                          <i className="icon-star"></i>
-                          <i className="icon-star-o"></i>
-                          <i className="icon-star-o"></i>
-                          <i className="icon-star-o"></i>
-                        </span>
-                      </p>
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" for="exampleCheck1">
-                      <p className="rate">
-                        <span>
-                          <i className="icon-star"></i>
-                          <i className="icon-star-o"></i>
-                          <i className="icon-star-o"></i>
-                          <i className="icon-star-o"></i>
-                          <i className="icon-star-o"></i>
-                        </span>
-                      </p>
-                    </label>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="col-lg-9">
-              <div className="row">
-                <div className="col-md-12 ftco-animate"></div>
-                <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
+            
                   <span>Our Best Restaurants</span>
                   <h2>{restaurant.restaurant_name}</h2>
                   <p>
@@ -511,10 +388,10 @@ function DetailofRestaurant() {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* <!-- .col-md-8 --> */}
-          </div>
-        </div>
+            
+           
+          
+      
       </section>
       {/* < !-- .section --> */}
     </div>
