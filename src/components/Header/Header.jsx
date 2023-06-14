@@ -172,7 +172,8 @@ const Header = ({ setShowModal, showModal }) => {
                     >
                       <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                       Profile
-                    </a>
+                      </button>
+                   
                     <a className="dropdown-item" href="/my-booking">
                       <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                       My Booking

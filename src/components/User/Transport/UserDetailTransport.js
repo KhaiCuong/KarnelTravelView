@@ -10,7 +10,13 @@ function UserDetailTransport() {
   const [transport, setTransport] = useState([]);
 
   // Booking
-  const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    addMultiQuantity,
+    removeFromCart,
+    quantity,
+  } = useShoppingCart();
   const [valid, setValid] = useState(false);
   let [count, setCount] = useState(1);
   function incrementCount() {
@@ -273,161 +279,201 @@ function UserDetailTransport() {
               </div>
             </div>
             {/* Booking */}
-            <div className="col-lg-6 ">
-              <div className=" hotel-single ftco-animate mb-2 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
-                <h4 className="mb-5 mt-3 text-center ">
-                  Booking <i class="fas fa-book-open"></i>
-                </h4>
-                <div className="fields">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group position-relative">
-                        <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
-                        <span class="validity "></span>
+                <div className="col-lg-6 ">
+                  <div
+                    className=" hotel-single ftco-animate mb-2 mt-4 border border-dark"
+                    style={{ borderRadius: "13px" }}
+                  >
+                    <h4 className="mb-5 mt-3 text-center ">
+                      Booking <i class="fas fa-book-open"></i>
+                    </h4>
+                    <div className="fields">
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group position-relative">
+                            <input
+                              type="date"
+                              id="checkin_date"
+                              onChange={handleChangeDateIn}
+                              className="w-75"
+                              placeholder="Date from"
+                              required
+                            />
+                            <span class="validity "></span>
 
-                        <div className="text-dark">Please enter the time you will come</div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="form-group timess">
-                        <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
-                        <span class="validity"></span>
-                        <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
-                      </div>
-                    </div>
+                            <div className="text-dark">
+                              Please enter the time you will come
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group timess">
+                            <input
+                              type="time"
+                              id="appt-time"
+                              name="appt"
+                              onChange={handleChangeDateOut}
+                              min="09:00"
+                              max="22:00"
+                              required
+                            ></input>
+                            <span class="validity"></span>
+                            <div className="text-dark">
+                              My Restaurant just open from 9am to 10pm
+                            </div>
+                          </div>
+                        </div>
 
-                    <div className="col-md-6 mt-3 mb-3 ">
-                      <div className="form-group">
-                        <h4>Quantity : </h4>
-                      </div>
-                    </div>
-                    <div className="col-md-6 mt-3 mb-3 d-flex ">
-                      <div className="d-flex align-items-center ml-3">
-                        <div className="def-number-input number-input safari_only">
-                          <button className="minus" onClick={decrementCount}></button>
-                          <input className="quantity fw-bold text-black" onChange={handleChangeInput} value={count} type="number" />
-                          <button className="plus" onClick={incrementCount}></button>
+                        <div className="col-md-6 mt-3 mb-3 ">
+                          <div className="form-group">
+                            <h4>Quantity : </h4>
+                          </div>
+                        </div>
+                        <div className="col-md-6 mt-3 mb-3 d-flex ">
+                          <div className="d-flex align-items-center ml-3">
+                            <div className="def-number-input number-input safari_only">
+                              <button
+                                className="minus"
+                                onClick={decrementCount}
+                              ></button>
+                              <input
+                                className="quantity fw-bold text-black"
+                                onChange={handleChangeInput}
+                                value={count}
+                                type="number"
+                              />
+                              <button
+                                className="plus"
+                                onClick={incrementCount}
+                              ></button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <input
+                              type="submit"
+                              onClick={() => {
+                                if (valid && timeIn.length != 0) {
+                                  addMultiQuantity(
+                                    transport.transport_id,
+                                    count,
+                                    "Transport",
+                                    times
+                                  );
+                                }
+                              }}
+                              value="Booking"
+                              className="btn btn-primary py-3"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
 
-                    <div className="col-md-12">
-                      <div className="form-group">
-                        <input
-                          type="submit"
-                          onClick={() => {
-                            if (valid && timeIn.length != 0) {
-                              addMultiQuantity(transport.transport_id, count, "Transport", times);
-                            }
-                          }}
-                          value="Booking"
-                          className="btn btn-primary py-3"
-                        />
+              <hr></hr>
+              <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                <h4 className="mb-4">Related Transport</h4>
+                <div className="row">
+                  <div class="col-md-4 ftco-animate">
+                    <div class="destination">
+                      <div class="text p-3">
+                        <a href={`usertransport/detail/`}>
+                          <h3> From: Name </h3>
+                          <h3>To: Name </h3>
+                          <div>
+                            <span class="price per-price">
+                              Price: Price $
+                              <br />
+                            </span>
+                          </div>
+                        </a>
+                        <hr />
+                        <p class="bottom-area d-flex">
+                          <span hidden>
+                            <i class="icon-map-o"></i> {}
+                          </span>
+                          <span class="ml-auto">
+                            <button
+                              className="btn btn-warning"
+                              onClick={() => {
+                                handleDetailTransport();
+                              }}
+                            >
+                              Booking
+                            </button>
+                          </span>
+                        </p>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <hr></hr>
-          <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-            <h4 className="mb-4">Related Transport</h4>
-            <div className="row">
-              <div class="col-md-4 ftco-animate">
-                <div class="destination">
-                  <div class="text p-3">
-                    <a href={`usertransport/detail/`}>
-                      <h3> From: Name </h3>
-                      <h3>To: Name </h3>
-                      <div>
-                        <span class="price per-price">
-                          Price: Price $
-                          <br />
-                        </span>
+                  <div class="col-md-4 ftco-animate">
+                    <div class="destination">
+                      <div class="text p-3">
+                        <a href={`usertransport/detail/`}>
+                          <h3> From: Name </h3>
+                          <h3>To: Name </h3>
+                          <div>
+                            <span class="price per-price">
+                              Price: Price $
+                              <br />
+                            </span>
+                          </div>
+                        </a>
+                        <hr />
+                        <p class="bottom-area d-flex">
+                          <span hidden>
+                            <i class="icon-map-o"></i> {}
+                          </span>
+                          <span class="ml-auto">
+                            <button
+                              className="btn btn-warning"
+                              onClick={() => {
+                                handleDetailTransport();
+                              }}
+                            >
+                              Booking
+                            </button>
+                          </span>
+                        </p>
                       </div>
-                    </a>
-                    <hr />
-                    <p class="bottom-area d-flex">
-                      <span hidden>
-                        <i class="icon-map-o"></i> {}
-                      </span>
-                      <span class="ml-auto">
-                        <button
-                          className="btn btn-warning"
-                          onClick={() => {
-                            handleDetailTransport();
-                          }}
-                        >
-                          Booking
-                        </button>
-                      </span>
-                    </p>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-4 ftco-animate">
-                <div class="destination">
-                  <div class="text p-3">
-                    <a href={`usertransport/detail/`}>
-                      <h3> From: Name </h3>
-                      <h3>To: Name </h3>
-                      <div>
-                        <span class="price per-price">
-                          Price: Price $
-                          <br />
-                        </span>
+                  <div class="col-md-4 ftco-animate">
+                    <div class="destination">
+                      <div class="text p-3">
+                        <a href={`usertransport/detail/`}>
+                          <h3> From: Name </h3>
+                          <h3>To: Name </h3>
+                          <div>
+                            <span class="price per-price">
+                              Price: Price $
+                              <br />
+                            </span>
+                          </div>
+                        </a>
+                        <hr />
+                        <p class="bottom-area d-flex">
+                          <span hidden>
+                            <i class="icon-map-o"></i> {}
+                          </span>
+                          <span class="ml-auto">
+                            <button
+                              className="btn btn-warning"
+                              onClick={() => {
+                                handleDetailTransport();
+                              }}
+                            >
+                              Booking
+                            </button>
+                          </span>
+                        </p>
                       </div>
-                    </a>
-                    <hr />
-                    <p class="bottom-area d-flex">
-                      <span hidden>
-                        <i class="icon-map-o"></i> {}
-                      </span>
-                      <span class="ml-auto">
-                        <button
-                          className="btn btn-warning"
-                          onClick={() => {
-                            handleDetailTransport();
-                          }}
-                        >
-                          Booking
-                        </button>
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 ftco-animate">
-                <div class="destination">
-                  <div class="text p-3">
-                    <a href={`usertransport/detail/`}>
-                      <h3> From: Name </h3>
-                      <h3>To: Name </h3>
-                      <div>
-                        <span class="price per-price">
-                          Price: Price $
-                          <br />
-                        </span>
-                      </div>
-                    </a>
-                    <hr />
-                    <p class="bottom-area d-flex">
-                      <span hidden>
-                        <i class="icon-map-o"></i> {}
-                      </span>
-                      <span class="ml-auto">
-                        <button
-                          className="btn btn-warning"
-                          onClick={() => {
-                            handleDetailTransport();
-                          }}
-                        >
-                          Booking
-                        </button>
-                      </span>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
