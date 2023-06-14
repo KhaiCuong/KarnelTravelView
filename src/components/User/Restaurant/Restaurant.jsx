@@ -8,7 +8,6 @@ import {
   getRestaurantImageByID,
 } from "../../User/Restaurant/Service/ApiService";
 
-
 //Booking
 import { useShoppingCart } from "../Context/ShoppingCartContext";
 
@@ -112,91 +111,55 @@ function Restaurant() {
           </h3>
         </div>
 
-          <div className="secContent grid">
-            <div className="row">
-              
-           
-              {restaurant.map((item, index) => (
-                 <div key={index} data-aos="fade-up-right" className='singleDestination'>
-                  <div class="destination">
-                    {restaurantImage[index] && (
-                      <div>
-                        <div
-                          class="icon d-flex justify-content-center align-items-center"
-                          onClick={() =>
-                            handleDetailRestaurant(item.restaurant_id)
-                          }
-                        >
-                          <img
-                            src={`http://localhost:5158/${restaurantImage[index][0]}`}
-                          />
-                          <span class="icon-search2"></span>
-                        </div>
-                      </div>
-                    )}
-                    <div class="text p-3">
-                      <div class="d-flex">
-                        <div class="one">
-                          <h3>
-                            <a href={`restaurant/detail/${item.restaurant_id}`}>
-                              {item.restaurant_name}
-                            </a>
-                          </h3>
-                          <p class="rate">
-                            <p>
-                              {item.rate} <i class="fa fa-star-o"></i>
-                            </p>
-                          </p>
-                        </div>
-                        <div class="two">
-                          <span class="price per-price">
-                            {item.price}
-                            <i class="fa fa-dollar"></i>
-                            <br />
-                          </span>
-                        </div>
-                      </div>
-                      <a>
-                        {fullDescription ? (
-                          <p>{item.description}</p>
-                        ) : (
-                          <p>{`${item.description.substring(0, 30)}...`}</p>
-                        )}
-                        {/* <button
-                          onClick={() => setFullDescription(!fullDescription)}
-                        >
-                          {fullDescription ? "View Less" : "View More"}
-                        </button> */}
-                      </a>
-                      <hr />
-                      <p class="bottom-area d-flex">
-                        <span>
-                          <i class="icon-map-o"></i> {item.location_id}
-                        </span>
-                        
-                        <span class="ml-auto">
-                          <Link
-                            onClick={() =>
-                              increaseCartQuantity(
-                                item.restaurant_id,
-                                "Restaurant",
-                                times
-                              )
-                            }
-                          >
-                            Book Now
-                          </Link>
-                        </span>
-                        
-                      </p>
-                    </div>
+        <div className="secContent grid">
+          {restaurant.map((item, idx) => (
+            <div
+              key={idx}
+              data-aos="fade-up-right"
+              className="singleDestination"
+            >
+              {restaurantImage[idx] && (
+              <div className="imageDiv">
+                <img
+                  src={`http://localhost:5158/${restaurantImage[idx][0]}`}
+                  alt={item.restaurant_name}
+                />
+              </div>
+                )}
+              <div className="cardInfo">
+                <h4 className="destTitle">{item.restaurant_name}</h4>
+                <span className="continent flex">
+                  <Room className="icon" />
+                  <span className="name">{item.location_id}</span>
+                </span>
+
+                <div className="fees flex">
+                  <div className="grade">
+                    <span>
+                      {item.rate}
+                      <i class="fa fa-star-o"></i>
+                    </span>
+                  </div>
+                  <div className="price">
+                    <h5>{item.price}<i class="fa fa-dollar"></i></h5>
                   </div>
                 </div>
-              ))}
+
+                <div className="description">
+                  {fullDescription ? (
+                    <p>{item.description}</p>
+                  ) : (
+                    <p>{`${item.description.substring(0, 30)}...`}</p>
+                  )}
+                </div>
+
+                <button className="btn flex" onClick={() => handleDetailRestaurant(item.restaurant_id)}>
+                  DETAILS <ContentPaste className="icon" />
+                </button>
+              </div>
             </div>
-            </div>
-          
-        
+          ))}
+        </div>
       </section>
     </>
   );

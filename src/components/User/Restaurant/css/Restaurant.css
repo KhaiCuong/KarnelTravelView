@@ -1,4 +1,4 @@
-/* :root {
+:root {
   --primaryColor: hsl(199, 100%, 33%);
   --secondaryColor: hsl(187, 85%, 43%);
   --gradientColor: linear-gradient(to right, hsl(187,85%, 43%), hsl(199, 100%, 33%));
@@ -133,37 +133,6 @@
   align-self: center;
   font-size: 15px;
 }
-.groove{
-  border: 2px solid hsl(199, 100%, 33%);
-  border-radius: 12px;
-  padding: 5px;
-}
-
-.star-rating .star {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 0 4px;
-  position: relative;
-  cursor: pointer;
-  justify-content: center;
-  
-}
-
-.star-rating .star:before {
-  content: "\2606";
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #ccc;
-  transition: color .2s ease-in-out;
-}
-
-.star-rating .star:hover:before,
-.star-rating .star:hover ~ .star:before,
-.star-rating .star.selected:before {
-  color: #ffd900;
-}
 
 @media screen and (min-width: 500px) {
   .title {
@@ -186,4 +155,4 @@
   .secContent .singleDestination {
     height: auto;
   }
-}# sourceMappingURL=mainContent.css.map */
+}/*# sourceMappingURL=mainContent.css.map */
