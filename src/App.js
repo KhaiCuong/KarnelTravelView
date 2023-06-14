@@ -51,6 +51,10 @@ import Booking from "./components/User/Booking/Booking";
 import Tour from "./components/User/Tour/Tour";
 import DetailTour from "./components/User/Tour/DetailTour";
 
+import Contact from "./components/User/Contact/Contact";
+import Feedback from "./components/User/Contact/Feedback";
+import BookingList from "./components/User/Booking/BookingLisht";
+import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
 import PersonalProfile from "./components/User/ProfileUser/ProfileUser";
 import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
@@ -86,6 +90,11 @@ function App() {
             <Route path="detail/:id" element={<DetailofRestaurant />} />
           </Route>
 
+          <Route path="contact" element={<Contact />} />
+          <Route path="my-booking" element={<BookingList />} />
+
+          <Route path="feedback" element={<Feedback />} />
+
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
@@ -96,7 +105,6 @@ function App() {
           </Route>
         </Route>
 
-
         <Route path="register" element={<Register></Register>}></Route>
         {/* View Profile */}
         <Route path="profileuser">
@@ -104,7 +112,7 @@ function App() {
             <Route  path="update/:id" element={<ProfileUpdate/>} />
           </Route>
 
-        <Route path="booking/:id" element={<Booking></Booking>} />
+        {/* <Route path="booking/:id" element={<Booking></Booking>} /> */}
 
         <Route
           path="login"
@@ -119,9 +127,9 @@ function App() {
 
           {/* Location Route */}
           <Route path="location">
-            <Route index element={<ListLocations/>}/>
-            <Route path="create" element={<CreateLocation/>}/>
-            <Route path="update/:id" element={<EditLocationModel/>}/>
+            <Route index element={<ListLocations />} />
+            <Route path="create" element={<CreateLocation />} />
+            <Route path="update/:id" element={<EditLocationModel />} />
             <Route path="detail/:id" element={<LocationDetail />} />
           </Route>
           <Route path="tour">
@@ -152,10 +160,14 @@ function App() {
             <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
           </Route>
           <Route path="account">
-            <Route index element={<AccountManager />} />
+            <Route index > 
+          <Route index element={<AccountManager />} />
             <Route path="detailUser/:id" element={<AccountDetailManager />} />
           </Route>
          
+          
+          </Route>
+
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
             <Route

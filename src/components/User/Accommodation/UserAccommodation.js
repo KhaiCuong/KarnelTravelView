@@ -16,7 +16,7 @@ function UserAccommodation() {
   //Booking
   var today = new Date();
   const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart();
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart ,getBookingByBookingId } = useShoppingCart();
   let times = {
     timeIn : date,
     timeOut: date
@@ -123,7 +123,9 @@ function UserAccommodation() {
                       <div class="d-flex">
                         <div class="one">
                           <h3>
-                            <a href={`accommodation/detail/${item.accommodation_id}`}>{item.accommodation_name}</a>
+                            <a href={`accommodation/detail/${item.accommodation_id}`}>
+                            {item.accommodation_name.length > 15  ? ( `${item.accommodation_name.substring(0, 15)}...`) : item.accommodation_name} 
+                            </a>
                           </h3>
                           <p class="rate">
                             <i class="icon-star"></i>

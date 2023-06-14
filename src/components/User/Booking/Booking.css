@@ -176,16 +176,35 @@ input + span {
   padding-right: 30px;
 }
 
-input:invalid + span::after {
+#appt-time:invalid + span::after {
   position: absolute;
   content: "✖";
   color: red;
   padding-left: 5px;
 }
 
-input:valid + span::after {
+#appt-time:valid + span::after {
   position: absolute;
   content: "✓";
   color: green;
   padding-left: 5px;
 }
+
+
+#checkin_date:valid + span::after {
+  position: absolute;
+  content: "✓";
+  color: green;
+  padding-left: 5px;
+}
+
+#checkin_date:invalid + span::after {
+  position: absolute;
+  content: "✖";
+  color: red;
+  padding-left: 5px;
+}
+
+
+
+

@@ -2,16 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import "../Accommodation/css/DetailAccommodation.css";
+import { useShoppingCart } from "../Context/ShoppingCartContext";
 import { getListTransport, getTransportByID } from "./Service/ApiService";
 
 function UserDetailTransport() {
   const { id } = useParams();
-
   const [transport, setTransport] = useState([]);
-  // const [imageAccommodation, setImageAccommodation] = useState([]);
 
-  // const [extraAccommodation, setExtraAccommodation] = useState([]);
-  // const [extraAccommodationImage, setExtraAccommodationImage] = useState([]);
+  // Booking
+  const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
+  const [valid, setValid] = useState(false);
+  let [count, setCount] = useState(1);
+  function incrementCount() {
+    count = count + 1;
+    setCount(count);
+  }
+  function decrementCount() {
+    count = count - 1;
+    setCount(count);
+  }
 
   const [transportID, setTransportID] = useState();
 
@@ -44,15 +53,31 @@ function UserDetailTransport() {
     //window.location.reload(`accommodation/detail/:${id}`);
     //console.log("id", id);
   };
-  // console.log("accommodation", accommodation);
-  // console.log("imageAccommodation", imageAccommodation);
+
+  const handleChangeInput = (e) => {
+    setCount(e.target.value);
+  };
+  const [timeIn, setTimeIn] = useState([]);
+  const [timeOut, setTimeOut] = useState([]);
+  const handleChangeDateIn = (e) => {
+    console.log("e", e.target.value);
+    setTimeIn(e.target.value);
+  };
+  const handleChangeDateOut = (e) => {
+    setTimeOut(e.target.value);
+    if (e.target.min < e.target.value && e.target.max > e.target.value) {
+      setValid(true);
+    } else {
+      setValid(false);
+    }
+  };
+  let times = {
+    timeIn: timeIn,
+    timeOut: timeOut,
+  };
+
   return (
     <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <section className="ftco-section ftco-degree-bg">
         <div className="container">
           <div className="row">
@@ -240,350 +265,173 @@ function UserDetailTransport() {
                       <span className="visually-hidden">Next</span>
                     </button>
                   </div>
-                </div> */}
-                <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                  <span>Our Best hotels &amp; Rooms</span>
-                  <h2>{transport.transport_name}</h2>
-                  <p className="rate mb-5">
-                    {/* <span className="loc">
-                      <a href="#">
-                        <i className="icon-map"></i> 291 South 21th Street,
-                        Suite 721 New York NY 10016
-                      </a>
-                    </span> */}
-                    &nbsp;
-                    <span className="star">
-                      <i className="icon-star"></i>
-                      <i className="icon-star"></i>
-                      <i className="icon-star"></i>
-                      <i className="icon-star"></i>
-                      <i className="icon-star-o"></i>
-                    </span>
-                  </p>
-                  {/* <p>{accommodation.description}</p> */}
-                </div>
-                {/* <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                                    <h4 className="mb-4">Take A Tour</h4>
-                                    <div className="block-16">
-                                        <figure>
-                                            <img src="images/hotel-6.jpg" alt="Image placeholder" className="img-fluid" />
-                                            <a href="https://vimeo.com/45830194" className="play-button popup-vimeo"><span className="icon-play"></span></a>
-                                        </figure>
-                                    </div>
-                                </div> */}
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                  <h4 className="mb-4">Our Transport</h4>
-                  <div className="row">
-                    <div class="col-md-4 ftco-animate">
-                      <div class="destination">
-                        {/* {transport[index] && (
-                            <div>
-                              <div class="icon d-flex justify-content-center align-items-center">
-                                <img src={`http://localhost:5158/${extraAccommodationImage[index][0]}`} />
-                                <span class="icon-search2"></span>
-                              </div>
-                            </div>
-                          )} */}
-                        <div class="text p-3">
-                          <div class="d-flex">
-                            <div class="one">
-                              <h3>
-                                <a
-                                  href={`usertransport/detail/${transport.transport_id}`}
-                                >
-                                  Name Transport:{transport.transport_name}
-                                </a>
-                              </h3>
-                              <p class="rate">
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star-o"></i>
-                                {/* <span>8 Rating</span> */}
-                              </p>
-                            </div>
-                            <div class="two">
-                              <span class="price per-price">
-                                Price: {transport.price}
-                                <br />
-                                {/* <small>/night</small> */}
-                              </span>
-                            </div>
-                          </div>
-                          {/* <p>{transport.description}</p> */}
-                          <hr />
-                          <p class="bottom-area d-flex">
-                            <span hidden>
-                              <i class="icon-map-o"></i> {transport.location_id}
-                            </span>
-                            <span class="ml-auto">
-                              <Link to="#">Book Now</Link>
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                  <h4 className="mb-5">Check Availability &amp; Booking</h4>
-                  <div className="fields">
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Name"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Email"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            id="checkin_date"
-                            className="form-control"
-                            placeholder="Date from"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            id="checkin_date"
-                            className="form-control"
-                            placeholder="Date to"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <div className="select-wrap one-third">
-                            <div className="icon">
-                              <span className="ion-ios-arrow-down"></span>
-                            </div>
-                            <select
-                              name=""
-                              id=""
-                              className="form-control"
-                              placeholder="Guest"
-                            >
-                              <option value="0">Guest</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <div className="select-wrap one-third">
-                            <div className="icon">
-                              <span className="ion-ios-arrow-down"></span>
-                            </div>
-                            <select
-                              name=""
-                              id=""
-                              className="form-control"
-                              placeholder="Children"
-                            >
-                              <option value="0">Children</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-12">
-                        <div className="form-group">
-                          <input
-                            type="submit"
-                            value="Check Availability"
-                            className="btn btn-primary py-3"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                  <h4 className="mb-4">Review &amp; Ratings</h4>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <form method="post" className="star-rating">
-                        <div className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="exampleCheck1"
-                          />
-                          <label
-                            className="form-check-label"
-                            for="exampleCheck1"
-                          >
-                            <p className="rate">
-                              <span>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i> 100 Ratings
-                              </span>
-                            </p>
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="exampleCheck1"
-                          />
-                          <label
-                            className="form-check-label"
-                            for="exampleCheck1"
-                          >
-                            <p className="rate">
-                              <span>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star-o"></i> 30 Ratings
-                              </span>
-                            </p>
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="exampleCheck1"
-                          />
-                          <label
-                            className="form-check-label"
-                            for="exampleCheck1"
-                          >
-                            <p className="rate">
-                              <span>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star-o"></i>
-                                <i className="icon-star-o"></i> 5 Ratings
-                              </span>
-                            </p>
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="exampleCheck1"
-                          />
-                          <label
-                            className="form-check-label"
-                            for="exampleCheck1"
-                          >
-                            <p className="rate">
-                              <span>
-                                <i className="icon-star"></i>
-                                <i className="icon-star"></i>
-                                <i className="icon-star-o"></i>
-                                <i className="icon-star-o"></i>
-                                <i className="icon-star-o"></i> 0 Ratings
-                              </span>
-                            </p>
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="exampleCheck1"
-                          />
-                          <label
-                            className="form-check-label"
-                            for="exampleCheck1"
-                          >
-                            <p className="rate">
-                              <span>
-                                <i className="icon-star"></i>
-                                <i className="icon-star-o"></i>
-                                <i className="icon-star-o"></i>
-                                <i className="icon-star-o"></i>
-                                <i className="icon-star-o"></i> 0 Ratings
-                              </span>
-                            </p>
-                          </label>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-5">
-                  <h4 className="mb-4">Related Hotels</h4>
-                  <div className="row">
-                    {/* {extraAccommodation.slice(0, 3).map((item, index) => (
-                                            <div class="col-md-4 ftco-animate" key={index}>
-                                                <div class="destination">
-                                                    {extraAccommodationImage[index] && (
-                                                        <div>
-                                                            <div class="icon d-flex justify-content-center align-items-center" onClick={() => (handleDetailAccommodation(item.accommodation_id))}>
-                                                                <img src={`http://localhost:5158/${extraAccommodationImage[index][0]}`} />
-                                                                <span class="icon-search2" >
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    <div class="text p-3">
-                                                        <div class="d-flex">
-                                                            <div class="one">
-                                                                <h3><a >{item.accommodation_name}</a></h3>
-                                                                <p class="rate">
-                                                                    <i class="icon-star"></i>
-                                                                    <i class="icon-star"></i>
-                                                                    <i class="icon-star"></i>
-                                                                    <i class="icon-star"></i>
-                                                                    <i class="icon-star-o"></i>
-                                                                    <span>8 Rating</span>
-                                                                </p>
-                                                            </div>
-                                                            <div class="two">
-                                                                <span class="price per-price">{item.price}<br /><small>/night</small></span>
-                                                            </div>
-                                                        </div>
-                                                        <p>{item.description}</p>
-                                                        <hr />
-                                                        <p class="bottom-area d-flex">
-                                                            <span><i class="icon-map-o"></i> {item.location_id}</span>
-                                                            <span class="ml-auto"><Link to="#">Book Now</Link></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        ))} */}
+                  <div className="d-flex text-dark align-items-center">
+                    <i class="fas fa-tag text-light"></i> <h5 className="mr-2  mb-0 ml-1 text-light"> Price: </h5>
+                    <p className="mb-0 text-light"> {transport.price} $</p>
                   </div>
                 </div>
               </div>
             </div>
-            {/* <!-- .col-md-8 --> */}
+            {/* Booking */}
+            <div className="col-lg-6 ">
+              <div className=" hotel-single ftco-animate mb-2 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
+                <h4 className="mb-5 mt-3 text-center ">
+                  Booking <i class="fas fa-book-open"></i>
+                </h4>
+                <div className="fields">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group position-relative">
+                        <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
+                        <span class="validity "></span>
+
+                        <div className="text-dark">Please enter the time you will come</div>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group timess">
+                        <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
+                        <span class="validity"></span>
+                        <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
+                      </div>
+                    </div>
+
+                    <div className="col-md-6 mt-3 mb-3 ">
+                      <div className="form-group">
+                        <h4>Quantity : </h4>
+                      </div>
+                    </div>
+                    <div className="col-md-6 mt-3 mb-3 d-flex ">
+                      <div className="d-flex align-items-center ml-3">
+                        <div className="def-number-input number-input safari_only">
+                          <button className="minus" onClick={decrementCount}></button>
+                          <input className="quantity fw-bold text-black" onChange={handleChangeInput} value={count} type="number" />
+                          <button className="plus" onClick={incrementCount}></button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <input
+                          type="submit"
+                          onClick={() => {
+                            if (valid && timeIn.length != 0) {
+                              addMultiQuantity(transport.transport_id, count, "Transport", times);
+                            }
+                          }}
+                          value="Booking"
+                          className="btn btn-primary py-3"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr></hr>
+          <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+            <h4 className="mb-4">Related Transport</h4>
+            <div className="row">
+              <div class="col-md-4 ftco-animate">
+                <div class="destination">
+                  <div class="text p-3">
+                    <a href={`usertransport/detail/`}>
+                      <h3> From: Name </h3>
+                      <h3>To: Name </h3>
+                      <div>
+                        <span class="price per-price">
+                          Price: Price $
+                          <br />
+                        </span>
+                      </div>
+                    </a>
+                    <hr />
+                    <p class="bottom-area d-flex">
+                      <span hidden>
+                        <i class="icon-map-o"></i> {}
+                      </span>
+                      <span class="ml-auto">
+                        <button
+                          className="btn btn-warning"
+                          onClick={() => {
+                            handleDetailTransport();
+                          }}
+                        >
+                          Booking
+                        </button>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 ftco-animate">
+                <div class="destination">
+                  <div class="text p-3">
+                    <a href={`usertransport/detail/`}>
+                      <h3> From: Name </h3>
+                      <h3>To: Name </h3>
+                      <div>
+                        <span class="price per-price">
+                          Price: Price $
+                          <br />
+                        </span>
+                      </div>
+                    </a>
+                    <hr />
+                    <p class="bottom-area d-flex">
+                      <span hidden>
+                        <i class="icon-map-o"></i> {}
+                      </span>
+                      <span class="ml-auto">
+                        <button
+                          className="btn btn-warning"
+                          onClick={() => {
+                            handleDetailTransport();
+                          }}
+                        >
+                          Booking
+                        </button>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 ftco-animate">
+                <div class="destination">
+                  <div class="text p-3">
+                    <a href={`usertransport/detail/`}>
+                      <h3> From: Name </h3>
+                      <h3>To: Name </h3>
+                      <div>
+                        <span class="price per-price">
+                          Price: Price $
+                          <br />
+                        </span>
+                      </div>
+                    </a>
+                    <hr />
+                    <p class="bottom-area d-flex">
+                      <span hidden>
+                        <i class="icon-map-o"></i> {}
+                      </span>
+                      <span class="ml-auto">
+                        <button
+                          className="btn btn-warning"
+                          onClick={() => {
+                            handleDetailTransport();
+                          }}
+                        >
+                          Booking
+                        </button>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

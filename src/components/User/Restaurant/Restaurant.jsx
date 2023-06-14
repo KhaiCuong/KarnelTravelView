@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "../Restaurant/css/Restaurant.css";
+// import "../Restaurant/css/Restaurant.css";
 import { Room, ContentPaste } from "@mui/icons-material";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ function Restaurant() {
   const [restaurant, setRestaurant] = useState([]);
   const [restaurantImage, setRestaurantImages] = useState([]);
   const [fullDescription, setFullDescription] = useState(false);
+  
   const description = "Description";
   const navigate = useNavigate();
 
@@ -78,6 +79,21 @@ function applyRating(rating) {
     }
   });
 }
+
+// //search
+// function searchRestaurant(keyword) {
+//   const filteredRestaurant = restaurant.filter(restaurant => 
+//     restaurant.restaurant_name.toLowerCase().includes(keyword.toLowerCase())
+//     || restaurant.description.toLowerCase().includes(keyword.toLowerCase())
+//   );
+//   searchRestaurant(filteredRestaurant);
+// }
+// {searchResult.map(restaurant => (
+//   <div key={restaurant.restaurant_id}>
+//     <h3>{restaurant.restaurant_name}</h3>
+//     <p>{restaurant.description}</p>
+//   </div>
+// ))}
   console.log("restaurantImage", restaurantImage);
 
   const handleDetailRestaurant = (id) => {
@@ -91,6 +107,7 @@ function applyRating(rating) {
             Most visited restaurant
           </h3>
         </div>
+        
         <div className="row">
           <div class="col-lg-3 sidebar">
             <div class="sidebar-wrap bg-light ftco-animate">
@@ -162,9 +179,11 @@ function applyRating(rating) {
                   </div>
                   <div class="form-group">
                     <input
+                      
                       type="submit"
                       value="Search"
                       class="btn btn-primary py-3 px-5"
+                      // onChange={e => searchRestaurant(e.target.value)}
                     />
                   </div>
                 </div>
@@ -213,7 +232,7 @@ function applyRating(rating) {
                         <div class="one">
                           <h3>
                             <a href={`restaurant/detail/${item.restaurant_id}`}>
-                              {item.restaurant_name}
+                          {item.restaurant_name.length > 15  ? ( `${item.restaurant_name.substring(0, 15)}...`) : item.restaurant_name} 
                             </a>
                           </h3>
                           <p class="rate">
@@ -248,6 +267,7 @@ function applyRating(rating) {
                           <i class="icon-map-o"></i> {item.location_id}
                         </span>
                         <span class="ml-auto">
+                          {/* Booking */}
                           <Link onClick={() => increaseCartQuantity(item.restaurant_id, "Restaurant",times)}>Book Now</Link>
                         </span>
                       </p>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {  getLocations, getRestaurantByID,  putRestaurant } from './Service/ApiService';
+import {  getLocations, getRestaurantByID,  getRestaurantImageByID,  putRestaurant, putRestaurantImage } from './Service/ApiService';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -7,7 +7,9 @@ function UpdateRestaurant(props) {
     const [locations, setLocations] = useState([]);
     const [restaurant, setRestaurant] = useState([]);
     const [updateRestaurant, setUpdateRestaurant] = useState([]);
+    const [updateImage, setUpdateImage] = useState([]);
     const navigate = useNavigate();
+    const formData = new FormData();
     console.log("props", props);
 
     const { id } = useParams();
@@ -29,8 +31,27 @@ function UpdateRestaurant(props) {
     }, [id]);
 
     useEffect(() => {
+        // fetch the accommodation data with the given ID
+        getRestaurantByID(id)
+          .then((response) => {
+            setRestaurant(response.data);
+            setUpdateRestaurant(response.data);
+            console.log("restaurant", response);
+            if (response.status === 200) {
+                getRestaurantImageByID(id)
+                .then((response) => {
+                  console.log("image", response);
+                  setUpdateImage(response.data);
+                })
+                .catch((error) => console.log("error", error));
+            }
+          })
+          .catch((error) => console.log("error", error));
+      }, [id]);
+      useEffect(() => {
         fetchLocation();
-    }, []);
+      }, []);
+    
 
     const fetchLocation = () => {
         // make an API call to fetch the locations
@@ -50,39 +71,65 @@ function UpdateRestaurant(props) {
             [name]: value
         });
     };
+    const handleFileChange = (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+          for (var i = 0; i < e.target.files.length; i++) {
+            console.log("files", e);
+            formData.append("files", e.target.files[i]);
+          }
+        }
+      };
 
-    const handleSubmit = (e) => {
+      const handleSubmit = (e) => {
         e.preventDefault();
-        //update accommodation with the updatedAccommodation data
+    
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, update it!'
-        })
-            .then(result => {
-                if (result.isConfirmed) {
-                    putRestaurant(id, updatedData)
-                        .then(response => {
-                            console.log("Updated Restaurant", response);
-                            if (response.status === 200) {
-                                Swal.fire(
-                                    'Updated!',
-                                    'Your Restaurant has been updated.',
-                                    'success'
-                                )
-                                // handle success or navigate to another page
-                                navigate("/admin/restaurant");
-                            }
-                        })
-                        .catch(error => console.log("error", error));
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, update it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            putRestaurant(id, updatedData)
+              .then((response) => {
+                console.log("Updated Restaurant", response);
+                if (response.status === 200) {
+                  if (formData.get("files")) {
+                    // Check if new files are selected
+                    putRestaurantImage(id, formData)
+                      .then((response) => {
+                        console.log("updated image", response);
+                        if (response.status === 200) {
+                          Swal.fire(
+                            "Updated!",
+                            "Your Restaurant has been updated.",
+                            "success"
+                          );
+                          // handle success or navigate to another page
+                          navigate("/admin/restaurant");
+                        }
+                      })
+                      .catch((error) => console.log("error", error));
+                  } else {
+                    Swal.fire(
+                      "Updated!",
+                      "Your Restaurant has been updated.",
+                      "success"
+                    );
+                    // handle success or navigate to another page
+                    navigate("/admin/restaurant");
+                  }
                 }
-            })
+              })
+              .catch((error) => console.log("error", error));
+          }
+        });
         console.log("updateRestaurant", updateRestaurant);
-    };
+      };
     return (
         <section>
             <div className="container">
@@ -214,6 +261,38 @@ function UpdateRestaurant(props) {
                             {/* Add more options for locations */}
                         </select>
                     </div>
+                    <div className="mb-3 mt-3">
+            <label for="photoimg" className="form-label w-100">
+              Photo
+            </label>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {updateImage.map((item, index) => (
+                <div
+                  key={index}
+                  style={{ width: "200px", height: "200px", margin: "5px" }}
+                >
+                  <img
+                    src={`http://localhost:5158/${item}`}
+                    alt={item}
+                    className=""
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            <input
+              type="file"
+              className="form-control"
+              id="photoimg"
+              onChange={handleFileChange}
+              multiple
+              style={{ marginTop: "10px" }}
+            />
+          </div>
 
                     <button type="submit" className="btn btn-primary">
                         Submit
