@@ -87,15 +87,20 @@ const Header = ({ setShowModal, showModal }) => {
             </li>
 
             <li className="navItem">
-              <Link to="/restaurant">Restaurant</Link>
+            <Link to="/restaurant">Restaurant</Link>
+              
             </li>
 
             <li className="navItem">
               <Link to="/usertransport">Transport</Link>
             </li>
 
+            <li className="navItem">
+              <a href="/Tour">Tour</a>
+            </li>
+
             {/* <li className="navItem">
-              <a href="">About</a>
+              <a href="/Tour">Tour</a>
             </li>
 
             <li className="navItem">

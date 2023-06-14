@@ -11,6 +11,9 @@ function Login(props) {
   };
   const [dataLogin, setDataLogin] = useState(initialState);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
@@ -18,9 +21,19 @@ function Login(props) {
       ...dataLogin,
       [name]: value,
     });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    //Validate form before call API to create
+    const newErrors = validateForm(dataLogin);
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     axios
       .post("http://localhost:5158/api/Auth/Login", dataLogin)
       .then((data) => {
@@ -40,8 +53,38 @@ function Login(props) {
           }
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage("Login failed. Please check your email and password.");
+      });
   };
+  // thêm hàm forcus để ẩn lỗi khi nhập lại input
+  const handleInputFocus = (name) => {
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
+    setErrorMessage(null);
+  };
+  // Validate
+  const validateForm = (dataLogin) => {
+    let errors = {};
+
+    if (!dataLogin.email) {
+      errors.email = "email is required";
+    } else if (!/\S+@\S+\.\S+/.test(dataLogin.email)) {
+      errors.email = "Invalid email format";
+    }
+    if (!dataLogin.password) {
+      errors.password = "password is required";
+    } else if (dataLogin.password.length < 6 || dataLogin.password.length > 20) {
+      errors.password = "Password must be between 6 - 20 characters";
+    }
+
+
+    return errors;
+  };
+
   return (
     <section>
       <div className="bg-gradient-primary vh-100 justify-content-center align-items-center d-flex">
@@ -55,7 +98,11 @@ function Login(props) {
                     <div class="col-lg-6">
                       <div class="p-5">
                         <div class="text-center">
-                          <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                          {errorMessage ? (
+                            <div className="text-center text-danger mb-3">{errorMessage}</div>
+                          ) : (
+                            <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                          )}
                         </div>
                         <form
                           onSubmit={handleSubmit}
@@ -65,25 +112,31 @@ function Login(props) {
                           <div class="form-group">
                             <input
                               type="email"
-                              class="form-control form-control-user"
+                              className={`form-control form-control-user ${errors.email ? "is-invalid" : ""}`}
                               id="email"
                               aria-describedby="emailHelp"
                               name="email"
                               value={dataLogin.email}
                               onChange={handleInputChange}
+                              onFocus={() => handleInputFocus("email")}
                               placeholder="Enter Email Address..."
                             />
+                            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+
                           </div>
                           <div class="form-group">
                             <input
                               type="password"
-                              class="form-control form-control-user"
+                              className={`form-control form-control-user ${errors.password ? "is-invalid" : ""}`}
                               id="password"
                               name="password"
                               value={dataLogin.password}
                               onChange={handleInputChange}
+                              onFocus={() => handleInputFocus("password")}
                               placeholder="Password"
                             />
+                            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+
                           </div>
                           <div class="form-group">
                             <div class="custom-control custom-checkbox small">
