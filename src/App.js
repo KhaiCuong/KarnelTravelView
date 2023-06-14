@@ -43,6 +43,7 @@ import Restaurant from "./components/User/Restaurant/Restaurant";
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 
 
+
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
   const [userInfo, setUserInfo] = useState();
@@ -77,6 +78,7 @@ function App() {
         <Route path="register" element={<Register></Register>}>
 
         </Route>
+        
         <Route
           path="login"
           element={
