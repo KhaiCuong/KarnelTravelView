@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getLocations, getRestaurantByID, putRestaurant } from './Service/ApiService';
+import {  getLocations, getRestaurantByID,  getRestaurantImageByID,  putRestaurant, putRestaurantImage } from './Service/ApiService';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -33,8 +33,27 @@ function UpdateRestaurant(props) {
     }, [id]);
 
     useEffect(() => {
+        // fetch the accommodation data with the given ID
+        getRestaurantByID(id)
+          .then((response) => {
+            setRestaurant(response.data);
+            setUpdateRestaurant(response.data);
+            console.log("restaurant", response);
+            if (response.status === 200) {
+                getRestaurantImageByID(id)
+                .then((response) => {
+                  console.log("image", response);
+                  setUpdateImage(response.data);
+                })
+                .catch((error) => console.log("error", error));
+            }
+          })
+          .catch((error) => console.log("error", error));
+      }, [id]);
+      useEffect(() => {
         fetchLocation();
-    }, []);
+      }, []);
+    
 
     const fetchLocation = () => {
         // make an API call to fetch the locations
@@ -68,7 +87,7 @@ function UpdateRestaurant(props) {
         }
       };
 
-    const handleSubmit = (e) => {
+      const handleSubmit = (e) => {
         e.preventDefault();
         //Validate form before call API to create
         const newErrors = validateForm(updateRestaurant);
@@ -79,32 +98,49 @@ function UpdateRestaurant(props) {
         }
         //update accommodation with the updatedAccommodation data
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, update it!'
-        })
-            .then(result => {
-                if (result.isConfirmed) {
-                    putRestaurant(id, updatedData)
-                        .then(response => {
-                            console.log("Updated Restaurant", response);
-                            if (response.status === 200) {
-                                Swal.fire(
-                                    'Updated!',
-                                    'Your Restaurant has been updated.',
-                                    'success'
-                                )
-                                // handle success or navigate to another page
-                                navigate("/admin/restaurant");
-                            }
-                        })
-                        .catch(error => console.log("error", error));
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, update it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            putRestaurant(id, updatedData)
+              .then((response) => {
+                console.log("Updated Restaurant", response);
+                if (response.status === 200) {
+                  if (formData.get("files")) {
+                    // Check if new files are selected
+                    putRestaurantImage(id, formData)
+                      .then((response) => {
+                        console.log("updated image", response);
+                        if (response.status === 200) {
+                          Swal.fire(
+                            "Updated!",
+                            "Your Restaurant has been updated.",
+                            "success"
+                          );
+                          // handle success or navigate to another page
+                          navigate("/admin/restaurant");
+                        }
+                      })
+                      .catch((error) => console.log("error", error));
+                  } else {
+                    Swal.fire(
+                      "Updated!",
+                      "Your Restaurant has been updated.",
+                      "success"
+                    );
+                    // handle success or navigate to another page
+                    navigate("/admin/restaurant");
+                  }
                 }
-            })
+              })
+              .catch((error) => console.log("error", error));
+          }
+        });
         console.log("updateRestaurant", updateRestaurant);
     };
 

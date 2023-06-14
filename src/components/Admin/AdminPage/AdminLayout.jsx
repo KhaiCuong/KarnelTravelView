@@ -18,7 +18,7 @@ const AdminLayout = ({ children }) => {
   return (
     <div id="wrapper" className="w-100">
       {/* <!-- Sidebar --> */}
-      <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex" id="accordionSidebar">
+      <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex mt-0" id="accordionSidebar">
         {/* <!-- Sidebar - Brand --> */}
         <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
           <div className="sidebar-brand-icon rotate-n-15">

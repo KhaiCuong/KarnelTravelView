@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "../Restaurant/css/Restaurant.css";
+// import "../Restaurant/css/Restaurant.css";
 import { Room, ContentPaste } from "@mui/icons-material";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -232,7 +232,7 @@ function applyRating(rating) {
                         <div class="one">
                           <h3>
                             <a href={`restaurant/detail/${item.restaurant_id}`}>
-                              {item.restaurant_name}
+                          {item.restaurant_name.length > 15  ? ( `${item.restaurant_name.substring(0, 15)}...`) : item.restaurant_name} 
                             </a>
                           </h3>
                           <p class="rate">
@@ -267,6 +267,7 @@ function applyRating(rating) {
                           <i class="icon-map-o"></i> {item.location_id}
                         </span>
                         <span class="ml-auto">
+                          {/* Booking */}
                           <Link onClick={() => increaseCartQuantity(item.restaurant_id, "Restaurant",times)}>Book Now</Link>
                         </span>
                       </p>
