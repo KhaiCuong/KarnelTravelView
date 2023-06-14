@@ -152,7 +152,7 @@ function UserDetailAccommodation() {
               <div className="col-md-12 ftco-animate">
                 <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
                   <div className="carousel-inner">
-                    <div className="carousel-item user-carousel active">
+                    <div className="carousel-item user-carousel1 active">
                       {imageAccommodation.map((item, index) => {
                         if (index < 1) {
                           return (
@@ -163,7 +163,7 @@ function UserDetailAccommodation() {
                         }
                       })}
                     </div>
-                    <div className="carousel-item user-carousel">
+                    <div className="carousel-item user-carousel1">
                       {imageAccommodation.map((item, index) => {
                         if (index >= 1) {
                           return (
@@ -394,7 +394,7 @@ function UserDetailAccommodation() {
               </div>
             </div>
           </div>
-     
+
         </div>
       </div>
     </section>
