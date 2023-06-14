@@ -16,7 +16,7 @@ const TourManager = () => {
   const navigate = useNavigate();
 
   const handleGetPageDetail = (item) => {
-    navigate(`tour/detail/${item}`);
+    navigate(`/admin/tour/detail/${item}`);
   };
   const handleGetPageCreate = (item) => {
     navigate("/admin/tour/create");
