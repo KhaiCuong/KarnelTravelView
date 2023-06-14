@@ -17,6 +17,7 @@ function Restaurant() {
   const [restaurant, setRestaurant] = useState([]);
   const [restaurantImage, setRestaurantImages] = useState([]);
   const [fullDescription, setFullDescription] = useState(false);
+  
   const description = "Description";
   const navigate = useNavigate();
 
@@ -78,6 +79,21 @@ function applyRating(rating) {
     }
   });
 }
+
+// //search
+// function searchRestaurant(keyword) {
+//   const filteredRestaurant = restaurant.filter(restaurant => 
+//     restaurant.restaurant_name.toLowerCase().includes(keyword.toLowerCase())
+//     || restaurant.description.toLowerCase().includes(keyword.toLowerCase())
+//   );
+//   searchRestaurant(filteredRestaurant);
+// }
+// {searchResult.map(restaurant => (
+//   <div key={restaurant.restaurant_id}>
+//     <h3>{restaurant.restaurant_name}</h3>
+//     <p>{restaurant.description}</p>
+//   </div>
+// ))}
   console.log("restaurantImage", restaurantImage);
 
   const handleDetailRestaurant = (id) => {
@@ -91,6 +107,7 @@ function applyRating(rating) {
             Most visited restaurant
           </h3>
         </div>
+        
         <div className="row">
           <div class="col-lg-3 sidebar">
             <div class="sidebar-wrap bg-light ftco-animate">
@@ -162,9 +179,11 @@ function applyRating(rating) {
                   </div>
                   <div class="form-group">
                     <input
+                      
                       type="submit"
                       value="Search"
                       class="btn btn-primary py-3 px-5"
+                      // onChange={e => searchRestaurant(e.target.value)}
                     />
                   </div>
                 </div>
