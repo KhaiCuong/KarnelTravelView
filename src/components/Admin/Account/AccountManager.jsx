@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 import "../AdminManager.css";
-import getUser from "./Service/ApiService";
+import getUser, { GetUsers } from "./Service/ApiServiceUser";
 
 function AccountManager() {
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUser()
+    GetUsers()
       .then((pro) => setUser(pro.data))
       .catch((error) => console.log(error));
   }, [user]);
@@ -100,7 +100,7 @@ function AccountManager() {
                   <>
                     <tr key={index}>
                       <th scope="row">{item.user_id}</th>
-                      <td>{item.User_name}</td>
+                      <td>{item.user_name}</td>
                       <td>{item.phone_number}</td>
                       {/* <td>{item.type === true ? "Resort" : "Hotel"}</td> */}
                       <td>{item.address}</td>

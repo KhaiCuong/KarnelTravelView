@@ -4,9 +4,9 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Height } from "@mui/icons-material";
 
-import { getUser } from './Service/ApiService';
+import { GetUser } from "./Service/ApiServiceUser";
 
-function AccountDetailManager() {
+function AccountDetailManager(props) {
   const [user, setUser] = useState({});
   // const [image, setImage] = useState([]);
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function AccountDetailManager() {
 
   useEffect(() => {
     // fetch the accommodation data with the given ID
-    getUser(id)
+    GetUser(id)
       .then((response) => {
         setUser(response.data);
         console.log("User", response);
