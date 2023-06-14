@@ -44,6 +44,9 @@ import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 import UserTransport from "./components/User/Transport/UserTransport";
 import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
 import Booking from "./components/User/Booking/Booking";
+import Contact from "./components/User/Contact/Contact";
+import Feedback from "./components/User/Contact/Feedback";
+import BookingList from "./components/User/Booking/BookingLisht";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -76,6 +79,12 @@ function App() {
             <Route path="detail/:id" element={<DetailofRestaurant />} />
           </Route>
 
+          <Route path="contact" element={<Contact/>} />
+          <Route path="my-booking" element={<BookingList/>} />
+
+          <Route path="feedback" element={<Feedback/>} />
+
+
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
@@ -83,7 +92,7 @@ function App() {
         </Route>
         <Route path="register" element={<Register></Register>}></Route>
 
-        <Route path="booking/:id" element={<Booking></Booking>} />
+        {/* <Route path="booking/:id" element={<Booking></Booking>} /> */}
 
         <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
 
