@@ -58,6 +58,7 @@ import AccountDetailManager from "./components/Admin/Account/AccountDetailManage
 
 import PersonalProfile from "./components/User/ProfileUser/ProfileUser";
 import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
+import UserTouristSpot from "./components/User/TouristSpot/UserTouristSpot";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -103,6 +104,11 @@ function App() {
             <Route index element={<Tour />} />
             <Route path="detail/:id" element={<DetailTour />} />
           </Route>
+          {/* TouristSpot */}
+          <Route path="touristsport">
+            <Route index element={<UserTouristSpot />} />
+           
+          </Route>
         </Route>
 
         <Route path="register" element={<Register></Register>}></Route>
@@ -114,7 +120,12 @@ function App() {
 
         {/* <Route path="booking/:id" element={<Booking></Booking>} /> */}
 
-        <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
+        <Route
+          path="login"
+          element={
+            <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
+          }
+        />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
@@ -155,17 +166,24 @@ function App() {
             <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
           </Route>
           <Route path="account">
-            <Route index>
-              <Route index element={<AccountManager />} />
-              <Route path="detailUser/:id" element={<AccountDetailManager />} />
-            </Route>
+            <Route index element={<AccountManager />} />
+            <Route path="detailUser/:id" element={<AccountDetailManager />} />
           </Route>
 
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
-            <Route path="createAccommodation" element={<CreateAccommodation />} />
-            <Route path="updateAccommodation/:id" element={<UpdateAccommodation />} />
-            <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
+            <Route
+              path="createAccommodation"
+              element={<CreateAccommodation />}
+            />
+            <Route
+              path="updateAccommodation/:id"
+              element={<UpdateAccommodation />}
+            />
+            <Route
+              path="detailAccommodation/:id"
+              element={<DetailAccommodation />}
+            />
           </Route>
         </Route>
 

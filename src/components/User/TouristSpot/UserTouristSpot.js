@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  getAccommodationImageByID,
-  getListAccommodation,
-} from "./Services/ApiService";
+
 import "../Accommodation/css/Accommodation.css";
 import { Room, ContentPaste } from "@mui/icons-material";
 import "aos/dist/aos.css";
