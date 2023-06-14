@@ -65,37 +65,69 @@ const Header = ({ setShowModal, showModal }) => {
             <li className="navItem">
               <Link to="/">Home</Link>
             </li>
+            <li className="nav-item dropdown no-arrow pl-4 ">
+              <a className="nav-link dropdown-toggle d-flex justify-content-end w-90 align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div className="">
+                  <a href="">Information</a>
+                </div>
+              </a>
 
-            <li className="navItem">
+              <div className="dropdown-menu menu-left" aria-labelledby="userDropdown">
+                <a className="dropdown-item" href="/accommodation">
+                  <i class="fas fa-home mr-2 text-secondary"> </i>
+                  <Link to="/accommodation">Accommodation</Link>
+                </a>
+                <a className="dropdown-item" href="/restaurant">
+                  <i class="fas fa-utensils mr-2 text-secondary"></i>
+                  <Link to="/restaurant"> Restaurant</Link>
+                </a>
+                <a className="dropdown-item" href="/tourist-spot">
+                  <i class="fas fa-map-marked mr-2 text-secondary"></i>
+                  <Link to="/tourist-spot">Tourist Spot</Link>
+                </a>
+                <a className="dropdown-item" href="/usertransport">
+                  <i class="fas fa-car-side mr-2 text-secondary"></i>
+                  <Link to="/usertransport">Transport</Link>
+                </a>
+                <a className="dropdown-item" href="/usertransport">
+                  <i class="fas fa-plane-departure mr-2 text-secondary"></i>
+                  <Link to="/usertransport">Tours</Link>
+                </a>
+              </div>
+            </li>
+            {/* <li className="navItem">
               <Link to="/accommodation">Accommodation</Link>
             </li>
 
             <li className="navItem">
-              <Link to="/restaurant">Restaurant</Link>
-
+            <Link to="/restaurant">Restaurant</Link>
+              
             </li>
 
             <li className="navItem">
-              <Link to="/usertransport">Transport</Link>
-            </li>
-
-            <li className="navItem">
-              <a href="/Tour">Tour</a>
-            </li>
-
-            {/* <li className="navItem">
-              <a href="/Tour">Tour</a>
-            </li>
-
-            <li className="navItem">
-              <a href="">Pages</a>
-            </li> 
-
-            <li className="navItem">
-              <a href="">News</a>
+            <Link to ="/usertransport">Transport</Link>
             </li> */}
+
             <li className="navItem">
-              <a href="">Contacts</a>
+              <a href="">About</a>
+            </li>
+            <li className="navItem dropdown no-arrow pl-4">
+              <a className="nav-link dropdown-toggle d-flex justify-content-end w-90 align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div className="">
+                  <a href="">Contact</a>
+                </div>
+              </a>
+
+              <div className="dropdown-menu menu-left" aria-labelledby="userDropdown">
+                <a className="dropdown-item " href="/contact">
+                  <i class="fas fa-address-card mr-2 text-secondary"></i>
+                  <Link to="/contact">Contact</Link>
+                </a>
+                <a className="dropdown-item" href="/feedback">
+                  <i class="fas fa-comments mr-2 text-secondary"></i> 
+                  <Link to="/feedback">Feedback</Link>
+                </a>
+              </div>
             </li>
             {token == null ? (
               <li className="navItem  w-10">
@@ -103,7 +135,7 @@ const Header = ({ setShowModal, showModal }) => {
               </li>
             ) : (
               <>
-                <li className="nav-item dropdown no-arrow w-10">
+                <li className="nav-item dropdown no-arrow w-10 ">
                   <a className="  nav-link dropdown-toggle d-flex justify-content-end w-90 align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img className="img-profile rounded-circle w-30 " src="/img/undraw_profile.svg" />
                     <div className="ml-1">
@@ -117,9 +149,9 @@ const Header = ({ setShowModal, showModal }) => {
                       <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                       Profile
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/my-booking">
                       <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                      Settings
+                      My Booking
                     </a>
                     <a className="dropdown-item" href="#">
                       <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -134,7 +166,7 @@ const Header = ({ setShowModal, showModal }) => {
                 </li>
               </>
             )}
-            <li className="navItem border-start  border-dark">
+            <li className="navItem border-start  border-dark ml-2">
               {/* <a href=""  className="btn text-white ">
                 Cart
               </a> */}

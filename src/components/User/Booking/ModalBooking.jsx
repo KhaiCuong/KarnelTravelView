@@ -12,6 +12,9 @@ import emailjs from "emailjs-com";
 
 const BookingModal = ({ setShowModal, showModal }) => {
   const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/login");
+  };
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { cartItems } = useShoppingCart();
   const usertoken = JSON.parse(localStorage.getItem("userToken"));
@@ -21,8 +24,6 @@ const BookingModal = ({ setShowModal, showModal }) => {
   const [outEmail, SetOutEmail] = useState([]);
 
   // let [totalPrice, setTotalPrice] = useState(0);
-
-
 
   // let SendMail;
   const handleChangeInput = (e) => {
@@ -73,6 +74,17 @@ const BookingModal = ({ setShowModal, showModal }) => {
           })
           .then((result) => {})
           .catch((err) => console.log(err));
+      } else if (cartItems[i].type === "Transport") {
+        axios
+          .post("http://localhost:5158/api/Booking/AddBooking", {
+            user_id: user.user_id,
+            transport_id: cartItems[i].id,
+            quantity: cartItems[i].quantity,
+            // created_at: cartItems[i].times.timeIn,
+            // update_at: cartItems[i].times.timeOut,
+          })
+          .then((result) => {})
+          .catch((err) => console.log(err));
       }
     }
 
@@ -107,27 +119,20 @@ const BookingModal = ({ setShowModal, showModal }) => {
 
   let total = 0;
   for (let i = 0; i < cartItems.length; i++) {
-    total = total +  (Number(cartItems[i].price) *  Number(cartItems[i].quantity));
+    total = total + Number(cartItems[i].price) * Number(cartItems[i].quantity);
   }
 
   useEffect(() => {
-    if(usertoken != null) {
+    if (usertoken != null) {
       axios
-      .get(`http://localhost:5158/api/User/GetUser/${usertoken.user_id}`)
-      .then((res) => {
-        setUser(res.data.data);
-        SetOutEmail(res.data.data.email); 
-
-
-
-      })
-      .then((error) => console.log(error));
+        .get(`http://localhost:5158/api/User/GetUser/${usertoken.user_id}`)
+        .then((res) => {
+          setUser(res.data.data);
+          SetOutEmail(res.data.data.email);
+        })
+        .then((error) => console.log(error));
     }
-
-
-      
   }, []);
-console.log("outEmail" ,outEmail);
   return (
     <ReactModal isOpen={showModal} style={{ zIndex: 1000 }} className="Modal shopping-cart text-black" overlayClassName="Overlay">
       <button className="closeBtn" onClick={() => setShowModal(false)}>
@@ -170,39 +175,53 @@ console.log("outEmail" ,outEmail);
           <MDBTypography tag="h3" className="mb-5 pt-2 text-center fw-bold text-uppercase">
             User Information
           </MDBTypography>
-
-          <form className="mb-5" onSubmit={handleSubmit}>
-            <MDBTypography tag="h5">Name</MDBTypography>
-            <div className="mb-3">
-              <MDBInput type="text" size="lg" name="user_name" value={user.user_name} onChange={handleChangeInput} />
-            </div>
-            <MDBTypography tag="h5">Phone Number</MDBTypography>
-            <div className="mb-3">
-              <MDBInput type="text" size="lg" name="phone_number" value={user.phone_number} onChange={handleChangeInput} />
-            </div>
-            <MDBTypography tag="h5">Email</MDBTypography>
-            <div className="mb-3">
-              <MDBInput type="text" size="lg" name="email" value={user.email} onChange={handleChangeInput} />
-            </div>
-              <div hidden>
-                <input type="number" name="totalPrice" value={total}  />
+          {usertoken != null ? (
+            <form className="mb-5" onSubmit={handleSubmit}>
+              <MDBTypography tag="h5">Name</MDBTypography>
+              <div className="mb-3">
+                <MDBInput type="text" size="lg" name="user_name" value={user.user_name} onChange={handleChangeInput} />
               </div>
-            <p className="mb-5">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit
-              <a href="#!"> obcaecati sapiente</a>.
-            </p>
+              <MDBTypography tag="h5">Phone Number</MDBTypography>
+              <div className="mb-3">
+                <MDBInput type="text" size="lg" name="phone_number" value={user.phone_number} onChange={handleChangeInput} />
+              </div>
+              <MDBTypography tag="h5">Email</MDBTypography>
+              <div className="mb-3">
+                <MDBInput type="text" size="lg" name="email" value={user.email} onChange={handleChangeInput} />
+              </div>
+              <div hidden>
+                <input type="number" name="totalPrice" value={total} />
+              </div>
+              <p className="mb-5">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit
+                <a href="#!"> obcaecati sapiente</a>.
+              </p>
 
-            <button type="submit" className="ripple ripple-surface btn btn-primary btn-lg btn-block">
-              Book now
-            </button>
+              <button type="submit" className="ripple ripple-surface btn btn-primary btn-lg btn-block">
+                Book now
+              </button>
 
-            <MDBTypography tag="h5" className="fw-bold mb-5" style={{ position: "absolute", bottom: "0" }}>
-              <a href="#!" onClick={() => setShowModal(false)}>
-                <MDBIcon fas icon="angle-left me-2" />
-                Back to shopping
-              </a>
-            </MDBTypography>
-          </form>
+              <MDBTypography tag="h5" className="fw-bold mb-5" style={{ position: "absolute", bottom: "0" }}>
+                <a href="#!" onClick={() => setShowModal(false)}>
+                  <MDBIcon fas icon="angle-left me-2" />
+                  Back to shopping
+                </a>
+              </MDBTypography>
+            </form>
+          ) : (
+            <div className="text-center pt-5">
+              <p>Please login to make transactions </p>
+              <button type="submit" className="ripple ripple-surface btn btn-primary btn-lg btn-block" onClick={handleLogin}>
+                <a href="/login">Login</a>
+              </button>
+              <MDBTypography tag="h5" className="fw-bold mb-5" style={{ position: "absolute", bottom: "0" }}>
+                <a href="#!" onClick={() => setShowModal(false)}>
+                  <MDBIcon fas icon="angle-left me-2" />
+                  Back to shopping
+                </a>
+              </MDBTypography>
+            </div>
+          )}
         </MDBCol>
       </MDBRow>
     </ReactModal>

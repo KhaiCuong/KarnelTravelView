@@ -5,4 +5,4 @@ async function getUser(){
     return data.data;
 
 }
-export default getUser;
+export {getUser,} ;
