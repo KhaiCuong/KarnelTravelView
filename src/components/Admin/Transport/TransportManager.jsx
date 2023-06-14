@@ -69,9 +69,9 @@ const TransportManager = () => {
                         <th>{item.transport_id}</th>
                         <td>{item.transport_name}</td>
                         <td>{item.start_position}</td>
-                        {/* <td>{item.Status_Transport}</td> */}
+                        <td>{item.status_Transport}</td>
                         <td>{item.Discount}</td>
-                        {/* <td hidden>{item.location_id}</td> */}
+                        <td>{item.location_id}</td>
                         <td>{item.price}</td>
                         <td>
                           <label class="switch">

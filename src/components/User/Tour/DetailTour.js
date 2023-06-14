@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getImageByTouristSpotID, getListTour, getListTouristSpotTourByTourID, getTourByID } from './Services/ApiService';
+import "../Accommodation/css/DetailAccommodation.css";
+
 
 function DetailTour(props) {
     const { id } = useParams();
@@ -207,7 +209,7 @@ function DetailTour(props) {
                                 <div className="col-md-12 ftco-animate">
                                     <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
                                         <div className="carousel-inner">
-                                            <div className="carousel-item user-carousel active">
+                                            <div className="carousel-item user-carousel1 active">
                                                 {imageTouristSpot.map((item, index) => {
                                                     if (index < 1) {
                                                         return (
@@ -218,7 +220,7 @@ function DetailTour(props) {
                                                     }
                                                 })}
                                             </div>
-                                            <div className="carousel-item user-carousel">
+                                            <div className="carousel-item user-carousel1">
                                                 {imageTouristSpot.map((item, index) => {
                                                     if (index >= 1) {
                                                         return (
@@ -241,10 +243,10 @@ function DetailTour(props) {
                                     </div>
                                 </div>
                                 <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                                    <span>Our Best hotels &amp; Rooms</span>
+                                    <span>Our Best Tour</span>
                                     <h2>{tour.tour_name}</h2>
                                     <p className="rate mb-5">
-                                        <span className="loc"><a href="#"><i className="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
+                                        <span className="loc"><a href="#"><i className="icon-map"></i> </a></span>
                                         &nbsp;
                                         <span className="star">
                                             <i className="icon-star"></i>
@@ -370,7 +372,7 @@ function DetailTour(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                                {/* <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                                     <h4 className="mb-4">Review &amp; Ratings</h4>
                                     <div className="row">
                                         <div className="col-md-6">
@@ -408,9 +410,9 @@ function DetailTour(props) {
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="col-md-12 hotel-single ftco-animate mb-5 mt-5">
-                                    <h4 className="mb-4">Related Hotels</h4>
+                                    <h4 className="mb-4">Related Tours</h4>
                                     <div className="row">
                                         {extraTour.slice(0, 3).map((item, index) => (
                                             <div class="col-md-4 ftco-animate" key={index}>
