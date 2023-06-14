@@ -103,7 +103,8 @@ function CreateRestaurant() {
     <section>
       <div className="container">
         <h2>Restaurant Form</h2>
-        <form onSubmit={handleSubmit} method="post" encType="multi/form-data" >
+18:56
+<form onSubmit={handleSubmit} method="post" encType="multi/form-data" >
           <div className="form-group">
             <label htmlFor="restaurantId">Restaurant ID</label>
             <input
@@ -192,7 +193,7 @@ function CreateRestaurant() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="statusRestaurant">Status Restaurant</label>
+<label htmlFor="statusRestaurant">Status Restaurant</label>
             <select
               className="form-control"
               id="status_Restaurant"
@@ -266,3 +267,4 @@ function CreateRestaurant() {
 }
 
 export default CreateRestaurant;
+
