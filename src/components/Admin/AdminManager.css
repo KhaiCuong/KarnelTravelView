@@ -11,7 +11,7 @@ ul {
 }
 
 .background-green {
-    background: rgb(3, 132, 1) ;
+    background: rgb(3, 132, 1) !important;
 }
 
 .background-dark {

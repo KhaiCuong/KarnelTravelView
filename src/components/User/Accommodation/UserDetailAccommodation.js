@@ -150,9 +150,10 @@ function UserDetailAccommodation() {
                     <span className="star">
                       {accommodation.rate} Stars
                     </span>
-                    <span className="star">
+                    <div className="star">
+                      Discount: &nbsp;
                       {accommodation.discount}
-                    </span>
+                    </div>
                   </p>
                   <p>{accommodation.description}</p>
                 </div>

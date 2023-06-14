@@ -16,7 +16,7 @@ function UserAccommodation() {
   //Booking
   var today = new Date();
   const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart();
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart ,getBookingByBookingId } = useShoppingCart();
   let times = {
     timeIn: date,
     timeOut: date
