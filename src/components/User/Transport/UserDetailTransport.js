@@ -56,7 +56,7 @@ function UserDetailTransport() {
       <section className="ftco-section ftco-degree-bg">
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 sidebar">
+            {/* <div className="col-lg-3 sidebar">
               <div className="sidebar-wrap bg-light ftco-animate">
                 <h3 className="heading mb-4">Find City</h3>
                 <form action="#">
@@ -146,7 +146,7 @@ function UserDetailTransport() {
                   </div>
                 </form>
               </div>
-              {/* <div className="sidebar-wrap bg-light ftco-animate">
+              <div className="sidebar-wrap bg-light ftco-animate">
                                 <h3 className="heading mb-4">Star Rating</h3>
                                 <form method="post" className="star-rating">
                                     <div className="form-check">
@@ -180,8 +180,8 @@ function UserDetailTransport() {
                                         </label>
                                     </div>
                                 </form>
-                            </div> */}
-            </div>
+                            </div>
+            </div> */}
             <div className="col-lg-9">
               <div className="row">
                 {/* <div className="col-md-12 ftco-animate">

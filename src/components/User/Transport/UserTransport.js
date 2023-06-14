@@ -51,7 +51,7 @@ function UserTransport() {
           </h3>
         </div>
         <div className="row">
-          <div class="col-lg-3 sidebar pl-4">
+          {/* <div class="col-lg-3 sidebar pl-4">
             <div class="sidebar-wrap bg-light ftco-animate">
               <h3 class="heading mb-4">Find City</h3>
               <form action="#">
@@ -129,7 +129,7 @@ function UserTransport() {
                 </div>
               </form>
             </div>
-            {/* <div class="sidebar-wrap bg-light ftco-animate">
+            <div class="sidebar-wrap bg-light ftco-animate">
                             <h3 class="heading mb-4">Star Rating</h3>
                             <form method="post" class="star-rating">
                                 <div class="form-check">
@@ -163,8 +163,8 @@ function UserTransport() {
                                     </label>
                                 </div>
                             </form>
-                        </div> */}
-          </div>
+                        </div>
+          </div> */}
           <div className="col-lg-9">
             <div className="row">
               {/* ----------------------- */}
