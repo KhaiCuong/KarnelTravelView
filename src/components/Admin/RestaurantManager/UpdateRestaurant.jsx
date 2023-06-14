@@ -7,6 +7,7 @@ function UpdateRestaurant(props) {
     const [locations, setLocations] = useState([]);
     const [restaurant, setRestaurant] = useState([]);
     const [updateRestaurant, setUpdateRestaurant] = useState([]);
+    const [updateImage, setUpdateImage] = useState([]);
     const navigate = useNavigate();
     console.log("props", props);
 
@@ -214,6 +215,38 @@ function UpdateRestaurant(props) {
                             {/* Add more options for locations */}
                         </select>
                     </div>
+                    <div className="mb-3 mt-3">
+            <label for="photoimg" className="form-label w-100">
+              Photo
+            </label>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {updateImage.map((item, index) => (
+                <div
+                  key={index}
+                  style={{ width: "200px", height: "200px", margin: "5px" }}
+                >
+                  <img
+                    src={`http://localhost:5158/${item}`}
+                    alt={item}
+                    className=""
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            <input
+              type="file"
+              className="form-control"
+              id="photoimg"
+              onChange={handleFileChange}
+              multiple
+              style={{ marginTop: "10px" }}
+            />
+          </div>
 
                     <button type="submit" className="btn btn-primary">
                         Submit
