@@ -20,6 +20,10 @@ import CreateTouristSpot from "./components/Admin/TouristSpot/TouristSpotCreate"
 import UpdateTour from "./components/Admin/Tour/TourUpdate";
 import TouristSpotDetail from "./components/Admin/TouristSpot/TouristSpotDetail";
 import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate";
+import ListLocations from "./components/Admin/Location/ListLocations";
+import CreateLocation from "./components/Admin/Location/CreateLocation";
+import EditLocationModel from "./components/Admin/Location/EditLocationModal";
+import LocationDetail from "./components/Admin/Location/LocationDetail";
 import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
@@ -99,6 +103,13 @@ function App() {
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
           <Route index element={<DashboardPage />} />
 
+          {/* Location Route */}
+          <Route path="location">
+            <Route index element={<ListLocations/>}/>
+            <Route path="create" element={<CreateLocation/>}/>
+            <Route path="update/:id" element={<EditLocationModel/>}/>
+            <Route path="detail/:id" element={<LocationDetail />} />
+          </Route>
           <Route path="tour">
             <Route index element={<TourManager />} />
             <Route path="detail/:id" element={<TourDetail />} />
