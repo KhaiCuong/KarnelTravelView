@@ -19,6 +19,7 @@ function CreateAccommodation() {
 
     const [accommodation, setAccommodation] = useState(initialState);
     const [locations, setLocations] = useState([])
+    const [errors, setErrors] = useState({});
 
     var data = {
         accommodation_id: accommodation.accommodation_id,
@@ -52,6 +53,10 @@ function CreateAccommodation() {
             [name]: value,
 
         });
+        setErrors({
+            ...errors,
+            [name]: "",
+        });
     };
 
     const navigateListAccommodation = () => {
@@ -60,6 +65,13 @@ function CreateAccommodation() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        //Validate form before call API to create
+        const newErrors = validateForm(accommodation);
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -100,6 +112,44 @@ function CreateAccommodation() {
         }
     };
 
+    // Validate
+    const validateForm = (accommodation) => {
+        let errors = {};
+
+        if (!accommodation.accommodation_id) {
+            errors.accommodation_id = "accommodation ID is required";
+        }
+
+        if (!accommodation.accommodation_name) {
+            errors.accommodation_name = "accommodation Name is required";
+        } else if (accommodation.accommodation_name.length < 3 || accommodation.accommodation_name.length > 30) {
+            errors.accommodation_name = "accommodation Name must be between 3 - 30 characters";
+        }
+
+        if (!accommodation.rate) {
+            errors.rate = "Rate is required";
+        } else if (accommodation.rate < 1 || accommodation.rate > 5) {
+            errors.rate = "Rate  must be between 1- 5 stars";
+        }
+
+        if (!accommodation.type) {
+            errors.type = "Type is required";
+        }
+        if (!accommodation.price) {
+            errors.price = "Price is required";
+        } else if (accommodation.price < 1 || accommodation.price > 100000000000) {
+            errors.price = "Price  must be between 1- 100.000.000.000 ";
+        }
+
+        if (!accommodation.status_Accommodation) {
+            errors.status_Accommodation = "Accommodation Status is required";
+        }
+        if (!accommodation.location_id) {
+            errors.location_id = "Location ID is required";
+        }
+        return errors;
+    };
+
 
     return (
         <section>
@@ -110,35 +160,37 @@ function CreateAccommodation() {
                         <label htmlFor="accommodationId">Accommodation ID</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className={`form-control ${errors.accommodation_id ? "is-invalid" : ""}`}
                             id="accommodation_id"
                             name='accommodation_id'
                             placeholder="Enter accommodation ID"
                             value={accommodation.accommodation_id}
                             onChange={handleInputChange}
-                            required
+                            
                         />
+                        {errors.accommodation_id && <div className="invalid-feedback">{errors.accommodation_id}</div>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="accommodationName">Accommodation Name</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className={`form-control ${errors.accommodation_name ? "is-invalid" : ""}`}
                             id="accommodation_name"
                             name='accommodation_name'
                             placeholder="Enter accommodation name"
                             value={accommodation.accommodation_name}
                             onChange={handleInputChange}
-                            required
+                            
                         />
+                        {errors.accommodation_name && <div className="invalid-feedback">{errors.accommodation_name}</div>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="rate">Rate</label>
                         <input
                             type="number"
-                            className="form-control"
+                            className={`form-control ${errors.rate ? "is-invalid" : ""}`}
                             id="rate"
                             name='rate'
                             min="1"
@@ -146,38 +198,41 @@ function CreateAccommodation() {
                             placeholder="Enter rate (1-5)"
                             value={accommodation.rate}
                             onChange={handleInputChange}
-                            required
+                            
                         />
+                        {errors.rate && <div className="invalid-feedback">{errors.rate}</div>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="type">Type</label>
                         <select
-                            className="form-control"
+                            className={`form-control ${errors.type ? "is-invalid" : ""}`}
                             id="type"
                             name='type'
                             value={accommodation.type}
                             onChange={handleInputChange}
-                            required
+                            
                         >
                             <option value="">Select accommodation type</option>
                             <option value="false">Hotel</option>
                             <option value="true">Resort</option>
                         </select>
+                        {errors.type && <div className="invalid-feedback">{errors.type}</div>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="price">Price</label>
                         <input
                             type="number"
-                            className="form-control"
+                            className={`form-control ${errors.price ? "is-invalid" : ""}`}
                             id="price"
                             name='price'
                             placeholder="Enter price"
                             value={accommodation.price}
                             onChange={handleInputChange}
-                            required
+                            
                         />
+                        {errors.price && <div className="invalid-feedback">{errors.price}</div>}
                     </div>
 
                     <div className="form-group">
@@ -190,30 +245,31 @@ function CreateAccommodation() {
                             placeholder="Enter description"
                             value={accommodation.description}
                             onChange={handleInputChange}
-                            required
+                            
                         ></textarea>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="statusAccommodation">Status Accommodation</label>
                         <select
-                            className="form-control"
+                            className={`form-control ${errors.status_Accommodation ? "is-invalid" : ""}`}
                             id="status_Accommodation"
                             name='status_Accommodation'
                             value={accommodation.status_Accommodation}
                             onChange={handleInputChange}
-                            required
+                            
                         >
                             <option value="">Select accommodation Status</option>
                             <option value="false">false</option>
                             <option value="true">true</option>
                         </select>
+                        {errors.status_Accommodation && <div className="invalid-feedback">{errors.status_Accommodation}</div>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="locationId">Location ID</label>
                         <select
-                            className="form-control"
+                            className={`form-control ${errors.location_id ? "is-invalid" : ""}`}
                             id="location_id"
                             name='location_id'
                             value={accommodation.location_id}
@@ -226,10 +282,12 @@ function CreateAccommodation() {
                                     <option key={index} value={item.location_id}>
                                         {item.location_name}
                                     </option>
-                                </>
+                                </> 
                             })}
                             {/* Add more options for locations */}
                         </select>
+                        {errors.location_id && <div className="invalid-feedback">{errors.location_id}</div>}
+
                     </div>
 
                     <div className="mb-3 mt-3">

@@ -114,12 +114,7 @@ function App() {
 
         {/* <Route path="booking/:id" element={<Booking></Booking>} /> */}
 
-        <Route
-          path="login"
-          element={
-            <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
-          }
-        />
+        <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
@@ -168,18 +163,9 @@ function App() {
 
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
-            <Route
-              path="createAccommodation"
-              element={<CreateAccommodation />}
-            />
-            <Route
-              path="updateAccommodation/:id"
-              element={<UpdateAccommodation />}
-            />
-            <Route
-              path="detailAccommodation/:id"
-              element={<DetailAccommodation />}
-            />
+            <Route path="createAccommodation" element={<CreateAccommodation />} />
+            <Route path="updateAccommodation/:id" element={<UpdateAccommodation />} />
+            <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
           </Route>
         </Route>
 

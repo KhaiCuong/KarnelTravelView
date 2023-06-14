@@ -10,6 +10,8 @@ function UpdateRestaurant(props) {
     const [updateImage, setUpdateImage] = useState([]);
     const navigate = useNavigate();
     const formData = new FormData();
+    const [errors, setErrors] = useState({});
+
     console.log("props", props);
 
     const { id } = useParams();
@@ -70,6 +72,10 @@ function UpdateRestaurant(props) {
             ...updateRestaurant,
             [name]: value
         });
+        setErrors({
+            ...errors,
+            [name]: "",
+        });
     };
     const handleFileChange = (e) => {
         const files = e.target.files;
@@ -83,7 +89,14 @@ function UpdateRestaurant(props) {
 
       const handleSubmit = (e) => {
         e.preventDefault();
-    
+        //Validate form before call API to create
+        const newErrors = validateForm(updateRestaurant);
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+        //update accommodation with the updatedAccommodation data
         Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",
@@ -129,7 +142,40 @@ function UpdateRestaurant(props) {
           }
         });
         console.log("updateRestaurant", updateRestaurant);
-      };
+    };
+
+    const validateForm = (updateRestaurant) => {
+        let errors = {};
+
+
+
+        if (!updateRestaurant.restaurant_name) {
+            errors.restaurant_name = "restaurant Name is required";
+        } else if (updateRestaurant.restaurant_name.length < 3 || updateRestaurant.restaurant_name.length > 30) {
+            errors.restaurant_name = "restaurant Name must be between 3 - 30 characters";
+        }
+
+        if (!updateRestaurant.rate) {
+            errors.rate = "Rate is required";
+        } else if (updateRestaurant.rate < 1 || updateRestaurant.rate > 5) {
+            errors.rate = "Rate  must be between 1- 5 stars";
+        }
+
+
+        if (!updateRestaurant.price) {
+            errors.price = "Price is required";
+        } else if (updateRestaurant.price < 1 || updateRestaurant.price > 100000000000) {
+            errors.price = "Price  must be between 1- 100.000.000.000 ";
+        }
+
+        if (!updateRestaurant.status_Restaurant) {
+            errors.status_Restaurant = "restaurant Status is required";
+        }
+        if (!updateRestaurant.location_id) {
+            errors.location_id = "Location ID is required";
+        }
+        return errors;
+    };
     return (
         <section>
             <div className="container">
@@ -145,7 +191,7 @@ function UpdateRestaurant(props) {
                             placeholder="Enter Restaurant ID"
                             value={updateRestaurant.restaurant_id}
                             onChange={handleInputChange}
-                            required
+
                             disabled
 
                         />
@@ -155,30 +201,32 @@ function UpdateRestaurant(props) {
                         <label htmlFor="restaurantName">Restaurant Name</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className={`form-control ${errors.restaurant_name ? "is-invalid" : ""}`}
                             id="restaurant_name"
                             name='restaurant_name'
                             placeholder="Enter Restaurant Name"
                             value={updateRestaurant.restaurant_name}
                             onChange={handleInputChange}
-                            required
+
                         />
+                        {errors.restaurant_name && <div className="invalid-feedback">{errors.restaurant_name}</div>}
+
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="rate">Rate</label>
                         <input
                             type="number"
-                            className="form-control"
+                            className={`form-control ${errors.rate ? "is-invalid" : ""}`}
                             id="rate"
                             name='rate'
-                            min="1"
-                            max="5"
                             placeholder="Enter rate (1-5)"
                             value={updateRestaurant.rate}
                             onChange={handleInputChange}
-                            required
+
                         />
+                        {errors.rate && <div className="invalid-feedback">{errors.rate}</div>}
+
                     </div>
 
                     {/* <div className="form-group">
@@ -201,14 +249,16 @@ function UpdateRestaurant(props) {
                         <label htmlFor="price">Price</label>
                         <input
                             type="number"
-                            className="form-control"
+                            className={`form-control ${errors.price ? "is-invalid" : ""}`}
                             id="price"
                             name='price'
                             placeholder="Enter price"
                             value={updateRestaurant.price}
                             onChange={handleInputChange}
-                            required
+
                         />
+                        {errors.price && <div className="invalid-feedback">{errors.price}</div>}
+
                     </div>
 
                     <div className="form-group">
@@ -221,34 +271,35 @@ function UpdateRestaurant(props) {
                             placeholder="Enter description"
                             value={updateRestaurant.description}
                             onChange={handleInputChange}
-                            required
+
                         ></textarea>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="statusRestaurant">Status Restaurant</label>
                         <select
-                            className="form-control"
+                            className={`form-control ${errors.status_Restaurant ? "is-invalid" : ""}`}
                             id="status_Restaurant"
                             name='status_Restaurant'
                             value={updateRestaurant.status_Restaurant}
                             onChange={handleInputChange}
-                            required
+
                         >
                             <option value="false">false</option>
                             <option value="true">true</option>
                         </select>
+                        {errors.status_Restaurant && <div className="invalid-feedback">{errors.status_Restaurant}</div>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="locationId">Location ID</label>
                         <select
-                            className="form-control"
+                            className={`form-control ${errors.location_id ? "is-invalid" : ""}`}
                             id="location_id"
                             name='location_id'
                             value={updateRestaurant.location_id}
                             onChange={handleInputChange}
-                            required
+
                         >
                             <option value="">Select location ID</option>
                             {locations.map((item, index) => {
@@ -260,6 +311,7 @@ function UpdateRestaurant(props) {
                             })}
                             {/* Add more options for locations */}
                         </select>
+                        {errors.location_id && <div className="invalid-feedback">{errors.location_id}</div>}
                     </div>
                     <div className="mb-3 mt-3">
             <label for="photoimg" className="form-label w-100">
