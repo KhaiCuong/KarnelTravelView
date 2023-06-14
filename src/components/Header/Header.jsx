@@ -63,7 +63,7 @@ const Header = ({ setShowModal, showModal }) => {
         <div className={active}>
           <ul className="navLists flex navbar-nav justify-content-end">
             <li className="navItem">
-            <Link to = "/">Home</Link>
+              <Link to="/">Home</Link>
             </li>
 
             <li className="navItem">
@@ -71,16 +71,20 @@ const Header = ({ setShowModal, showModal }) => {
             </li>
 
             <li className="navItem">
-            <Link to="/restaurant">Restaurant</Link>
-              
+              <Link to="/restaurant">Restaurant</Link>
+
             </li>
 
             <li className="navItem">
-            <Link to ="/usertransport">Transport</Link>
+              <Link to="/usertransport">Transport</Link>
+            </li>
+
+            <li className="navItem">
+              <a href="/Tour">Tour</a>
             </li>
 
             {/* <li className="navItem">
-              <a href="">About</a>
+              <a href="/Tour">Tour</a>
             </li>
 
             <li className="navItem">

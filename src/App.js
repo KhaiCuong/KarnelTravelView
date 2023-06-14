@@ -47,7 +47,9 @@ import Restaurant from "./components/User/Restaurant/Restaurant";
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 import UserTransport from "./components/User/Transport/UserTransport";
 import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
-import Booking from "./components/User/Booking/Booking";
+import Booking from "./components/User/Booking/Booking"; import Tour from "./components/User/Tour/Tour";
+import DetailTour from "./components/User/Tour/DetailTour";
+
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -84,7 +86,13 @@ function App() {
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
           </Route>
+          <Route path="tour">
+            <Route index element={<Tour />} />
+            <Route path="detail/:id" element={<DetailTour />} />
+          </Route>
         </Route>
+
+
         <Route path="register" element={<Register></Register>}></Route>
 
         <Route path="booking/:id" element={<Booking></Booking>} />
