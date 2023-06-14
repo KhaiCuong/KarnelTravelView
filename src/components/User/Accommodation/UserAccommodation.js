@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getAccommodationImageByID, getListAccommodation } from "./Services/ApiService";
+import {
+  getAccommodationImageByID,
+  getListAccommodation,
+} from "./Services/ApiService";
 import "../Accommodation/css/Accommodation.css";
 import { Room, ContentPaste } from "@mui/icons-material";
 import "aos/dist/aos.css";
@@ -12,15 +15,22 @@ function UserAccommodation() {
   const [accommodation, setAccommodation] = useState([]);
   const [accommodationImage, setAccommodationImages] = useState([]);
   const navigate = useNavigate();
-  
+
   //Booking
   var today = new Date();
-  const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart ,getBookingByBookingId } = useShoppingCart();
+  const date =
+    today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+    getBookingByBookingId,
+  } = useShoppingCart();
   let times = {
-    timeIn : date,
-    timeOut: date
-  }
+    timeIn: date,
+    timeOut: date,
+  };
 
   useEffect(() => {
     const fetchAccommodationData = async () => {
@@ -32,7 +42,9 @@ function UserAccommodation() {
 
           for (let index = 0; index < response.data.length; index++) {
             console.log("response", response);
-            const imageResponse = await getAccommodationImageByID(response.data[index].accommodation_id);
+            const imageResponse = await getAccommodationImageByID(
+              response.data[index].accommodation_id
+            );
             console.log("imageResponse", imageResponse);
             if (imageResponse.status === 200) {
               accommodationImages[index] = imageResponse.data;
@@ -67,14 +79,23 @@ function UserAccommodation() {
               <form action="#">
                 <div class="fields">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Destination, City" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Destination, City"
+                    />
                   </div>
                   <div class="form-group">
                     <div class="select-wrap one-third">
                       <div class="icon">
                         <span class="ion-ios-arrow-down"></span>
                       </div>
-                      <select name="" id="" class="form-control" placeholder="Keyword search">
+                      <select
+                        name=""
+                        id=""
+                        class="form-control"
+                        placeholder="Keyword search"
+                      >
                         <option value="">Select Location</option>
                         <option value="">San Francisco USA</option>
                         <option value="">Berlin Germany</option>
@@ -84,22 +105,48 @@ function UserAccommodation() {
                     </div>
                   </div>
                   <div class="form-group">
-                    <input type="text" id="checkin_date" class="form-control" placeholder="Date from" />
+                    <input
+                      type="text"
+                      id="checkin_date"
+                      class="form-control"
+                      placeholder="Date from"
+                    />
                   </div>
                   <div class="form-group">
-                    <input type="text" id="checkin_date" class="form-control" placeholder="Date to" />
+                    <input
+                      type="text"
+                      id="checkin_date"
+                      class="form-control"
+                      placeholder="Date to"
+                    />
                   </div>
                   <div class="form-group">
                     <input type="number" value="25000" min="0" max="120000" /> -
                     <input type="number" value="50000" min="0" max="120000" />
                     <div class="range-slider">
                       <span></span>
-                      <input value="1000" min="0" max="120000" step="500" type="range" />
-                      <input value="50000" min="0" max="120000" step="500" type="range" />
+                      <input
+                        value="1000"
+                        min="0"
+                        max="120000"
+                        step="500"
+                        type="range"
+                      />
+                      <input
+                        value="50000"
+                        min="0"
+                        max="120000"
+                        step="500"
+                        type="range"
+                      />
                     </div>
                   </div>
                   <div class="form-group button">
-                    <input type="submit" value="Search" class="btn btn-primary py-3 px-5" />
+                    <input
+                      type="submit"
+                      value="Search"
+                      class="btn btn-primary py-3 px-5"
+                    />
                   </div>
                 </div>
               </form>
@@ -107,14 +154,20 @@ function UserAccommodation() {
           </div>
           <div className="col-lg-9">
             <div className="row">
-          
               {accommodation.map((item, index) => (
                 <div class="col-md-4 ftco-animate">
                   <div class="destination">
                     {accommodationImage[index] && (
                       <div>
-                        <div class="icon d-flex justify-content-center align-items-center" onClick={() => handleDetailAccommodation(item.accommodation_id)}>
-                          <img src={`http://localhost:5158/${accommodationImage[index][0]}`} />
+                        <div
+                          class="icon d-flex justify-content-center align-items-center"
+                          onClick={() =>
+                            handleDetailAccommodation(item.accommodation_id)
+                          }
+                        >
+                          <img
+                            src={`http://localhost:5158/${accommodationImage[index][0]}`}
+                          />
                           <span class="icon-search2"></span>
                         </div>
                       </div>
@@ -123,8 +176,15 @@ function UserAccommodation() {
                       <div class="d-flex">
                         <div class="one">
                           <h3>
-                            <a href={`accommodation/detail/${item.accommodation_id}`}>
-                            {item.accommodation_name.length > 15  ? ( `${item.accommodation_name.substring(0, 15)}...`) : item.accommodation_name} 
+                            <a
+                              href={`accommodation/detail/${item.accommodation_id}`}
+                            >
+                              {item.accommodation_name.length > 15
+                                ? `${item.accommodation_name.substring(
+                                    0,
+                                    15
+                                  )}...`
+                                : item.accommodation_name}
                             </a>
                           </h3>
                           <p class="rate">
@@ -151,8 +211,18 @@ function UserAccommodation() {
                           <i class="icon-map-o"></i> {item.location_id}
                         </span>
                         <span class="ml-auto">
-                           {/* Booking */}
-                          <Link onClick={() => increaseCartQuantity(item.accommodation_id, "Accommodation",times)}>Book Now</Link>
+                          {/* Booking */}
+                          <Link
+                            onClick={() =>
+                              increaseCartQuantity(
+                                item.accommodation_id,
+                                "Accommodation",
+                                times
+                              )
+                            }
+                          >
+                            Book Now
+                          </Link>
                         </span>
                       </p>
                     </div>

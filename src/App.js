@@ -47,7 +47,7 @@ import Restaurant from "./components/User/Restaurant/Restaurant";
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 import UserTransport from "./components/User/Transport/UserTransport";
 import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
-import Booking from "./components/User/Booking/Booking"; 
+import Booking from "./components/User/Booking/Booking";
 import Tour from "./components/User/Tour/Tour";
 import DetailTour from "./components/User/Tour/DetailTour";
 
@@ -55,7 +55,7 @@ import Contact from "./components/User/Contact/Contact";
 import Feedback from "./components/User/Contact/Feedback";
 import BookingList from "./components/User/Booking/BookingLisht";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
-import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
+
 import PersonalProfile from "./components/User/ProfileUser/ProfileUser";
 import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
 
@@ -108,9 +108,9 @@ function App() {
         <Route path="register" element={<Register></Register>}></Route>
         {/* View Profile */}
         <Route path="profileuser">
-            <Route path="detail/:id" element={<PersonalProfile/>} />
-            <Route  path="update/:id" element={<ProfileUpdate/>} />
-          </Route>
+          <Route path="detail/:id" element={<PersonalProfile />} />
+          <Route path="update/:id" element={<ProfileUpdate />} />
+        </Route>
 
         {/* <Route path="booking/:id" element={<Booking></Booking>} /> */}
 
@@ -160,12 +160,10 @@ function App() {
             <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
           </Route>
           <Route path="account">
-            <Route index > 
-          <Route index element={<AccountManager />} />
-            <Route path="detailUser/:id" element={<AccountDetailManager />} />
-          </Route>
-         
-          
+            <Route index>
+              <Route index element={<AccountManager />} />
+              <Route path="detailUser/:id" element={<AccountDetailManager />} />
+            </Route>
           </Route>
 
           <Route path="accommodation">
