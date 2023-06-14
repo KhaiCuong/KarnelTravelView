@@ -1,6 +1,6 @@
 
 /* sidebar */
-.sidebar {
+/* .sidebar {
   margin-top: 20px;
   padding: 20px;
 }
@@ -143,10 +143,10 @@
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  border: 1px solid #ddd; /* Add border properties */
-  margin-bottom: 20px; /* Add some spacing between products */
-  background-color: #f5f5f5; /* Set a background color for the accommodation item */
-  padding: 20px; /* Add padding around the accommodation item */
+  border: 1px solid #ddd; 
+  margin-bottom: 20px; 
+  background-color: #f5f5f5; 
+  padding: 20px; 
 }
 
 
@@ -259,29 +259,29 @@
 
 .two {
   flex: 1;
-  text-align: right; /* Align the content to the right */
+  text-align: right; 
 }
 
 .destination h3 a {
-  color: #333; /* Set the color of the accommodation name */
+  color: #333; 
 }
 
 .destination p.rate {
-  color: #777; /* Set the color of the rating */
+  color: #777; 
 }
 
 .price {
-  color: #ff6b6b; /* Set the color of the price */
+  color: #ff6b6b;
 }
 
 .bottom-area a {
-  color: #fff; /* Set the color of the "Book Now" link */
-  background-color: #30D5C8; /* Set the background color of the "Book Now" link */
-  padding: 5px 10px; /* Add padding to the "Book Now" link */
-  border-radius: 5px; /* Add rounded corners to the "Book Now" link */
+  color: #fff; 
+  background-color: #30D5C8; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
 }
 
 .bottom-area a:hover {
-  background-color: #333; /* Change the background color on hover */
-  color: #fff; /* Change the text color on hover */
-}
+  background-color: #333; 
+  color: #fff; 
+} */

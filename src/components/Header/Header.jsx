@@ -107,7 +107,7 @@ const Header = ({ setShowModal, showModal }) => {
                 </a>
                 <a className="dropdown-item" href="/usertransport">
                   <i class="fas fa-plane-departure mr-2 text-secondary"></i>
-                  <Link to="/usertransport">Tours</Link>
+                  <Link to="/tour">Tours</Link>
                 </a>
               </div>
             </li>

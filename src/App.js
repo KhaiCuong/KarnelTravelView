@@ -145,9 +145,9 @@ function App() {
             <Route path="createRestaurant" element={<CreateRestaurant />} />
             <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
           </Route>
-          <Route path="account" > 
-          <Route index element={<AccountManager />} />
-          <Route path="detailUser/:id" element={<AccountDetailManager />} />
+          <Route path="account" >
+            <Route index element={<AccountManager />} />
+            <Route path="detailUser/:id" element={<AccountDetailManager />} />
           </Route>
 
           <Route path="accommodation">
