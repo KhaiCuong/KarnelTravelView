@@ -9,6 +9,7 @@ function UpdateRestaurant(props) {
     const [updateRestaurant, setUpdateRestaurant] = useState([]);
     const [updateImage, setUpdateImage] = useState([]);
     const navigate = useNavigate();
+    const formData = new FormData();
     console.log("props", props);
 
     const { id } = useParams();
@@ -51,6 +52,15 @@ function UpdateRestaurant(props) {
             [name]: value
         });
     };
+    const handleFileChange = (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+          for (var i = 0; i < e.target.files.length; i++) {
+            console.log("files", e);
+            formData.append("files", e.target.files[i]);
+          }
+        }
+      };
 
     const handleSubmit = (e) => {
         e.preventDefault();
