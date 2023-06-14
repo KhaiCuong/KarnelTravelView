@@ -84,7 +84,7 @@ function App() {
           </Route>
         </Route>
         <Route path="register" element={<Register></Register>}></Route>
-        <Route path="profileuser">
+        <Route path="profileuser/detail/:id">
             <Route index element={<PersonalProfile/>} />
           </Route>
 

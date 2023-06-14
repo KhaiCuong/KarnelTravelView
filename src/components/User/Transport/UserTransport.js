@@ -217,19 +217,25 @@ function UserTransport() {
                 <div class="col-md-4 ftco-animate">
                   <div class="destination">
                     {[index] && (
-                                            <div>
-                                                <div class="icon d-flex justify-content-center align-items-center" onClick={() => (handleDetailTransport(item.transport_id))}>
-                                                    {/* <img src={`http://localhost:5158/${accommodationImage[index][0]}`} /> */}
-                                                    <span class="icon-search2" >
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        )}
+                      <div>
+                        <div
+                          class="icon d-flex justify-content-center align-items-center"
+                          onClick={() =>
+                            handleDetailTransport(item.transport_id)
+                          }
+                        >
+                          {/* <img src={`http://localhost:5158/${accommodationImage[index][0]}`} /> */}
+                          <span class="icon-search2"></span>
+                        </div>
+                      </div>
+                    )}
                     <div class="text p-3">
                       <div class="d-flex">
                         <div class="one">
                           <h3>
-                            <a href={`usertransport/detail/${item.transport_id}`}>
+                            <a
+                              href={`usertransport/detail/${item.transport_id}`}
+                            >
                               Transport Name: {item.transport_name}
                             </a>
                           </h3>
@@ -257,11 +263,10 @@ function UserTransport() {
                           <i class="icon-map-o"></i> {item.location_id}
                         </span>
                         <span class="ml-auto">
-                        <button
+                          <button
                             className="btn btn-warning"
                             onClick={() => {
-                              
-                                handleDetailTransport(item.transport_id);
+                              handleDetailTransport(item.transport_id);
                             }}
                           >
                             Detail
