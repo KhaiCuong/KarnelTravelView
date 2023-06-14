@@ -20,6 +20,10 @@ import CreateTouristSpot from "./components/Admin/TouristSpot/TouristSpotCreate"
 import UpdateTour from "./components/Admin/Tour/TourUpdate";
 import TouristSpotDetail from "./components/Admin/TouristSpot/TouristSpotDetail";
 import UpdateTouristSpot from "./components/Admin/TouristSpot/TouristSpotUpdate";
+import ListLocations from "./components/Admin/Location/ListLocations";
+import CreateLocation from "./components/Admin/Location/CreateLocation";
+import EditLocationModel from "./components/Admin/Location/EditLocationModal";
+import LocationDetail from "./components/Admin/Location/LocationDetail";
 import { Fragment, useEffect, useState } from "react";
 import Login from "./components/Admin/Login/Login";
 import AccountManager from "./components/Admin/Account/AccountManager";
@@ -41,6 +45,10 @@ import DetailRestaurant from "./components/Admin/RestaurantManager/DetailRestaur
 // import User Restaurant
 import Restaurant from "./components/User/Restaurant/Restaurant";
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
+import UserTransport from "./components/User/Transport/UserTransport";
+import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
+import Booking from "./components/User/Booking/Booking"; import Tour from "./components/User/Tour/Tour";
+import DetailTour from "./components/User/Tour/DetailTour";
 
 
 
@@ -61,35 +69,48 @@ function App() {
             element={
               <MainContent>
                 <Home />
-                
               </MainContent>
             }
           />
+          {/* View transport user */}
+          <Route path="usertransport">
+            <Route index element={<UserTransport />} />
+            <Route path="detail/:id" element={<UserDetailTransport />} />
+          </Route>
+
+          <Route path="restaurant">
+            <Route index element={<Restaurant />} />
+            <Route path="detail/:id" element={<DetailofRestaurant />} />
+          </Route>
+
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
           </Route>
-
-          <Route path="restaurant">
-            <Route index element={<Restaurant/>} />
-            <Route path="detail/:id" element={<DetailofRestaurant />} />
+          <Route path="tour">
+            <Route index element={<Tour />} />
+            <Route path="detail/:id" element={<DetailTour />} />
           </Route>
         </Route>
-        <Route path="register" element={<Register></Register>}>
 
-        </Route>
-        
-        <Route
-          path="login"
-          element={
-            <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
-          }
-        />
+
+        <Route path="register" element={<Register></Register>}></Route>
+
+        <Route path="booking/:id" element={<Booking></Booking>} />
+
+        <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
           <Route index element={<DashboardPage />} />
 
+          {/* Location Route */}
+          <Route path="location">
+            <Route index element={<ListLocations/>}/>
+            <Route path="create" element={<CreateLocation/>}/>
+            <Route path="update/:id" element={<EditLocationModel/>}/>
+            <Route path="detail/:id" element={<LocationDetail />} />
+          </Route>
           <Route path="tour">
             <Route index element={<TourManager />} />
             <Route path="detail/:id" element={<TourDetail />} />
@@ -105,18 +126,18 @@ function App() {
           </Route>
 
           <Route path="transport">
-            <Route index element={<TransportManager/>} />
+            <Route index element={<TransportManager />} />
             <Route path="create" element={<CreateTransport />} />
             <Route path="detail/:id" element={<TransportDetail />} />
             <Route path="update/:id" element={<TransportUpdate />} />
           </Route>
 
-          <Route path="restaurant" >
-          <Route index element={<ListRestaurant />} />
-          <Route path="detailRestaurant/:id" element={<DetailRestaurant/>} />
-          <Route path="createRestaurant" element={<CreateRestaurant/>} />
-          <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
-        </Route>
+          <Route path="restaurant">
+            <Route index element={<ListRestaurant />} />
+            <Route path="detailRestaurant/:id" element={<DetailRestaurant />} />
+            <Route path="createRestaurant" element={<CreateRestaurant />} />
+            <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
+          </Route>
           <Route path="account" element={<AccountManager />} />
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
@@ -127,7 +148,6 @@ function App() {
         </Route>
 
         <Route path="*" element={<NotFound />} />
-
       </Routes>
     </Fragment>
     //     {/* View Admin */}
