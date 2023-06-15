@@ -156,7 +156,7 @@ function UserTouristSpotDetail() {
                 </div>
 
                 {/* Booking */}
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
+                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 borderwitdh" style={{ borderRadius: "13px" }}>
                   <h4 className="mb-5 mt-3 text-center ">
                     Booking <i class="fas fa-book-open"></i>
                   </h4>
