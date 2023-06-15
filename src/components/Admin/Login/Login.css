@@ -1,0 +1,30 @@
+.LoginCss{
+    background-image: url(https://wallpapers.com/images/featured/ibk7fgrvtvhs7qzg.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.RegisterCss{
+    background-image: url(./register_image.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.bg-gradient-primary {
+    background-color: #4e73df;
+    background-image: linear-gradient(180deg, #10B5CB,#eaecf4);
+}
+@media only screen and (max-width: 992px) {
+    .LoginMediaCss{
+        background-image: url(https://wallpapers.com/images/featured/ibk7fgrvtvhs7qzg.jpg);
+        background-position: center;
+        background-size: cover;
+    }
+    .aInLogin{
+       color: aliceblue; 
+       font-weight: bold;
+       text-shadow: 1px 1px 4px rgba(0, 0, 0, 19.5);
+    }
+    .bg-gradient-primary {
+        background-image: linear-gradient(180deg, #eaecf4,#10B5CB);
+        }
+    
+  }

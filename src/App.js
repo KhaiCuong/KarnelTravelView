@@ -55,6 +55,7 @@ import Contact from "./components/User/Contact/Contact";
 import Feedback from "./components/User/Contact/Feedback";
 import BookingList from "./components/User/Booking/BookingLisht";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
+import About from "./components/User/About/About";
 import ListBooking from "./components/Admin/Booking/ListBooking";
 import ListFeedback from "./components/Admin/Feedback/ListFeedback";
 
@@ -98,6 +99,7 @@ function App() {
           <Route path="my-booking" element={<BookingList />} />
 
           <Route path="feedback" element={<Feedback />} />
+          <Route path="about" element={<About />}/> 
 
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
@@ -107,8 +109,8 @@ function App() {
             <Route index element={<Tour />} />
             <Route path="detail/:id" element={<DetailTour />} />
           </Route>
-          {/* TouristSpot */}
-          <Route path="touristsport">
+            {/* TouristSpot */}
+            <Route path="touristsport">
             <Route index element={<UserTouristSpot />} />
             <Route path="detail/:id" element={<UserTouristSpotDetail />} />
           </Route>

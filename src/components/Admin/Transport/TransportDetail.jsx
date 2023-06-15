@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 const TransportDetail = () => {
   const { id } = useParams();
-//   const [img, setImg] = useState([]);
+  //   const [img, setImg] = useState([]);
   const [spot, setSpot] = useState([]);
 
   const navigate = useNavigate();
@@ -187,7 +187,7 @@ const TransportDetail = () => {
             Update
           </button>
 
-          <button className="btn btn-warning background-red" onClick={() => handleDelete(spot.touristSpot_id)}>
+          <button className="btn btn-warning background-red" onClick={() => handleDelete(spot.transport_id)}>
             Delete
           </button>
         </div>
