@@ -258,12 +258,10 @@ function DetailofRestaurant() {
                       type="submit"
                       onClick={() => {
                         if (valid && timeIn.length != 0) {
-                          addMultiQuantity(
-                            restaurant.restaurant_id,
-                            count,
-                            "Restaurant",
-                            times
-                          );
+                          addMultiQuantity(restaurant.restaurant_id, count, "Restaurant", times);
+                          setIsSubmit(false);
+                        } else {
+                          setIsSubmit(true);
                         }
                       }}
                       value="Check Availability"

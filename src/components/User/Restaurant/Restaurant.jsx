@@ -203,7 +203,9 @@ function Restaurant() {
         </div>
 
         <div className="secContent grid">
-          {restaurant.map((item, idx) => (
+          {restaurant
+                .filter((i) => i.restaurant_name.toLowerCase().includes(fKey.toLowerCase()))
+                .filter((i) => i.price < fPrice).map((item, idx) => (
             <div
               key={idx}
               data-aos="fade-up-right"
