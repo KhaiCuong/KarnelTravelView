@@ -5,6 +5,11 @@ import { Room, ContentPaste } from '@mui/icons-material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import { useSearch } from "../contexts/SearchContext";
+
+
+
+
 function Accommodation() {
     const [accommodation, setAccommodation] = useState([]);
     const [accommodationImage, setAccommodationImages] = useState([]);
