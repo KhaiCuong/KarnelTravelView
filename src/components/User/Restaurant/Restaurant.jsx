@@ -45,7 +45,7 @@ function Restaurant() {
     } else if (fService === "Tour") {
       navigate("/tour");
     } else if (fService === "Tourist Sppot") {
-      navigate("/");
+      navigate("/touristsport");
     } else if (fService === "Transport") {
       navigate("/usertransport");
     }

@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { getAccommodationImageByID, getListAccommodation } from "./Services/ApiService";
+
 import "../Accommodation/css/Accommodation.css";
 import { Room, ContentPaste } from "@mui/icons-material";
+import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
+
 // search
 import "aos/dist/aos.css";
 import { useSearch } from "../../contexts/SearchContext";
 import { LocationOnOutlined, FilterListOutlined, FacebookOutlined, Instagram, CardTravel, FormatListBulleted, AppRegistrationOutlined } from "@mui/icons-material";
 // import "../../Home/home.css";
 
-
-
 //Booking
 import { useShoppingCart } from "../Context/ShoppingCartContext";
+import { GetImagesByTouristSpotId, GetTouristSpots } from "./Service/AppService";
 
-function UserAccommodation() {
-  const [accommodation, setAccommodation] = useState([]);
-  const [accommodationImage, setAccommodationImages] = useState([]);
-
+function UserTouristSpot() {
+  const [tourist, setTourist] = useState([]);
+  const [touristsportImage, setTouristSpotImages] = useState([]);
   const navigate = useNavigate();
 
   // search
   const { sendInfo, itemSearch } = useSearch();
   const [rs, setRs] = useState(0);
   const [fKey, setFKey] = useState("");
-  const [fService, setFService] = useState("Accommodation");
+  const [fService, setFService] = useState("Tourist Sppot");
   const [fPrice, setFPrice] = useState(10000);
   const [isHiden, setIsHiden] = useState(true);
   const handelFilter = (e) => {
@@ -33,8 +33,8 @@ function UserAccommodation() {
       navigate("/restaurant");
     } else if (fService === "Tour") {
       navigate("/tour");
-    } else if (fService === "Tourist Sppot") {
-      navigate("/touristsport");
+    } else if (fService === "Accommodation") {
+      navigate("/accommodation");
     } else if (fService === "Transport") {
       navigate("/usertransport");
     }
@@ -73,34 +73,35 @@ function UserAccommodation() {
       setFPrice(itemSearch.price);
     }
 
-    const fetchAccommodationData = async () => {
+
+    const fetchTouristSpotData = async () => {
       try {
-        const response = await getListAccommodation();
+        const response = await GetTouristSpots();
         if (response.status === 200) {
-          setAccommodation(response.data);
-          const accommodationImages = [];
+          setTourist(response.data);
+          const touristsportImage = [];
 
           for (let index = 0; index < response.data.length; index++) {
             console.log("response", response);
-            const imageResponse = await getAccommodationImageByID(response.data[index].accommodation_id);
+            const imageResponse = await GetImagesByTouristSpotId(response.data[index].touristSpot_id);
             console.log("imageResponse", imageResponse);
             if (imageResponse.status === 200) {
-              accommodationImages[index] = imageResponse.data;
+              touristsportImage[index] = imageResponse.data;
             }
           }
 
-          setAccommodationImages(accommodationImages);
+          setTouristSpotImages(touristsportImage);
         }
       } catch (error) {
         console.log("error", error);
       }
     };
 
-    fetchAccommodationData();
+    fetchTouristSpotData();
   }, []);
-  console.log("fService", fService);
 
-  const handleDetailAccommodation = (id) => {
+
+  const handleDetailTouristSpot = (id) => {
     navigate(`detail/${id}`);
   };
   return (
@@ -125,9 +126,10 @@ function UserAccommodation() {
               </label>
               <div className="input flex">
                 <select name="" id="" placeholder="Keyword search" onChange={FilterService} className="w-100" style={{ border: "none", backgroundColor: "#efefef" }}>
+                  <option value="Tourist Sppot">Tourist Sppot</option>
                   <option value="Accommodation">Accommodation</option>
                   <option value="Restaurant">Restaurant</option>
-                  <option value="Tourist Sppot">Tourist Sppot</option>
+
                   <option value="Tour">Tour</option>
                   <option value="Transport">Transport</option>
                 </select>
@@ -158,39 +160,43 @@ function UserAccommodation() {
           </div>
         </div>
       </section>
-
-      <section className="main container section pt-0 pl-0 pr-0">
+      <section className="main container section  pt-0 pl-0 pr-0">
         <div className="secTitle">
-          <h3 data-aos="fade-right" className="title ">
+          <h3 data-aos="fade-right" className="title">
             Most visited destinations
           </h3>
         </div>
+        {/* search */}
+
         <div className="secContent grid">
-          {/* search */}
-          {accommodation
-            .filter((i) => i.accommodation_name.toLowerCase().includes(fKey.toLowerCase()))
+          {tourist
+            .filter((i) => i.touristSpot_name.toLowerCase().includes(fKey.toLowerCase()))
             .filter((i) => i.price < fPrice)
-            .map((item, index) => (
-              <div key={index} data-aos="fade-up-right" className="singleDestination">
-                {accommodationImage[index] && (
+            .map((item, idx) => (
+              <div key={idx} data-aos="fade-up-right" className="singleDestination">
+                {touristsportImage[idx] && (
                   <div className="imageDiv">
-                    <img src={`http://localhost:5158/${accommodationImage[index][0]}`} alt={item} onClick={() => handleDetailAccommodation(item.accommodation_id)} style={{cursor:"pointer"}}/>
+                    <img src={`http://localhost:5158/${touristsportImage[idx][0]}`} alt={item} onClick={() => handleDetailTouristSpot(item.touristSpot_id)}  style={{cursor:"pointer"}} />
                   </div>
                 )}
 
-                <div className="cardInfo" >
-                  <h4 className="destTitle" onClick={() => handleDetailAccommodation(item.accommodation_id)} style={{cursor:"pointer"}}>{item.accommodation_name}</h4>
-                  <span className="continent flex" onClick={() => handleDetailAccommodation(item.accommodation_id)} style={{cursor:"pointer"}}>
+                <div className="cardInfo">
+                  <h4 className="destTitle" onClick={() => handleDetailTouristSpot(item.touristSpot_id)}  style={{cursor:"pointer"}}>{item.touristSpot_name}</h4>
+
+                  <span className="continent flex" onClick={() => handleDetailTouristSpot(item.touristSpot_id)}  style={{cursor:"pointer"}}>
                     <Room className="icon" />
-                    <span className="name">{item.location_id}</span>
+                    <span className="name">{item.Location_id}</span>
                   </span>
 
                   <div className="fees flex">
-                    <div className="grade">
-                      <span>{item.rate} stars</span>
-                    </div>
+                    {/* <div className="grade">
+                    <span>
+                      {item.grade}
+                      <small> +1</small>
+                    </span>
+                  </div> */}
                     <div className="price">
-                      <h5>${item.price} / Night</h5>
+                      <h5>{item.price}</h5>
                     </div>
                   </div>
 
@@ -198,8 +204,8 @@ function UserAccommodation() {
                     <p>{item.description}</p>
                   </div>
 
-                  <button className="btn flex" onClick={() => increaseCartQuantity(item.accommodation_id, "Accommodation", times)}>
-                    Book now <ContentPaste className="icon" />
+                  <button className="btn flex" onClick={() => increaseCartQuantity(item.touristSpot_id, "TouristSpot", times)} >
+                  Book now <ContentPaste className="icon"  />
                   </button>
                 </div>
               </div>
@@ -209,5 +215,4 @@ function UserAccommodation() {
     </>
   );
 }
-
-export default UserAccommodation;
+export default UserTouristSpot;
