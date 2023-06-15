@@ -57,7 +57,7 @@ const MainContent = ({ children }) => {
   console.log("image", touristSpotImage);
 
   const handleDetailTour = (id) => {
-    navigate(`detail/${id}`)
+    navigate(`/tour/detail/${id}`)
   }
 
   return (

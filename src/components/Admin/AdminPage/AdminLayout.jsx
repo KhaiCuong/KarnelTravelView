@@ -85,7 +85,7 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="/admin/tour">
                     Tour Manager
                   </a>
-                  <a className="collapse-item" href="cards.html">
+                  <a className="collapse-item" href="/admin/accommodation">
                     Accomodation Manager
                   </a>
                   <a className="collapse-item">
@@ -116,10 +116,10 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="/admin/account">
                     Account Manager
                   </a>
-                  <a className="collapse-item" href="utilities-border.html">
+                  <a className="collapse-item" href="/admin/booking">
                     Booking Manager
                   </a>
-                  <a className="collapse-item" href="utilities-animation.html">
+                  <a className="collapse-item" href="/admin/feedback">
                     Feedback Manager
                   </a>
                   <a className="collapse-item" href="utilities-other.html">

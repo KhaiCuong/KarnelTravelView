@@ -54,6 +54,9 @@ import Contact from "./components/User/Contact/Contact";
 import Feedback from "./components/User/Contact/Feedback";
 import BookingList from "./components/User/Booking/BookingLisht";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
+import Booking from "./components/User/Booking/Booking";
+import ListBooking from "./components/Admin/Booking/ListBooking";
+import ListFeedback from "./components/Admin/Feedback/ListFeedback";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -155,6 +158,12 @@ function App() {
             <Route path="createAccommodation" element={<CreateAccommodation />} />
             <Route path="updateAccommodation/:id" element={<UpdateAccommodation />} />
             <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
+          </Route>
+          <Route path="booking">
+            <Route index element={<ListBooking />} />
+          </Route>
+          <Route path="feedback">
+            <Route index element={<ListFeedback />} />
           </Route>
         </Route>
 

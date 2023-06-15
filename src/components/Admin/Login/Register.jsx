@@ -84,6 +84,7 @@ function Register(props) {
       // })
       .catch((err) => console.log(err));
   };
+  
 
   // Validate message
   const validateForm = (dataInput) => {
@@ -204,7 +205,7 @@ function Register(props) {
                           {errors.role && <div className="invalid-feedback">{errors.role}</div>}
                         </div>
                       </div>
-                      <button class="btn btn-primary btn-user btn-block">
+                      <button class="btn btn-primary btn-user btn-block" >
                         Register Account
                       </button>
 

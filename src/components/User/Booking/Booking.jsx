@@ -4,6 +4,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBIc
 import { TourContext } from "../../Admin/contexts/TourContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Token } from "@mui/icons-material";
 
 export default function Booking() {
   const navigate = useNavigate();
@@ -54,10 +55,10 @@ export default function Booking() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
- 
+
     axios
       .post("http://localhost:5158/api/Booking/AddBooking", dataBooking)
-      .then((result) => {})
+      .then((result) => { })
       .then(() => {
         if (change > 0) {
           axios
@@ -76,29 +77,32 @@ export default function Booking() {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5158/api/User/GetUser/${usertoken.user_id}`)
-      .then((res) => {
-        setUser(res.data.data);
-      })
-      .then((error) => console.log(error));
+    if (usertoken != null) {
+      axios
+        .get(`http://localhost:5158/api/User/GetUser/${usertoken.user_id}`)
+        .then((res) => {
+          console.log("res", res);
+          setUser(res.data.data);
+        })
+        .then((error) => console.log(error));
+    }
 
-    axios
-      .get(`http://localhost:5158/api/TouristSpotTour/GetListByTourId/${itemTour.tour_id}`)
-      .then((s) => {
+    // axios
+    //   .get(`http://localhost:5158/api/TouristSpotTour/GetListByTourId/${itemTour.tour_id}`)
+    //   .then((s) => {
 
-        return s.data.data;
-      })
-      .then((spot) => {
-        axios
-          .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${spot[0].touristSpot_id}`)
-          .then((i) => {
-            setImg(i.data.data[0]);
-            console.log("i", i.data.data[0])
-          })
-          .then((error) => console.log(error));
-      })
-      .then((error) => console.log(error));
+    //     return s.data.data;
+    //   })
+    //   .then((spot) => {
+    //     axios
+    //       .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${spot[0].touristSpot_id}`)
+    //       .then((i) => {
+    //         setImg(i.data.data[0]);
+    //         console.log("i", i.data.data[0])
+    //       })
+    //       .then((error) => console.log(error));
+    //   })
+    //   .then((error) => console.log(error));
   }, []);
   return (
     <section className="h-100 h-custom bg-dark" style={{ backgroundColor: "#eee" }}>
@@ -115,7 +119,7 @@ export default function Booking() {
 
                     <div className="d-flex align-items-center mb-5">
                       <div className="flex-shrink-0">
-                        <MDBCardImage src={`http://localhost:5158/${img}`}  fluid style={{ width: "150px" }} alt="Generic placeholder image" />
+                        <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" />
                       </div>
 
                       <div className="flex-grow-1 ms-3">
@@ -132,9 +136,9 @@ export default function Booking() {
                           Times: {itemTour.times}
                         </MDBTypography>
                         <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-                        Discount: {itemTour.total_payment > 3000 ? 10 : 0} %
+                          Discount: {itemTour.total_payment > 3000 ? 10 : 0} %
                         </MDBTypography>
-               
+
 
                         <div className="d-flex align-items-center">
                           <p className="fw-bold mb-0 me-5 pe-3">{itemTour.price}$</p>

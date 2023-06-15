@@ -85,7 +85,6 @@ function CreateAccommodation() {
                 if (result.isConfirmed) {
                     postAccommodation(data)
                         .then((result) => {
-                            console.log("accommodation", result);
                             if (result.status === 201) {
                                 //upload image
                                 postAccommodationImage(result.data.accommodation_id, formData)
