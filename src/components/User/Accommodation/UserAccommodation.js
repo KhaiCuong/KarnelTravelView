@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getAccommodationImageByID, getListAccommodation } from "./Services/ApiService";
+import {
+  getAccommodationImageByID,
+  getListAccommodation,
+} from "./Services/ApiService";
 import "../Accommodation/css/Accommodation.css";
 import { Room, ContentPaste } from "@mui/icons-material";
 import "aos/dist/aos.css";
@@ -15,12 +18,19 @@ function UserAccommodation() {
 
   //Booking
   var today = new Date();
-  const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart ,getBookingByBookingId } = useShoppingCart();
+  const date =
+    today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+    getBookingByBookingId,
+  } = useShoppingCart();
   let times = {
     timeIn: date,
-    timeOut: date
-  }
+    timeOut: date,
+  };
 
   useEffect(() => {
     const fetchAccommodationData = async () => {
@@ -32,7 +42,9 @@ function UserAccommodation() {
 
           for (let index = 0; index < response.data.length; index++) {
             console.log("response", response);
-            const imageResponse = await getAccommodationImageByID(response.data[index].accommodation_id);
+            const imageResponse = await getAccommodationImageByID(
+              response.data[index].accommodation_id
+            );
             console.log("imageResponse", imageResponse);
             if (imageResponse.status === 200) {
               accommodationImages[index] = imageResponse.data;
@@ -164,7 +176,7 @@ function UserAccommodation() {
     //   </section>
     // </>
     <>
-      <section className='main container section'>
+      <section className="main container section">
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title">
             Most visited destinations
@@ -172,29 +184,30 @@ function UserAccommodation() {
         </div>
         <div className="secContent grid">
           {accommodation.map((item, index) => (
-            <div key={index} data-aos="fade-up-right" className='singleDestination'>
+            <div
+              key={index}
+              data-aos="fade-up-right"
+              className="singleDestination"
+            >
               {accommodationImage[index] && (
-                <div className="imageDiv" >
-                  <img src={`http://localhost:5158/${accommodationImage[index][0]}`} alt={item} />
+                <div className="imageDiv">
+                  <img
+                    src={`http://localhost:5158/${accommodationImage[index][0]}`}
+                    alt={item}
+                  />
                 </div>
               )}
 
               <div className="cardInfo">
-                <h4 className="destTitle">
-                  {item.accommodation_name}
-                </h4>
+                <h4 className="destTitle">{item.accommodation_name}</h4>
                 <span className="continent flex">
                   <Room className="icon" />
-                  <span className="name">
-                    {item.location_id}
-                  </span>
+                  <span className="name">{item.location_id}</span>
                 </span>
 
                 <div className="fees flex">
                   <div className="grade">
-                    <span>
-                      {item.rate} stars
-                    </span>
+                    <span>{item.rate} stars</span>
                   </div>
                   <div className="price">
                     <h5>${item.price} / Night</h5>
@@ -205,8 +218,13 @@ function UserAccommodation() {
                   <p>{item.description}</p>
                 </div>
 
-                <button className='btn flex' onClick={() => handleDetailAccommodation(item.accommodation_id)}>
-                  DETAILS <ContentPaste className='icon' />
+                <button
+                  className="btn flex"
+                  onClick={() =>
+                    handleDetailAccommodation(item.accommodation_id)
+                  }
+                >
+                  DETAILS <ContentPaste className="icon" />
                 </button>
               </div>
             </div>

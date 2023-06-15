@@ -99,7 +99,7 @@ const Header = ({ setShowModal, showModal }) => {
                 </a>
                 <a className="dropdown-item" href="/tourist-spot">
                   <i class="fas fa-map-marked mr-2 text-secondary"></i>
-                  <Link to="/tourist-spot">Tourist Spot</Link>
+                  <Link to="/touristsport">Tourist Spot</Link>
                 </a>
                 <a className="dropdown-item" href="/usertransport">
                   <i class="fas fa-car-side mr-2 text-secondary"></i>

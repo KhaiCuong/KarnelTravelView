@@ -10,7 +10,13 @@ function UserDetailTransport() {
   const [transport, setTransport] = useState([]);
 
   // Booking
-  const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    addMultiQuantity,
+    removeFromCart,
+    quantity,
+  } = useShoppingCart();
   const [valid, setValid] = useState(false);
   let [count, setCount] = useState(1);
   function incrementCount() {
@@ -82,9 +88,17 @@ function UserDetailTransport() {
         <div className="container">
           <div className="row mb-5 mt-3">
             <div className="col-lg-6 ">
-              <div className="hotel-single mt-4 ftco-animate border-dark border border-white pl-3  pr-3 pb-5 pt-4 bg-primary " style={{ borderRadius: "13px" }}>
-                <h2 className="text-center text-light">The Information about the Transport </h2>
-                <h2 className="text-center text-light" style={{ fontSize: "12px" }}>
+              <div
+                className="hotel-single mt-4 ftco-animate border-dark border border-white pl-3  pr-3 pb-5 pt-4 bg-primary "
+                style={{ borderRadius: "13px" }}
+              >
+                <h2 className="text-center text-light">
+                  The Information about the Transport{" "}
+                </h2>
+                <h2
+                  className="text-center text-light"
+                  style={{ fontSize: "12px" }}
+                >
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -94,21 +108,38 @@ function UserDetailTransport() {
 
                 <div className="mt-4 ml-4 ">
                   <div className="d-flex text-dark align-items-center ">
-                    <i class="fas fa-arrow-circle-up text-light"></i> <h5 className="mr-2 mb-0 ml-1 text-light"> Departure : </h5>
-                    <p className="mb-0 text-light"> {transport.start_position} </p>
+                    <i class="fas fa-arrow-circle-up text-light"></i>{" "}
+                    <h5 className="mr-2 mb-0 ml-1 text-light"> Departure : </h5>
+                    <p className="mb-0 text-light">
+                      {" "}
+                      {transport.start_position}{" "}
+                    </p>
                   </div>
                   <div className="d-flex text-dark align-items-center">
                     <i class="fas fa-arrow-circle-down text-light"></i>
-                    <h5 className="mr-2  mb-0 ml-1 text-light"> Destination : </h5>
-                    <p className="mb-0 text-light"> {transport.transport_name}</p>
+                    <h5 className="mr-2  mb-0 ml-1 text-light">
+                      {" "}
+                      Destination :{" "}
+                    </h5>
+                    <p className="mb-0 text-light">
+                      {" "}
+                      {transport.transport_name}
+                    </p>
                   </div>
                   <div className="d-flex text-dark align-items-center">
                     <i class="fas fa-arrow-circle-down text-light"></i>
-                    <h5 className="mr-2  mb-0 ml-1 text-light"> Destination : </h5>
-                    <p className="mb-0 text-light"> {transport.transport_name}</p>
+                    <h5 className="mr-2  mb-0 ml-1 text-light">
+                      {" "}
+                      Destination :{" "}
+                    </h5>
+                    <p className="mb-0 text-light">
+                      {" "}
+                      {transport.transport_name}
+                    </p>
                   </div>
                   <div className="d-flex text-dark align-items-center">
-                    <i class="fas fa-tag text-light"></i> <h5 className="mr-2  mb-0 ml-1 text-light"> Price: </h5>
+                    <i class="fas fa-tag text-light"></i>{" "}
+                    <h5 className="mr-2  mb-0 ml-1 text-light"> Price: </h5>
                     <p className="mb-0 text-light"> {transport.price} $</p>
                   </div>
                 </div>
@@ -116,7 +147,10 @@ function UserDetailTransport() {
             </div>
             {/* Booking */}
             <div className="col-lg-6 ">
-              <div className=" hotel-single ftco-animate mb-2 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
+              <div
+                className=" hotel-single ftco-animate mb-2 mt-4 border border-dark"
+                style={{ borderRadius: "13px" }}
+              >
                 <h4 className="mb-5 mt-3 text-center ">
                   Booking <i class="fas fa-book-open"></i>
                 </h4>
@@ -124,17 +158,36 @@ function UserDetailTransport() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group position-relative">
-                        <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
+                        <input
+                          type="date"
+                          id="checkin_date"
+                          onChange={handleChangeDateIn}
+                          className="w-75"
+                          placeholder="Date from"
+                          required
+                        />
                         <span class="validity "></span>
 
-                        <div className="text-dark">Please enter the time you will come</div>
+                        <div className="text-dark">
+                          Please enter the time you will come
+                        </div>
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="form-group timess">
-                        <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
+                        <input
+                          type="time"
+                          id="appt-time"
+                          name="appt"
+                          onChange={handleChangeDateOut}
+                          min="09:00"
+                          max="22:00"
+                          required
+                        ></input>
                         <span class="validity"></span>
-                        <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
+                        <div className="text-dark">
+                          My Restaurant just open from 9am to 10pm
+                        </div>
                       </div>
                     </div>
 
@@ -146,9 +199,20 @@ function UserDetailTransport() {
                     <div className="col-md-6 mt-3 mb-3 d-flex ">
                       <div className="d-flex align-items-center ml-3">
                         <div className="def-number-input number-input safari_only">
-                          <button className="minus" onClick={decrementCount}></button>
-                          <input className="quantity fw-bold text-black" onChange={handleChangeInput} value={count} type="number" />
-                          <button className="plus" onClick={incrementCount}></button>
+                          <button
+                            className="minus"
+                            onClick={decrementCount}
+                          ></button>
+                          <input
+                            className="quantity fw-bold text-black"
+                            onChange={handleChangeInput}
+                            value={count}
+                            type="number"
+                          />
+                          <button
+                            className="plus"
+                            onClick={incrementCount}
+                          ></button>
                         </div>
                       </div>
                     </div>
@@ -159,7 +223,12 @@ function UserDetailTransport() {
                           type="submit"
                           onClick={() => {
                             if (valid && timeIn.length != 0) {
-                              addMultiQuantity(transport.transport_id, count, "Transport", times);
+                              addMultiQuantity(
+                                transport.transport_id,
+                                count,
+                                "Transport",
+                                times
+                              );
                             }
                           }}
                           value="Booking"

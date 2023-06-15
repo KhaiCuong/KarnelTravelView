@@ -47,6 +47,7 @@ import Restaurant from "./components/User/Restaurant/Restaurant";
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 import UserTransport from "./components/User/Transport/UserTransport";
 import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
+import Booking from "./components/User/Booking/Booking";
 import Tour from "./components/User/Tour/Tour";
 import DetailTour from "./components/User/Tour/DetailTour";
 
@@ -54,6 +55,10 @@ import Contact from "./components/User/Contact/Contact";
 import Feedback from "./components/User/Contact/Feedback";
 import BookingList from "./components/User/Booking/BookingLisht";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
+
+import PersonalProfile from "./components/User/ProfileUser/ProfileUser";
+import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
+import UserTouristSpot from "./components/User/TouristSpot/UserTouristSpot";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -99,13 +104,28 @@ function App() {
             <Route index element={<Tour />} />
             <Route path="detail/:id" element={<DetailTour />} />
           </Route>
+          {/* TouristSpot */}
+          <Route path="touristsport">
+            <Route index element={<UserTouristSpot />} />
+            <Route path="detail/:id" element={<UserDetailTransport />} />
+          </Route>
         </Route>
 
         <Route path="register" element={<Register></Register>}></Route>
+        {/* View Profile */}
+        <Route path="profileuser">
+          <Route path="detail/:id" element={<PersonalProfile />} />
+          <Route path="update/:id" element={<ProfileUpdate />} />
+        </Route>
 
         {/* <Route path="booking/:id" element={<Booking></Booking>} /> */}
 
-        <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
+        <Route
+          path="login"
+          element={
+            <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
+          }
+        />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
@@ -152,9 +172,18 @@ function App() {
 
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
-            <Route path="createAccommodation" element={<CreateAccommodation />} />
-            <Route path="updateAccommodation/:id" element={<UpdateAccommodation />} />
-            <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
+            <Route
+              path="createAccommodation"
+              element={<CreateAccommodation />}
+            />
+            <Route
+              path="updateAccommodation/:id"
+              element={<UpdateAccommodation />}
+            />
+            <Route
+              path="detailAccommodation/:id"
+              element={<DetailAccommodation />}
+            />
           </Route>
         </Route>
 
