@@ -8,6 +8,7 @@ import { useShoppingCart } from "../Context/ShoppingCartContext";
 import "../Booking/Booking.css";
 
 import { GetImagesByTouristSpotId, GetTouristSpotById, GetTouristSpots } from "./Service/AppService";
+import ChartTour from "../../Charts/ChartTour";
 
 function UserTouristSpotDetail() {
   // Booking
@@ -109,8 +110,8 @@ function UserTouristSpotDetail() {
     <div className="main-view">
       <br />
       <section className="main container section ftco-section ftco-degree-bg">
-        <div className="container">
-          <div className="row">
+        <div className="container text-light  bg-blur p-5" style={{ borderRadius: "13px" }}>
+          <div className="row mb-4">
             <div className="">
               <div className="row">
                 <div className="ftco-animate">
@@ -139,24 +140,28 @@ function UserTouristSpotDetail() {
                   </div>
                 </div>
                 <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate text-dark">
-                  <span>Our Best hotels &amp; Resorts</span>
-                  <h2>{touristsport.touristSpot_name}</h2>
-                  <p className="rate mb-5">
-                    {touristsport.type + "" === "true" ? "Resort" : "Hotel"} &nbsp;
-                    <span className="star">{touristsport.rate} <i class="fa fa-star-o"></i></span>
-                    <div className="star">
-                      Discount: &nbsp;
-                      {touristsport.discount}
+                  <span className="text-lights" >Our Best Spot</span>
+                  <h2 className="text-light">
+                    {touristsport.touristSpot_name}  <i class="fas fa-map-marked" style={{ fontSize: "24px" }}></i>
+                  </h2>
+
+                  <div className="star font-weight-bold text-light">
+                    <i class="fas fa-caret-right"></i> Price: {touristsport.price} $
+                  </div>
+                  <div className="star font-weight-bold text-light">
+                    <i class="fas fa-caret-right"></i> Discount: &nbsp;
+                    {touristsport.discount}
+                  </div>
+                  <div class="product-box mb-5">
+                    <div class="font-weight-bold text-light mb-3">
+                      <i class="fas fa-caret-right"></i> Description :
                     </div>
-                  </p>
-                  <div class="product-box">
-            <h3 class="product-name"></h3>
-            <p  class="round3 text-dark">{touristsport.description}</p>
-          </div>
+                    <p class="round3  p-3 text-light border-white">{touristsport.description}</p>
+                  </div>
                 </div>
 
                 {/* Booking */}
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 borderwitdh" style={{ borderRadius: "13px" }}>
+                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 bg-light" style={{ borderRadius: "13px", borderColor: "white" }}>
                   <h4 className="mb-5 mt-3 text-center ">
                     Booking <i class="fas fa-book-open"></i>
                   </h4>
@@ -167,7 +172,7 @@ function UserTouristSpotDetail() {
                           <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
                           {isSubmit && <span class="validity"></span>}
 
-                          {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span>}
+                          {isSubmit && timeIn == "" && <div className="text-danger"> Please enter Check-in date</div>}
 
                           <div className="text-dark">Please enter the time you will come</div>
                         </div>
@@ -176,6 +181,8 @@ function UserTouristSpotDetail() {
                         <div className="form-group timess">
                           <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
                           {isSubmit && <span class="validity"></span>}
+                          {isSubmit && timeOut == "" && <div className="text-danger"> Please enter Check-in times</div>}
+
                           <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
                         </div>
                       </div>

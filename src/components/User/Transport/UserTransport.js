@@ -6,6 +6,7 @@ import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getListTransport, getTransportByID } from "./Service/ApiService";
 import { useShoppingCart } from "../Context/ShoppingCartContext";
+import "aos/dist/aos.css";
 
 // search
 import "aos/dist/aos.css";
@@ -17,26 +18,23 @@ function UserTransport() {
   // const [accommodationImage, setAccommodationImages] = useState([]);
   const navigate = useNavigate();
 
-// Booking
+  // Booking
   var today = new Date();
-  const date =
-    today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-  const {
-    getItemQuantity,
-    increaseCartQuantity,
-    decreaseCartQuantity,
-    removeFromCart,
-  } = useShoppingCart();
+  const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart();
   let times = {
-    timeIn : date,
-    timeOut : "09:00",
-  }
+    timeIn: date,
+    timeOut: "09:00",
+  };
 
   //search
   const { sendInfo, itemSearch } = useSearch();
   const [rs, setRs] = useState(0);
   const [fKey, setFKey] = useState("");
-  const [fService, setFService] = useState("Transport");  { /***/}
+  const [fService, setFService] = useState("Transport");
+  {
+    /***/
+  }
   const [fPrice, setFPrice] = useState(10000);
   const [isHiden, setIsHiden] = useState(true);
   const handelFilter = (e) => {
@@ -50,9 +48,9 @@ function UserTransport() {
       navigate("/tour");
     } else if (fService === "Tourist Sppot") {
       navigate("/touristsport");
-    } else if(fService === "Restaurant") {
+    } else if (fService === "Restaurant") {
       navigate("/restaurant");
-    } ;
+    }
   };
   const FilterKey = (e) => {
     setFKey(e.target.value);
@@ -71,8 +69,8 @@ function UserTransport() {
   };
 
   useEffect(() => {
-     // Search
-     if (typeof itemSearch.key != "undefined") {
+    // Search
+    if (typeof itemSearch.key != "undefined") {
       setFKey(itemSearch.key);
     }
     if (typeof itemSearch.price != "undefined") {
@@ -100,121 +98,106 @@ function UserTransport() {
   };
   return (
     <>
-    <div className="main-view">
-       {/* search */}
-       <section className="home " style={{ height: "300px", alignItems: "end" }}>
-        <div className="homeContent container pb-0 ">
-          <div className="cardDiv grid bg-secondary">
-            <div className="destinationInput">
-              <label htmlFor="city" className=" text-white">
-                Search your destination:
-              </label>
-              <div className="input flex">
-                <input type="text" placeholder="Input your destination" onChange={FilterKey} value={fKey != null && fKey} />
-                <LocationOnOutlined className="icon" />
-              </div>
-            </div>
-
-            <div className="dateInput">
-              <label htmlFor="service" className=" text-white">
-                Select the Service:
-              </label>
-              <div className="input flex">
-                <select name="" id="" placeholder="Keyword search" onChange={FilterService} className="w-100" style={{ border: "none", backgroundColor: "#efefef" }}>
-                <option value="Transport">Transport</option> {/***/}
-                  <option value="Restaurant">Restaurant</option>
-                  <option value="Accommodation">Accommodation</option>
-                  <option value="Tourist Sppot">Tourist Sppot</option>
-                  <option value="Tour">Tour</option>
-                 
-                </select>
-              </div>
-            </div>
-
-            <div className="priceInput">
-              <div className="label_total flex">
-                <label htmlFor="price" className=" text-white">
-                  Max Price:
+      <div className="main-view">
+        {/* search */}
+        <section className="home " style={{ height: "300px", alignItems: "end" }}>
+          <div className="homeContent container pb-0 ">
+            <div className="cardDiv grid bg-light">
+              <div className="destinationInput">
+                <label htmlFor="city" className=" ">
+                  Search your destination:
                 </label>
-                <h3 className="total text-white">$10000</h3>
+                <div className="input flex">
+                  <input type="text" placeholder="Input your destination" onChange={FilterKey} value={fKey != null && fKey} />
+                  <LocationOnOutlined className="icon" />
+                </div>
               </div>
-              <div className="input flex position-relative ">
-                <p className="position-absolute text-light mb-0 bg-secondary pl-1 pr-1 rounded " style={{ bottom: "100%", left: "43%" }} hidden={isHiden}>
-                  {fPrice}
-                </p>
-                <input type="range" max="10000" min="100" onChange={FilterPrice} onMouseUp={handelDisplay} onMouseDown={handelHiden} value={fPrice} />
-              </div>
-            </div>
 
-            <div className="searchOptions flex" onClick={handelFilter}>
-              <FilterListOutlined className="icon" />
-              <span>
-                <a>Search</a>
-              </span>
+              <div className="dateInput">
+                <label htmlFor="service" className=" ">
+                  Select the Service:
+                </label>
+                <div className="input flex">
+                  <select name="" id="" placeholder="Keyword search" onChange={FilterService} className="w-100" style={{ border: "none", backgroundColor: "#efefef" }}>
+                    <option value="Transport">Transport</option> {/***/}
+                    <option value="Restaurant">Restaurant</option>
+                    <option value="Accommodation">Accommodation</option>
+                    <option value="Tourist Sppot">Tourist Sppot</option>
+                    <option value="Tour">Tour</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="priceInput">
+                <div className="label_total flex">
+                  <label htmlFor="price" className=" ">
+                    Max Price:
+                  </label>
+                  <h3 className="total ">$10000</h3>
+                </div>
+                <div className="input flex position-relative ">
+                  <p className="position-absolute text-light mb-0 bg-secondary pl-1 pr-1 rounded " style={{ bottom: "100%", left: "43%" }} hidden={isHiden}>
+                    {fPrice}
+                  </p>
+                  <input type="range" max="10000" min="100" onChange={FilterPrice} onMouseUp={handelDisplay} onMouseDown={handelHiden} value={fPrice} />
+                </div>
+              </div>
+
+              <div className="searchOptions flex" onClick={handelFilter}>
+                <FilterListOutlined className="icon" />
+                <span>
+                  <a>Search</a>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="main container section">
-        <div className="secTitle">
-          <h3 data-aos="fade-right" className="title">
-            Most visited destinations
-          </h3>
-        </div>
-        <div className="row">
-          
-          <div className="col-lg-9">
-            <div className="row">
-              {Transport
-                .filter((i) => i.transport_name.toLowerCase().includes(fKey.toLowerCase()))
-                .filter((i) => i.price < fPrice)
-                .map((item, index) => (
-                <div class="col-md-4 ftco-animate">
-                  <div class="destination">
-                    <div class="text p-3">
-                      <a href={`usertransport/detail/${item.transport_id}`}>
-                        <h3> From: {item.start_position} </h3>
-                        <h3>
-                          To:{" "}
-                          {item.transport_name.length > 15
-                            ? `${item.transport_name.substring(0, 15)}...`
-                            : item.transport_name}
-                        </h3>
-                        <div>
-                          <span class="price per-price">
-                            Price: {item.price}$
-                            <br />
-                          </span>
-                        </div>
-                      </a>
-                      <hr />
-                      <p class="bottom-area d-flex">
-                        <span hidden>
-                          <i class="icon-map-o"></i> {item.location_id}
-                        </span>
-                        <span class="ml-auto">
-                          <button
-                            className="btn btn-warning"
-                            onClick={() =>
-                              increaseCartQuantity(
-                                item.transport_id,
-                                "Transport",
-                                times
-                              )
-                            }
-                          >
-                            Booking
-                          </button>
-                        </span>
-                      </p>
+        </section>
+
+        <section className="main container section  pt-0 pl-0 pr-0 min-vh-100">
+          <div className="secTitle">
+            <h3 data-aos="fade-right" className="title">
+              Most visited destinations
+            </h3>
+          </div>
+          <div className="secContent grid">
+          {Transport.filter((i) => i.transport_name.toLowerCase().includes(fKey.toLowerCase()))
+            .filter((i) => i.price < fPrice)
+            .map((item, index) => (
+              <div key={index} data-aos="fade-up-right" className="singleDestination">
+                <div className="cardInfo">
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <i class="fas fa-circle mr-2 pl-1" style={{fontSize:"18px"}}></i><bold className="font-weight-bold">From: </bold> {item.start_position}
+                  </h4>
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <Room className="icon mr-1" /><bold  className="font-weight-bold">To: </bold>{item.transport_name}
+                  </h4>
+
+
+
+                  <div className="fees flex">
+                    {/* <div className="grade">
+                    <span>
+                      {item.grade}
+                      <small> +1</small>
+                    </span>
+                  </div> */}
+                    <div className="price">
+                      <h5>{item.price} $</h5>
                     </div>
                   </div>
+
+                  <div className="description">
+                    <p>{item.description}</p>
+                  </div>
+
+                  <button className="btn flex" onClick={() => increaseCartQuantity(item.touristSpot_id, "TouristSpot", times)}>
+                    Book now <ContentPaste className="icon" />
+                  </button>
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            ))}
         </div>
-      </section>
+        </section>
       </div>
     </>
   );

@@ -57,7 +57,7 @@ const MainContent = ({ children }) => {
   console.log("image", touristSpotImage);
 
   const handleDetailTour = (id) => {
-    navigate(`detail/${id}`)
+    navigate(`/tour/detail/${id}`)
   }
 
   return (
@@ -96,7 +96,7 @@ const MainContent = ({ children }) => {
                     </span>
                   </div>
                   <div className="price">
-                    <h5>{item.price}</h5>
+                    <h5>{item.price} $</h5>
                   </div>
                 </div>
 

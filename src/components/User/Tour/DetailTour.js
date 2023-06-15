@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  getImageByTouristSpotID,
-  getListTour,
-  getListTouristSpotTourByTourID,
-  getTourByID,
-} from "./Services/ApiService";
+import { getImageByTouristSpotID, getListTour, getListTouristSpotTourByTourID, getTourByID } from "./Services/ApiService";
 import "../Accommodation/css/DetailAccommodation.css";
 // Booking
 import { useShoppingCart } from "../Context/ShoppingCartContext";
@@ -14,13 +9,7 @@ import "../Booking/Booking.css";
 function DetailTour(props) {
   // Booking
   let [isSubmit, setIsSubmit] = useState(false);
-  const {
-    getItemQuantity,
-    increaseCartQuantity,
-    addMultiQuantity,
-    removeFromCart,
-    quantity,
-  } = useShoppingCart();
+  const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
   let [count, setCount] = useState(1);
   function incrementCount() {
     count = count + 1;
@@ -49,20 +38,15 @@ function DetailTour(props) {
         const tourByIDResponse = await getTourByID(id);
         console.log("tourByIDResponse", tourByIDResponse);
         if (tourByIDResponse.status === 200) {
-          tourByIDResponse.data.depature_date =
-            tourByIDResponse.data.depature_date.split("T")[0];
+          tourByIDResponse.data.depature_date = tourByIDResponse.data.depature_date.split("T")[0];
           setTour(tourByIDResponse.data);
 
-          const touristSpotResponse = await getListTouristSpotTourByTourID(
-            tourByIDResponse.data.tour_id
-          );
+          const touristSpotResponse = await getListTouristSpotTourByTourID(tourByIDResponse.data.tour_id);
           //=====================================================
 
           console.log("touristSpotResponse", touristSpotResponse);
           if (touristSpotResponse.status === 200) {
-            const imageTouristSpotResponse = await getImageByTouristSpotID(
-              touristSpotResponse.data[0].touristSpot_id
-            );
+            const imageTouristSpotResponse = await getImageByTouristSpotID(touristSpotResponse.data[0].touristSpot_id);
             if (imageTouristSpotResponse.status === 200) {
               setImageTouristSpot(imageTouristSpotResponse.data);
             }
@@ -86,16 +70,12 @@ function DetailTour(props) {
           const touristSpotImageArray = [];
 
           for (let index = 0; index < tourResponse.data.length; index++) {
-            const touristSpotResponse = await getListTouristSpotTourByTourID(
-              tourResponse.data[index].tour_id
-            );
+            const touristSpotResponse = await getListTouristSpotTourByTourID(tourResponse.data[index].tour_id);
 
             console.log("touristSpotResponse", touristSpotResponse);
 
             if (touristSpotResponse.status === 200) {
-              const imageResponse = await getImageByTouristSpotID(
-                touristSpotResponse.data[0].touristSpot_id
-              );
+              const imageResponse = await getImageByTouristSpotID(touristSpotResponse.data[0].touristSpot_id);
 
               console.log("imageResponse", imageResponse);
 
@@ -175,27 +155,19 @@ function DetailTour(props) {
     <div className="main-view">
       <br />
       <section className="main container section ftco-section ftco-degree-bg">
-        <div className="container">
+        <div className="container text-light  bg-blur p-5" style={{ borderRadius: "13px" }}>
           <div className="row">
             <div className="">
               <div className="row">
                 <div className="ftco-animate">
-                  <div
-                    id="carouselExampleControls"
-                    class="carousel slide user-slide"
-                    data-bs-ride="carousel"
-                  >
+                  <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                       <div className="carousel-item user-carousel1 active">
                         {imageTouristSpot.map((item, index) => {
                           if (index < 1) {
                             return (
                               <>
-                                <img
-                                  src={`http://localhost:5158/${item}`}
-                                  className=""
-                                  alt={item}
-                                />
+                                <img src={`http://localhost:5158/${item}`} className="" alt={item} />
                               </>
                             );
                           }
@@ -206,69 +178,49 @@ function DetailTour(props) {
                           if (index >= 1) {
                             return (
                               <>
-                                <img
-                                  src={`http://localhost:5158/${item}`}
-                                  className=""
-                                  alt={item}
-                                />
+                                <img src={`http://localhost:5158/${item}`} className="" alt={item} />
                               </>
                             );
                           }
                         })}
                       </div>
                     </div>
-                    <button
-                      className="carousel-control-prev"
-                      type="button"
-                      data-bs-target="#carouselExampleControls"
-                      data-bs-slide="prev"
-                    >
-                      <span
-                        className="carousel-control-prev-icon"
-                        aria-hidden="true"
-                      ></span>
+                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span className="visually-hidden">Previous</span>
                     </button>
-                    <button
-                      className="carousel-control-next"
-                      type="button"
-                      data-bs-target="#carouselExampleControls"
-                      data-bs-slide="next"
-                    >
-                      <span
-                        className="carousel-control-next-icon"
-                        aria-hidden="true"
-                      ></span>
+                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                      <span className="carousel-control-next-icon" aria-hidden="true"></span>
                       <span className="visually-hidden">Next</span>
                     </button>
                   </div>
                 </div>
                 <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                  <span>Our Best Tour</span>
-                  <h2>{tour.tour_name}</h2>
-                  <h4>
-                    Departure date: &nbsp;
+                  <span className="text-light">Our Best Tour</span>
+                  <h2 className="text-light">
+                    {tour.tour_name}  <i class="fas fa-suitcase"  style={{ fontSize: "24px" }}></i> 
+                  </h2>
+
+                  <div className="star font-weight-bold text-light">
+                    <i class="fas fa-caret-right"></i> Departure date: &nbsp;
                     {tour.depature_date}
-                  </h4>
-                  <p className="rate mb-5">
-                    <span className="loc">
-                      <a href="#">
-                        <i className="icon-map"></i>{" "}
-                      </a>
-                    </span>
-                    &nbsp; Discount: &nbsp;
-                    <span className="star">{tour.discount}</span>
-                  </p>
-                  <div class="product-box">
-                    <h3 class="product-name"></h3>
-                    <p class="round3 text-dark">{tour.description}</p>
+                  </div>
+                  <div className="star font-weight-bold text-light">
+                    <i class="fas fa-caret-right"></i> Price: {tour.price} $
+                  </div>
+                  <div className="star font-weight-bold text-light">
+                    <i class="fas fa-caret-right"></i> Discount: &nbsp;
+                    {tour.discount}
+                  </div>
+                  <div class="product-box mb-5">
+                    <div class="font-weight-bold text-light mb-2">
+                      <i class="fas fa-caret-right"></i> Description :
+                    </div>
+                    <p class="round3  p-3 text-light border-white">{tour.description}</p>
                   </div>
                 </div>
                 {/* Booking */}
-                <div
-                  className="col-md-12 hotel-single ftco-animate mb-5 mt-4 borderwitdh"
-                  style={{ borderRadius: "13px" }}
-                >
+                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 borderwitdh bg-light " style={{ borderRadius: "13px", borderColor: "white" }}>
                   <h4 className="mb-5 mt-3 text-center ">
                     Booking <i class="fas fa-book-open"></i>
                   </h4>
@@ -276,56 +228,20 @@ function DetailTour(props) {
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                          <div className="font-weight-bold text-dark mb-2">
-                            Check in date :{" "}
-                          </div>
+                          <div className="font-weight-bold text-dark mb-2">Check in date : </div>
 
-                          <input
-                            type="date"
-                            id="checkin"
-                            onChange={handleChangeDateIn}
-                            className="form-control"
-                            placeholder="Date from"
-                          />
-                          {timeIn > timeOut && (
-                            <span className="text-danger">
-                              {" "}
-                              Date must be less than Check-out Date
-                            </span>
-                          )}
-                          {isSubmit && timeIn == "" && (
-                            <span className="text-danger">
-                              {" "}
-                              Please enter Check-in date
-                            </span>
-                          )}
+                          <input type="date" id="checkin" onChange={handleChangeDateIn} className="form-control border-dark" placeholder="Date from" />
+                          {timeIn > timeOut && <span className="text-danger"> Date must be less than Check-out Date</span>}
+                          {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span>}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <div className="font-weight-bold text-dark mb-2">
-                            Check out date :{" "}
-                          </div>
+                          <div className="font-weight-bold text-dark mb-2">Check out date : </div>
 
-                          <input
-                            type="date"
-                            id="checkout_date"
-                            onChange={handleChangeDateOut}
-                            className="form-control"
-                            placeholder="Date to"
-                          />
-                          {timeOut < timeIn && (
-                            <span className="text-danger">
-                              {" "}
-                              Date must be greater than Check-in Date
-                            </span>
-                          )}
-                          {isSubmit && timeOut == "" && (
-                            <span className="text-danger">
-                              {" "}
-                              Please enter Check-out date
-                            </span>
-                          )}
+                          <input type="date" id="checkout_date" onChange={handleChangeDateOut} className="form-control border-dark" placeholder="Date to" />
+                          {timeOut < timeIn && <span className="text-danger"> Date must be greater than Check-in Date</span>}
+                          {isSubmit && timeOut == "" && <span className="text-danger"> Please enter Check-out date</span>}
                         </div>
                       </div>
 
@@ -337,20 +253,9 @@ function DetailTour(props) {
                       <div className="col-md-6 mt-3 mb-3 d-flex ">
                         <div className="d-flex align-items-center ml-3">
                           <div className="def-number-input number-input safari_only">
-                            <button
-                              className="minus"
-                              onClick={decrementCount}
-                            ></button>
-                            <input
-                              className="quantity fw-bold text-black"
-                              onChange={handleChangeInput}
-                              value={count}
-                              type="number"
-                            />
-                            <button
-                              className="plus"
-                              onClick={incrementCount}
-                            ></button>
+                            <button className="minus" onClick={decrementCount}></button>
+                            <input className="quantity fw-bold text-black" onChange={handleChangeInput} value={count} type="number" />
+                            <button className="plus" onClick={incrementCount}></button>
                           </div>
                         </div>
                       </div>
@@ -361,12 +266,7 @@ function DetailTour(props) {
                             type="submit"
                             onClick={() => {
                               if (timeOut >= timeIn && timeIn != "") {
-                                addMultiQuantity(
-                                  tour.tour_id,
-                                  count,
-                                  "Tour",
-                                  times
-                                );
+                                addMultiQuantity(tour.tour_id, count, "Tour", times);
                                 setIsSubmit(false);
                               } else {
                                 setIsSubmit(true);
@@ -388,13 +288,8 @@ function DetailTour(props) {
                         <div class="destination">
                           {extraTourImage[index] && (
                             <div>
-                              <div
-                                class="icon d-flex justify-content-center align-items-center"
-                                onClick={() => handleDetailTour(item.tour_id)}
-                              >
-                                <img
-                                  src={`http://localhost:5158/${extraTourImage[index][0]}`}
-                                />
+                              <div class="icon d-flex justify-content-center align-items-center" onClick={() => handleDetailTour(item.tour_id)}>
+                                <img src={`http://localhost:5158/${extraTourImage[index][0]}`} />
                                 <span class="icon-search2"></span>
                               </div>
                             </div>

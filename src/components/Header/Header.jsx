@@ -100,7 +100,7 @@ const Header = ({ setShowModal, showModal }) => {
                   <i class="fas fa-utensils mr-2 text-secondary"></i>
                   <Link to="/restaurant"> Restaurant</Link>
                 </a>
-                <a className="dropdown-item" href="/tourist-spot">
+                <a className="dropdown-item" href="/touristsport">
                   <i class="fas fa-map-marked mr-2 text-secondary"></i>
                   <Link to="/touristsport">Tourist Spot</Link>
                 </a>

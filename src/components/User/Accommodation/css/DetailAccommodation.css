@@ -14,12 +14,12 @@ carousel
     color: transparent;
   }
   p.round3 {
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 12px;
     padding: 5px;
   } 
   .borderwitdh{
-    border: solid black 5px !important;
+    border: solid white 5px !important;
     
   }
   
@@ -309,4 +309,11 @@ carousel
 .bottom-area a:hover {
   background-color: #333; 
   color: #fff; 
+}
+
+
+
+
+.bg-blur {
+  background-color: rgba(0, 0, 0, 0.6)
 }

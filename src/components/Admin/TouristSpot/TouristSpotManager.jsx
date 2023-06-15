@@ -6,12 +6,10 @@ import { TourContext } from "../contexts/TourContext";
 
 const TouristSpotManager = () => {
   const [spots, setspots] = useState([]);
- 
 
   const contextTour = useContext(TourContext);
   const { itemTour, setItemTour } = contextTour;
 
-  
   const navigate = useNavigate();
   const handleGetPageDetail = (item) => {
     console.log("itemTour", itemTour);
@@ -62,66 +60,35 @@ const TouristSpotManager = () => {
               spots.map((item, index) => {
                 return (
                   <>
-                    {item.status_TouristSpot === true ? (
-                      <tr key={index}>
-                        <th>{item.touristSpot_id}</th>
-                        <td>{item.touristSpot_name}</td>
-                        <td>{item.location_id}</td>
-                        <td>{item.price}</td>
-                        <td>
-                          <label class="switch">
-                            <input
-                              type="checkbox"
-                              onClick={() => {
-                                //  handleChangeStatus(item.touristSpot_id);
-                              }}
-                              checked
-                            />
-                            <span class="slider round "></span>
-                          </label>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-warning"
+                    <tr key={index}>
+                      <th>{item.touristSpot_id}</th>
+                      <td>{item.touristSpot_name}</td>
+                      <td>{item.location_id}</td>
+                      <td>{item.price}</td>
+                      <td>
+                        <label class="switch">
+                          <input
+                            type="checkbox"
                             onClick={() => {
-                              setItemTour(item.touristSpot_id);
-                              handleGetPageDetail(item.touristSpot_id);
+                              //  handleChangeStatus(item.touristSpot_id);
                             }}
-                          >
-                            Detail
-                          </button>
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr key={index} className="background-disable">
-                        <th>{item.touristSpot_id}</th>
-                        <td>{item.touristSpot_name}</td>
-                        <td>{item.location_id}</td>
-                        <td>{item.price}</td>
-                        <td>
-                          <label class="switch">
-                            <input
-                              type="checkbox"
-                              onClick={() => {
-                                //  handleChangeStatus(item.touristSpot_id);
-                              }}
-                            />
-                            <span class="slider round "></span>
-                          </label>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-warning"
-                            onClick={() => {
-                              setItemTour(item.touristSpot_id);
-                              handleGetPageDetail(item.touristSpot_id);
-                            }}
-                          >
-                            Detail
-                          </button>
-                        </td>
-                      </tr>
-                    )}
+                            checked={item.status_tour}
+                          />
+                          <span class="slider round "></span>
+                        </label>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-warning"
+                          onClick={() => {
+                            setItemTour(item.touristSpot_id);
+                            handleGetPageDetail(item.touristSpot_id);
+                          }}
+                        >
+                          Detail
+                        </button>
+                      </td>
+                    </tr>
                   </>
                 );
               })
@@ -130,6 +97,7 @@ const TouristSpotManager = () => {
                 <div>No product to show </div>
               </div>
             )}
+            ;
           </tbody>
         </table>
       </div>

@@ -109,9 +109,9 @@ function UserAccommodation() {
       <div className="main-view">
       <section className="home " style={{ height: "300px", alignItems: "end" }}>
         <div className="homeContent container pb-0 ">
-          <div className="cardDiv grid bg-secondary">
+          <div className="cardDiv grid bg-light">
             <div className="destinationInput">
-              <label htmlFor="city" className=" text-white">
+              <label htmlFor="city" className=" ">
                 Search your destination:
               </label>
               <div className="input flex">
@@ -121,7 +121,7 @@ function UserAccommodation() {
             </div>
 
             <div className="dateInput">
-              <label htmlFor="service" className=" text-white">
+              <label htmlFor="service" className=" ">
                 Select the Service:
               </label>
               <div className="input flex">
@@ -137,10 +137,10 @@ function UserAccommodation() {
 
             <div className="priceInput">
               <div className="label_total flex">
-                <label htmlFor="price" className=" text-white">
+                <label htmlFor="price" className=" ">
                   Max Price:
                 </label>
-                <h3 className="total text-white">$10000</h3>
+                <h3 className="total ">$10000</h3>
               </div>
               <div className="input flex position-relative ">
                 <p className="position-absolute text-light mb-0 bg-secondary pl-1 pr-1 rounded " style={{ bottom: "100%", left: "43%" }} hidden={isHiden}>
@@ -160,7 +160,7 @@ function UserAccommodation() {
         </div>
       </section>
 
-      <section className="main container section pt-0 pl-0 pr-0">
+      <section className="main container section pt-0 pl-0 pr-0  min-vh-100">
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title ">
             Most visited destinations

@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "../Accommodation/css/DetailAccommodation.css";
 import { useShoppingCart } from "../Context/ShoppingCartContext";
 import { getListTransport, getTransportByID } from "./Service/ApiService";
+import "../Accommodation/css/DetailAccommodation.css";
 
 function UserDetailTransport() {
   const { id } = useParams();
@@ -84,7 +85,7 @@ function UserDetailTransport() {
         <div className="container">
           <div className="row mb-5 mt-3">
             <div className="col-lg-6 ">
-              <div className="hotel-single mt-4 ftco-animate border-dark border border-white pl-3  pr-3 pb-5 pt-4 bg-primary " style={{ borderRadius: "13px" }}>
+              <div className="hotel-single bg-blur mt-4 ftco-animate border-dark border border-white pl-3  pr-3 pb-5 pt-4  " style={{ borderRadius: "13px" }}>
                 <h2 className="text-center text-light">The Information about the Transport </h2>
                 <h2 className="text-center text-light" style={{ fontSize: "12px" }}>
                   <i class="fas fa-star"></i>
@@ -104,11 +105,11 @@ function UserDetailTransport() {
                     <h5 className="mr-2  mb-0 ml-1 text-light"> Destination : </h5>
                     <p className="mb-0 text-light"> {transport.transport_name}</p>
                   </div>
-                  <div className="d-flex text-dark align-items-center">
+                  {/* <div className="d-flex text-dark align-items-center">
                     <i class="fas fa-arrow-circle-down text-light"></i>
                     <h5 className="mr-2  mb-0 ml-1 text-light"> Destination : </h5>
                     <p className="mb-0 text-light"> {transport.transport_name}</p>
-                  </div>
+                  </div> */}
                   <div className="d-flex text-dark align-items-center">
                     <i class="fas fa-tag text-light"></i> <h5 className="mr-2  mb-0 ml-1 text-light"> Price: </h5>
                     <p className="mb-0 text-light"> {transport.price} $</p>
@@ -117,8 +118,8 @@ function UserDetailTransport() {
               </div>
             </div>
             {/* Booking */}
-            <div className="col-lg-6 ">
-              <div className="  hotel-single ftco-animate mb-2 mt-4 borderwitdh" style={{ borderRadius: "13px" }}>
+            <div className="col-lg-6  ">
+              <div className="  hotel-single ftco-animate mb-2 mt-4 borderwitdh bg-light" style={{ borderRadius: "13px" }}>
                 <h4 className="mb-5 mt-3 text-center ">
                   Booking <i class="fas fa-book-open"></i>
                 </h4>
