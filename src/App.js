@@ -4,7 +4,7 @@ import Home from "./components/Home/Home";
 import MainContent from "./components/MainContent/MainContent";
 import Footer from "./components/Footer/Footer";
 import AdminLayout from "./components/Admin/AdminPage/AdminLayout";
-import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
+
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
 import MainLayout from "./components/Layout/MainLayout";
 import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommodation";
@@ -47,6 +47,7 @@ import Restaurant from "./components/User/Restaurant/Restaurant";
 import DetailofRestaurant from "./components/User/Restaurant/DetailRestaurant";
 import UserTransport from "./components/User/Transport/UserTransport";
 import UserDetailTransport from "./components/User/Transport/UserDetailTransport";
+import Booking from "./components/User/Booking/Booking";
 import Tour from "./components/User/Tour/Tour";
 import DetailTour from "./components/User/Tour/DetailTour";
 
@@ -57,6 +58,11 @@ import AccountDetailManager from "./components/Admin/Account/AccountDetailManage
 import Booking from "./components/User/Booking/Booking";
 import ListBooking from "./components/Admin/Booking/ListBooking";
 import ListFeedback from "./components/Admin/Feedback/ListFeedback";
+
+import PersonalProfile from "./components/User/ProfileUser/ProfileUser";
+import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
+import UserTouristSpot from "./components/User/TouristSpot/UserTouristSpot";
+import UserTouristSpotDetail from "./components/User/TouristSpot/UserTouristSpotDetail";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -102,17 +108,32 @@ function App() {
             <Route index element={<Tour />} />
             <Route path="detail/:id" element={<DetailTour />} />
           </Route>
+          {/* TouristSpot */}
+          <Route path="touristsport">
+            <Route index element={<UserTouristSpot />} />
+            <Route path="detail/:id" element={<UserTouristSpotDetail />} />
+          </Route>
         </Route>
 
         <Route path="register" element={<Register></Register>}></Route>
+        {/* View Profile */}
+        <Route path="profileuser">
+          <Route path="detail/:id" element={<PersonalProfile />} />
+          <Route path="update/:id" element={<ProfileUpdate />} />
+        </Route>
 
         {/* <Route path="booking/:id" element={<Booking></Booking>} /> */}
 
-        <Route path="login" element={<Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />} />
+        <Route
+          path="login"
+          element={
+            <Login checkLogin={checkLogin} setCheckLogin={setCheckLogin} />
+          }
+        />
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
-          <Route index element={<DashboardPage />} />
+          
 
           {/* Location Route */}
           <Route path="location">
@@ -155,9 +176,18 @@ function App() {
 
           <Route path="accommodation">
             <Route index element={<ListAccommodation />} />
-            <Route path="createAccommodation" element={<CreateAccommodation />} />
-            <Route path="updateAccommodation/:id" element={<UpdateAccommodation />} />
-            <Route path="detailAccommodation/:id" element={<DetailAccommodation />} />
+            <Route
+              path="createAccommodation"
+              element={<CreateAccommodation />}
+            />
+            <Route
+              path="updateAccommodation/:id"
+              element={<UpdateAccommodation />}
+            />
+            <Route
+              path="detailAccommodation/:id"
+              element={<DetailAccommodation />}
+            />
           </Route>
           <Route path="booking">
             <Route index element={<ListBooking />} />
