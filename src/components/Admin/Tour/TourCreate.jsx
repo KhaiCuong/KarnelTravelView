@@ -11,6 +11,8 @@ function CreateTour() {
   // Upload accom
   const [accom, setAccom] = useState([]);
   const [valueAcc, setValueAcc] = useState([]);
+  const [errors, setErrors] = useState({});
+
   const handleAccomChange = (e) => {
     var value = [];
     for (var i = 0; i < e.target.options.length; i++) {
@@ -90,6 +92,10 @@ function CreateTour() {
       ...dataInput,
       [name]: value,
     });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
   };
   //custom data before call API
   const data = {
@@ -104,6 +110,13 @@ function CreateTour() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    //Validate form before call API to create
+    const newErrors = validateForm(dataInput);
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    };
     axios
       .post("http://localhost:5158/api/Tour/AddTour", data)
       .then((result) => {
@@ -181,6 +194,38 @@ function CreateTour() {
       })
       .then((error) => console.log(error));
   }, []);
+  const validateForm = (dataInput) => {
+    let errors = {};
+
+    if (!dataInput.tour_id) {
+      errors.tour_id = "Tour ID is required";
+    }
+    if (!dataInput.tour_name) {
+      errors.tour_name = "Tour Name is required";
+    } else if (dataInput.tour_name.length < 3 || dataInput.tour_name.length > 30) {
+      errors.tour_name = "Tour Name must be between 3 - 30 characters";
+    }
+
+  
+
+    if (!dataInput.status_tour) {
+      errors.status_tour = "Status is required";
+    }
+    if (!dataInput.depature_date) {
+      errors.depature_date = "Depature_date is required";
+    }
+    if (!dataInput.times) {
+      errors.times = "Times is required";
+    } else if (dataInput.times < 1 || dataInput.times > 100) {
+      errors.times = "Times must be between 1 - 100 ";
+    }
+    if (!dataInput.price) {
+      errors.price = "Price is required";
+    } else if (dataInput.price < 1 || dataInput.price > 100000000000) {
+      errors.price = "Price Name must be between 1 - 100.000.000.000 ";
+    }
+    return errors;
+  };
 
   return (
     <div className="container-fluid ">
@@ -191,19 +236,28 @@ function CreateTour() {
             <label for="tour_id" className="form-label w-100">
               Tour id:
             </label>
-            <input type="text" className="form-control" placeholder="Enter Tour Id" id="tour_id" name="tour_id" onChange={handleChangeInput} />
+            <input type="text" className={`form-control ${errors.tour_id ? "is-invalid" : ""}`}
+              placeholder="Enter Tour Id" id="tour_id" name="tour_id" onChange={handleChangeInput} />
+            {errors.tour_id && <div className="invalid-feedback">{errors.tour_id}</div>}
+
           </div>
           <div className="mb-3 mt-3">
             <label for="tour_name" className="form-label w-100">
               Tour name:
             </label>
-            <input type="text" className="form-control" id="tour_name" placeholder="Enter Tour Name" name="tour_name" onChange={handleChangeInput} />
+            <input type="text" className={`form-control ${errors.tour_name ? "is-invalid" : ""}`}
+              id="tour_name" placeholder="Enter Tour Name" name="tour_name" onChange={handleChangeInput} />
+            {errors.tour_name && <div className="invalid-feedback">{errors.tour_name}</div>}
+
           </div>
           <div className="mb-3 mt-3">
             <label for="status_tour" className="form-label w-100">
               Status:
             </label>
-            <input type="text" className="form-control" id="status_tour" placeholder="Enter Tour Status" name="status_tour" onChange={handleChangeInput} />
+            <input type="text" className={`form-control ${errors.status_tour ? "is-invalid" : ""}`}
+              id="status_tour" placeholder="Enter Tour Status" name="status_tour" onChange={handleChangeInput} />
+            {errors.status_tour && <div className="invalid-feedback">{errors.status_tour}</div>}
+
           </div>
           <div className="mb-3 mt-3">
             <label for="discount" className="form-label w-100">
@@ -215,19 +269,28 @@ function CreateTour() {
             <label for="depature_date" className="form-label w-100">
               Depature date:
             </label>
-            <input type="date" className="form-control" placeholder="Enter Tour description" id="depature_date" name="depature_date" onChange={handleChangeInput} />
+            <input type="date" className={`form-control ${errors.depature_date ? "is-invalid" : ""}`}
+              placeholder="Enter Tour description" id="depature_date" name="depature_date" onChange={handleChangeInput} />
+            {errors.depature_date && <div className="invalid-feedback">{errors.depature_date}</div>}
+
           </div>
           <div className="mb-3 mt-3">
             <label for="times" className="form-label w-100">
               Times:
             </label>
-            <input type="number" className="form-control" id="times" placeholder="Enter Tour times" name="times" onChange={handleChangeInput} />
+            <input type="number" className={`form-control ${errors.times ? "is-invalid" : ""}`}
+              id="times" placeholder="Enter Tour times" name="times" onChange={handleChangeInput} />
+            {errors.times && <div className="invalid-feedback">{errors.times}</div>}
+
           </div>
           <div className="mb-3 mt-3">
             <label for="price" className="form-label w-100">
               Price:
             </label>
-            <input type="number" className="form-control" id="price" placeholder="Enter Tour price" name="price" onChange={handleChangeInput} />
+           
+            <input type="number"  className={`form-control ${errors.price ? "is-invalid" : ""}`} id="price" placeholder="Enter Tour price" name="price" onChange={handleChangeInput} />
+            {errors.price && <div className="invalid-feedback">{errors.price}</div>}
+
           </div>
           <div className="mb-3 mt-3">
             <label for="description" className="form-label w-100">

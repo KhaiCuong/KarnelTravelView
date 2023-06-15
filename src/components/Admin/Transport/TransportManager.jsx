@@ -51,8 +51,7 @@ const TransportManager = () => {
               <th scope="col">Transport Id</th>
               <th scope="col">Transport name</th>
               <th scope="col">Start position</th>
-              
-              <th scope="col">Discount</th>
+              {/* <th scope="col">Discount</th> */}
               <th scope="col">Location Id</th>
               <th scope="col">Price</th>
               <th scope="col">Status Transport</th>
@@ -64,72 +63,38 @@ const TransportManager = () => {
               spots.map((item, index) => {
                 return (
                   <>
-                    {item.status_transport === true ? (
-                      <tr key={index}>
-                        <th>{item.transport_id}</th>
-                        <td>{item.transport_name}</td>
-                        <td>{item.start_position}</td>
-                        <td>{item.status_Transport}</td>
-                        <td>{item.Discount}</td>
-                        <td>{item.location_id}</td>
-                        <td>{item.price}</td>
-                        <td>
-                          <label class="switch">
-                            <input
-                              type="checkbox"
-                              onClick={() => {
-                                //  handleChangeStatus(item.touristSpot_id);
-                              }}
-                              checked
-                            />
-                            <span class="slider round "></span>
-                          </label>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-warning"
+                    <tr key={index}>
+                      <th>{item.transport_id}</th>
+                      <td>{item.transport_name}</td>
+                      <td>{item.start_position}</td>
+                      {/* <td>{item.Discount}</td> */}
+                      <td>{item.location_id}</td>
+                      <td>{item.price}</td>
+
+                      <td>
+                        <label class="switch">
+                          <input
+                            type="checkbox"
                             onClick={() => {
-                              // setItemTransport(item.transport_id);
-                              handleGetPageDetail(item.transport_id);
+                              //  handleChangeStatus(item.touristSpot_id);
                             }}
-                          >
-                            Detail
-                          </button>
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr key={index} className="background-disable">
-                        <th>{item.transport_id}</th>
-                        <td>{item.transport_name}</td>
-                        <td>{item.start_position}</td>
-                        <td>{item.Status_Transport}</td>
-                        <td>{item.Discount}</td>
-                        <td>{item.location_id}</td>
-                        <td>{item.price}</td>
-                        <td>
-                          <label class="switch">
-                            <input
-                              type="checkbox"
-                              onClick={() => {
-                                //  handleChangeStatus(item.touristSpot_id);
-                              }}
-                            />
-                            <span class="slider round "></span>
-                          </label>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-warning"
-                            onClick={() => {
-                              // setItemTransport(item.transport_id);
-                              handleGetPageDetail(item.transport_id);
-                            }}
-                          >
-                            Detail
-                          </button>
-                        </td>
-                      </tr>
-                    )}
+                            checked={item.status_tour}
+                          />
+                          <span class="slider round "></span>
+                        </label>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-warning"
+                          onClick={() => {
+                            // setItemTransport(item.transport_id);
+                            handleGetPageDetail(item.transport_id);
+                          }}
+                        >
+                          Detail
+                        </button>
+                      </td>
+                    </tr>
                   </>
                 );
               })

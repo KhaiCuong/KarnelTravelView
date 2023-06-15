@@ -18,7 +18,7 @@ const AdminLayout = ({ children }) => {
   return (
     <div id="wrapper" className="w-100">
       {/* <!-- Sidebar --> */}
-      <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex" id="accordionSidebar">
+      <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex mt-0" id="accordionSidebar">
         {/* <!-- Sidebar - Brand --> */}
         <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
           <div className="sidebar-brand-icon rotate-n-15">
@@ -52,19 +52,22 @@ const AdminLayout = ({ children }) => {
                 <div className="bg-white py-2 collapse-inner rounded">
                   {/* <h6 className="collapse-header">Custom Components:</h6> */}
                   <a className="collapse-item">
-                    <Link to="tour/create">Tour Manager </Link>
+                    <Link to="location/create">Add Location </Link>
+                  </a>
+                  <a className="collapse-item">
+                    <Link to="tour/create">Add Tour </Link>
                   </a>
                   <a className="collapse-item" >
-                    <Link to="accommodation/createAccommodation">Accomodation Manager</Link>
+                    <Link to="accommodation/createAccommodation">Add Accomodation</Link>
                   </a>
                   <a className="collapse-item">
                     <Link to="restaurant/createRestaurant">Add Restaurant</Link>
                   </a>
                   <a className="collapse-item">
-                    <Link to="tourist-spot/create">Tourist Spot Manager </Link>
+                    <Link to="tourist-spot/create">Add Tourist Spot </Link>
                   </a>
                   <a className="collapse-item">
-                    <Link to="transport/create">Transport Manager </Link>
+                    <Link to="transport/create">Add Transport </Link>
                   </a>
                 </div>
               </div>
