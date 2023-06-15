@@ -44,7 +44,7 @@ function PersonalProfile(props) {
   };
   return (
     <section className="vh-100" style={{ backgroundColor: "#f4f5f7" }}>
-      <h2 className="text-center font-weight-bold">{profile.user_name}</h2>
+      {/* <h2 className="text-center font-weight-bold">{profile.user_name}</h2> */}
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="6" className="mb-4 mb-lg-0">
@@ -70,13 +70,13 @@ function PersonalProfile(props) {
                   </MDBTypography>
                   <MDBCardText>{profile.role}</MDBCardText>
                  
-                  <button className="btn btn-warning updatebtn"
+                  {/* <button className="btn btn-warning updatebtn"
                   //  onClick={()=>{
                   //   handleUpdateProfile(profile.user_id);
                   // }}
                   >
                     Update Account
-                  </button>
+                  </button> */}
                   
                   
                 </MDBCol>

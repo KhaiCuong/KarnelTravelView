@@ -92,47 +92,19 @@ function DetailTour(props) {
                 console.log("error", error);
             }
         };
-        // const fetchAccommodationData = async () => {
-        //     try {
-        //         const response = await getListAccommodation();
-        //         if (response.status === 200) {
-        //             setExtraAccommodation(response.data);
-        //             const accommodationImages = [];
 
-        //             for (let index = 0; index < response.data.length; index++) {
-        //                 console.log("response", response);
-        //                 const imageResponse = await getAccommodationImageByID(response.data[index].accommodation_id);
-        //                 console.log("imageResponse", imageResponse);
-        //                 if (imageResponse.status === 200) {
-        //                     accommodationImages[index] = imageResponse.data;
-        //                 }
-        //             }
-
-        //             setExtraAccommodationImage(accommodationImages);
-        //         }
-        //     } catch (error) {
-        //         console.log("error", error);
-        //     }
-        // };
         fetchTourDataByID();
         fetchTourData();
-        // fetchAccommodationData();
 
     }, [tourID])
-
-    // useEffect(() => {
-
-    // }, []);
 
     const handleDetailTour = (id) => {
         setTourID(id);
         navigate(`/tour/detail/${id}`);
 
-        //window.location.reload(`accommodation/detail/:${id}`);
-        //console.log("id", id);
+
     }
-    // console.log("accommodation", accommodation);
-    // console.log("imageTouristSpot", imageTouristSpot);
+
 
     // Booking
     const handleChangeInput = (e) => {
@@ -223,16 +195,16 @@ function DetailTour(props) {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                <div className="font-weight-bold text-dark mb-2">Check in date : </div>
+                                                    <div className="font-weight-bold text-dark mb-2">Check in date : </div>
 
                                                     <input type="date" id="checkin" onChange={handleChangeDateIn} className="form-control" placeholder="Date from" />
-                                                    {timeIn > timeOut  && <span className="text-danger"> Date must be less than Check-out Date</span>}
-                                                    {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span> }
+                                                    {timeIn > timeOut && <span className="text-danger"> Date must be less than Check-out Date</span>}
+                                                    {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span>}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                <div className="font-weight-bold text-dark mb-2">Check out date : </div>
+                                                    <div className="font-weight-bold text-dark mb-2">Check out date : </div>
 
                                                     <input type="date" id="checkout_date" onChange={handleChangeDateOut} className="form-control" placeholder="Date to" />
                                                     {timeOut < timeIn && <span className="text-danger"> Date must be greater than Check-in Date</span>}

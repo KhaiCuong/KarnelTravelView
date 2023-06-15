@@ -14,6 +14,7 @@ function ListFeedback(props) {
         const fetchFeedbackData = async () => {
             try {
                 const feedbackResponse = await getListFeedback();
+                console.log("feedbackResponse", feedbackResponse);
                 setFeedbackList(feedbackResponse.data)
                 let book = [];
                 let userl = [];
@@ -68,7 +69,7 @@ function ListFeedback(props) {
                             const ResTour = await getTour(bkId.data.tour_id);
                             if (ResTour.status === 200) {
                                 book[index] = {
-                                    name: ResTour.data.touristSpot_name,
+                                    name: ResTour.data.tour_name,
                                     price: ResTour.data.price,
                                 }
                                 typee[index] = "Tour";
@@ -93,6 +94,11 @@ function ListFeedback(props) {
         }
         fetchFeedbackData();
     }, []);
+
+    console.log("feedback", feedback);
+    console.log("feedbackList", feedbackList);
+    console.log("user", user);
+    console.log("type", type);
     return (
         <section>
             <h2 className="text-center font-weight-bold">List of Feedback</h2>

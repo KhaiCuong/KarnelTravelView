@@ -148,7 +148,7 @@ function UserDetailAccommodation() {
                   <h2>{accommodation.accommodation_name}</h2>
                   <p className="rate mb-5">
                     {accommodation.type + "" === "true" ? "Resort" : "Hotel"} &nbsp;
-                    <span className="star">{accommodation.rate} Stars</span>
+                    <span className="star">{accommodation.rate} <i class="fa fa-star-o"></i></span>
                     <div className="star">
                       Discount: &nbsp;
                       {accommodation.discount}

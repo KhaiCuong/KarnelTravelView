@@ -1,11 +1,11 @@
-carousel
+/* carousel */
 .user-slide {
     width: 100% ;
-    height: 500px;
+    height: 300px;
   }
   
   .user-carousel1 img {
-    height: 500px;
+    height: 300px;
     width: 100% ;
     object-fit: cover;
   }

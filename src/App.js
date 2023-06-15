@@ -55,7 +55,6 @@ import Contact from "./components/User/Contact/Contact";
 import Feedback from "./components/User/Contact/Feedback";
 import BookingList from "./components/User/Booking/BookingLisht";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
-import Booking from "./components/User/Booking/Booking";
 import ListBooking from "./components/Admin/Booking/ListBooking";
 import ListFeedback from "./components/Admin/Feedback/ListFeedback";
 
@@ -133,7 +132,7 @@ function App() {
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
-          
+
 
           {/* Location Route */}
           <Route path="location">
