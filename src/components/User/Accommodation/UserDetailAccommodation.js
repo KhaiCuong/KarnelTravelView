@@ -100,7 +100,7 @@ function UserDetailAccommodation() {
   };
 
   return (
-    <div>
+    <div className="main-view">
       <br />
       <section className="main container section ftco-section ftco-degree-bg">
         <div className="container">
@@ -143,22 +143,25 @@ function UserDetailAccommodation() {
                     </button>
                   </div>
                 </div>
-                <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
+                <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate text-dark">
                   <span>Our Best hotels &amp; Resorts</span>
                   <h2>{accommodation.accommodation_name}</h2>
-                  <p className="rate mb-5">
+                  <p className="rate mb-5 text-dark">
                     {accommodation.type + "" === "true" ? "Resort" : "Hotel"} &nbsp;
-                    <span className="star">{accommodation.rate} Stars</span>
+                    <span className="star">{accommodation.rate} <i class="fa fa-star-o"></i></span>
                     <div className="star">
                       Discount: &nbsp;
                       {accommodation.discount}
                     </div>
                   </p>
-                  <p>{accommodation.description}</p>
+                  <div class="product-box">
+            <h3 class="product-name"></h3>
+            <p  class="round3 text-dark">{accommodation.description}</p>
+          </div>
                 </div>
 
                 {/* Booking */}
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
+                <div className=" borderwitdh col-md-12 hotel-single ftco-animate mb-5 mt-4  " style={{ borderRadius: "13px" }}>
                   <h4 className="mb-5 mt-3 text-center ">
                     Booking <i class="fas fa-book-open"></i>
                   </h4>

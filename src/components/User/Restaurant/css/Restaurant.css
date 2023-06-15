@@ -137,6 +137,12 @@
   -webkit-text-stroke: 1px #FFD700;
   color: transparent;
 }
+.main-view {
+  background-image: url('/public/img/BG.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position:  center;
+}
 
 
 @media screen and (min-width: 500px) {

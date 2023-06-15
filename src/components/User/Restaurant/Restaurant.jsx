@@ -141,6 +141,7 @@ function Restaurant() {
   };
   return (
     <>
+    <div className="main-view">
       {/* search */}
       <section className="home " style={{ height: "300px", alignItems: "end" }}>
         <div className="homeContent container pb-0 ">
@@ -254,6 +255,7 @@ function Restaurant() {
           ))}
         </div>
       </section>
+      </div>
     </>
   );
 }

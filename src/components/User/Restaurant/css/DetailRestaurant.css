@@ -12,5 +12,19 @@
     object-fit: cover;
     
   }
-   
-  
+  p.round3 {
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 5px;
+  } 
+  .main-view {
+    background-image: url('/public/img/BG.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:  center;
+    image-rendering: crisp-edges;
+  }
+  .borderwitdh{
+    border: solid black 2px !important;
+    
+  }

@@ -106,6 +106,7 @@ function UserAccommodation() {
   return (
     <>
       {/* search */}
+      <div className="main-view">
       <section className="home " style={{ height: "300px", alignItems: "end" }}>
         <div className="homeContent container pb-0 ">
           <div className="cardDiv grid bg-secondary">
@@ -187,7 +188,7 @@ function UserAccommodation() {
 
                   <div className="fees flex">
                     <div className="grade">
-                      <span>{item.rate} stars</span>
+                      <span>{item.rate} <i class="fa fa-star-o"></i></span>
                     </div>
                     <div className="price">
                       <h5>${item.price} / Night</h5>
@@ -206,6 +207,7 @@ function UserAccommodation() {
             ))}
         </div>
       </section>
+      </div>
     </>
   );
 }
