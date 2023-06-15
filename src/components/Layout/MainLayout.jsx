@@ -4,8 +4,8 @@ import Footer from "../Footer/Footer";
 import ModaBooking from "../User/Booking/ModalBooking";
 
 import { Outlet } from "react-router-dom";
-import { TourContext } from "../Admin/contexts/TourContext";
 import ShoppingCartProvider from "../User/Context/ShoppingCartContext";
+import SearchProvider from "../contexts/SearchContext";
 // import CartProvider from "../User/Context/CartContext";
 
 function MainLayout({ children }) {
@@ -16,18 +16,17 @@ function MainLayout({ children }) {
 
   return (
     <>
-      
       <ShoppingCartProvider>
+        <SearchProvider>
+          <ModaBooking setShowModal={setShowModal} showModal={showModal} />
+          <div>
+            <Header setShowModal={setShowModal} showModal={showModal} />
 
-        <ModaBooking setShowModal={setShowModal} showModal={showModal} />
-        <div>
-          
-          <Header setShowModal={setShowModal} showModal={showModal} />
+            <Outlet />
 
-          <Outlet />
-
-          <Footer />
-        </div>
+            <Footer />
+          </div>
+        </SearchProvider>
       </ShoppingCartProvider>
     </>
   );
