@@ -57,7 +57,7 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item">
                     <Link to="tour/create">Add Tour </Link>
                   </a>
-                  <a className="collapse-item" >
+                  <a className="collapse-item">
                     <Link to="accommodation/createAccommodation">Add Accomodation</Link>
                   </a>
                   <a className="collapse-item">
@@ -85,11 +85,11 @@ const AdminLayout = ({ children }) => {
                   <a className="collapse-item" href="/admin/tour">
                     Tour Manager
                   </a>
-                  <a className="collapse-item" href="cards.html">
+                  <a className="collapse-item" href="/admin/accommodation">
                     Accomodation Manager
                   </a>
-                  <a className="collapse-item">
-                    <Link to="/admin/restaurant">Restaurant Manager</Link>
+                  <a className="collapse-item" href="/admin/restaurant">
+                    Restaurant Manager
                   </a>
                   <a className="collapse-item" href="/admin/tourist-spot">
                     Tourist Spot Manager

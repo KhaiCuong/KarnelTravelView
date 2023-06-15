@@ -1,13 +1,26 @@
 carousel
 .user-slide {
     width: 100% ;
-    height: 500px;
+    height: 300px;
   }
   
   .user-carousel1 img {
-    height: 500px;
+    height: 300px;
     width: 100% ;
     object-fit: cover;
+  }
+  fa-star-o {
+    -webkit-text-stroke: 1px #FFD700;
+    color: transparent;
+  }
+  p.round3 {
+    border: 2px solid white;
+    border-radius: 12px;
+    padding: 5px;
+  } 
+  .borderwitdh{
+    border: solid white 5px !important;
+    
   }
   
   
@@ -296,4 +309,11 @@ carousel
 .bottom-area a:hover {
   background-color: #333; 
   color: #fff; 
+}
+
+
+
+
+.bg-blur {
+  background-color: rgba(0, 0, 0, 0.6)
 }

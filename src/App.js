@@ -4,7 +4,7 @@ import Home from "./components/Home/Home";
 import MainContent from "./components/MainContent/MainContent";
 import Footer from "./components/Footer/Footer";
 import AdminLayout from "./components/Admin/AdminPage/AdminLayout";
-import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
+
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
 import MainLayout from "./components/Layout/MainLayout";
 import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommodation";
@@ -54,6 +54,7 @@ import Contact from "./components/User/Contact/Contact";
 import Feedback from "./components/User/Contact/Feedback";
 import BookingList from "./components/User/Booking/BookingList";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
+import About from "./components/User/About/About";
 
 import PersonalProfile from "./components/User/ProfileUser/ProfileUser";
 import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
@@ -99,6 +100,7 @@ function App() {
           <Route path="my-booking" element={<BookingList />} />
 
           <Route path="feedback" element={<Feedback />} />
+          <Route path="about" element={<About />}/> 
 
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
@@ -108,8 +110,8 @@ function App() {
             <Route index element={<Tour />} />
             <Route path="detail/:id" element={<DetailTour />} />
           </Route>
-          {/* TouristSpot */}
-          <Route path="touristsport">
+            {/* TouristSpot */}
+            <Route path="touristsport">
             <Route index element={<UserTouristSpot />} />
             <Route path="detail/:id" element={<UserTouristSpotDetail />} />
           </Route>
@@ -133,7 +135,7 @@ function App() {
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
-          <Route index element={<DashboardPage />} />
+          
 
           {/* Location Route */}
           <Route path="location">

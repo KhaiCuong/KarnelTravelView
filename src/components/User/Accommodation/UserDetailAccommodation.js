@@ -100,15 +100,15 @@ function UserDetailAccommodation() {
   };
 
   return (
-    <div>
+    <div className="main-view">
       <br />
 
       <section className="main container section ftco-section ftco-degree-bg min-vh-100">
         <div className="container">
           <div className="row">
             <div className="">
-              <div className="row">
-                <div className="ftco-animate">
+              <div className="row ">
+                <div className="ftco-animate border border-dark p-5 bg-blur"  style={{ borderRadius: "13px" }}>
                   <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                       <div className="carousel-item user-carousel1 active">
@@ -143,56 +143,64 @@ function UserDetailAccommodation() {
                       <span className="visually-hidden">Next</span>
                     </button>
                   </div>
+                  <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate text-light">
+                  <span className="text-light">Our Best hotels &amp; Resorts</span>
+                  <h2 className="text-light">{accommodation.accommodation_name} <i class="fas fa-hotel ml-1" style={{fontSize:"24px"}}></i></h2>
+                    
+                  <div className="star font-weight-bold text-light">
+                  <i class="fas fa-caret-right"></i>  {accommodation.type + "" === "true" ? "Resort" : "Hotel"} &nbsp; {accommodation.rate} <i class="fa fa-star-o"></i>
+                  </div>
+                  <div className="star font-weight-bold text-light">
+                    <i class="fas fa-caret-right"></i> Price: {accommodation.price} $
+                  </div>
+                  <div className="star font-weight-bold text-light" >
+                  <i class="fas fa-caret-right"></i> Discount: &nbsp;
+                    {accommodation.discount}
+                  </div>
+
+                  <div class="product-box">
+                    <div class="font-weight-bold text-light mb-2"><i class="fas fa-caret-right"></i>   Description :</div>
+                    <p class="round3  p-3 text-light border-white">{accommodation.description}</p>
+                  </div>
                 </div>
-                <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                  <span>Our Best hotels &amp; Resorts</span>
-                  <h2>{accommodation.accommodation_name}</h2>
-                  <p className="rate mb-5">
-                    {accommodation.type + "" === "true" ? "Resort" : "Hotel"} &nbsp;
-                    <span className="star">{accommodation.rate} Stars</span>
-                    <div className="star">
-                      Discount: &nbsp;
-                      {accommodation.discount}
-                    </div>
-                  </p>
-                  <p>{accommodation.description}</p>
                 </div>
+              
 
                 {/* Booking */}
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
-                  <h4 className="mb-5 mt-3 text-center ">
+                <div className=" borderwitdh col-md-12 hotel-single ftco-animate mb-5 mt-4  bg-blur " style={{ borderRadius: "13px" }}>
+                  <h4 className="mb-5 mt-3 text-center text-light">
                     Booking <i class="fas fa-book-open"></i>
                   </h4>
                   <div className="fields">
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                          <div className="font-weight-bold text-dark mb-2">Check in date : </div>
-                          <input type="date" id="checkin" onChange={handleChangeDateIn} className="form-control" placeholder="Date from" />
+                          <div className="font-weight-bold text-light mb-2">Check in date : </div>
+                          <input type="date" id="checkin" onChange={handleChangeDateIn} className="form-control border-dark" placeholder="Date from" />
                           {timeIn > timeOut && <span className="text-danger"> Date must be less than Check-out Date</span>}
                           {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span>}{" "}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <div className="font-weight-bold text-dark mb-2">Check out date : </div>
-                          <input type="date" id="checkout_date" onChange={handleChangeDateOut} className="form-control" placeholder="Date to" />
+                          <div className="font-weight-bold text-light mb-2">Check out date : </div>
+                          <input type="date" id="checkout_date" onChange={handleChangeDateOut} className="form-control border-dark" placeholder="Date to" />
                           {timeOut < timeIn && <span className="text-danger"> Date must be greater than Check-in Date</span>}
                           {isSubmit && timeOut == "" && <span className="text-danger"> Please enter Check-out date</span>}{" "}
                         </div>
                       </div>
 
                       <div className="col-md-6 mt-3 mb-3 ">
-                        <div className="form-group">
-                          <h4>Quantity : </h4>
+                        <div className="form-group ">
+                          <h4 className="text-light">Quantity : </h4>
                         </div>
                       </div>
                       <div className="col-md-6 mt-3 mb-3 d-flex ">
                         <div className="d-flex align-items-center ml-3">
-                          <div className="def-number-input number-input safari_only">
-                            <button className="minus" onClick={decrementCount}></button>
+                          <div className="def-number-input number-input safari_only text-light">
+                            <button className="minus text-light" onClick={decrementCount} ></button>
                             <input className="quantity fw-bold text-black" onChange={handleChangeInput} value={count} type="number" />
-                            <button className="plus" onClick={incrementCount}></button>
+                            <button className="plus text-light" onClick={incrementCount}></button>
                           </div>
                         </div>
                       </div>
