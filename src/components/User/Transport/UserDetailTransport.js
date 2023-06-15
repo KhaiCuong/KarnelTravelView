@@ -10,6 +10,7 @@ function UserDetailTransport() {
   const [transport, setTransport] = useState([]);
 
   // Booking
+  let [isSubmit, setIsSubmit] = useState(false);
   const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
   const [valid, setValid] = useState(false);
   let [count, setCount] = useState(1);
@@ -54,6 +55,7 @@ function UserDetailTransport() {
     //console.log("id", id);
   };
 
+  // Booking
   const handleChangeInput = (e) => {
     setCount(e.target.value);
   };
@@ -124,16 +126,21 @@ function UserDetailTransport() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group position-relative">
-                        <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
-                        <span class="validity "></span>
+                        <div className="font-weight-bold text-dark mb-2">Check in date : </div>
 
-                        <div className="text-dark">Please enter the time you will come</div>
+                        <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
+                        {isSubmit && <span class="validity"></span>}
+                        {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span>}
+                        <div className="text-dark ">Please enter the time you will come</div>
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="form-group timess">
+                        <div className="font-weight-bold text-dark mb-2">Check in time :</div>
+
                         <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
-                        <span class="validity"></span>
+                        {isSubmit && <span class="validity"></span>}
+                        {isSubmit && timeOut == "" && <div className="text-danger"> Please enter Check-in times</div>}
                         <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
                       </div>
                     </div>
@@ -160,6 +167,9 @@ function UserDetailTransport() {
                           onClick={() => {
                             if (valid && timeIn.length != 0) {
                               addMultiQuantity(transport.transport_id, count, "Transport", times);
+                              setIsSubmit(false);
+                            } else {
+                              setIsSubmit(true);
                             }
                           }}
                           value="Booking"

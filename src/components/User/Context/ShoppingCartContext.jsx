@@ -84,6 +84,7 @@ function ShoppingCartProvider({ children }) {
     openCart() {},
     closeCart() {},
     getItemQuantity() {},
+    
     increaseCartQuantity(id, type, times) {
       setCartItems((currItems) => {
         if (currItems.find((item) => item.id === id) == null) {
@@ -123,9 +124,11 @@ function ShoppingCartProvider({ children }) {
         return currItems.map((item) => {
           if (item.id === id) {
             return   { ...item, quantity: Number(qtt) };
+      
           } else {
             return item;
           }
+          
         });
       });
     },
@@ -140,7 +143,7 @@ function ShoppingCartProvider({ children }) {
         });
       });
     },
-    decreaseCartQuantity(id) {
+    decreaseCartQuantity(id , time) {
       setCartItems((currItems) => {
         if (currItems.find((item) => item.id === id)?.quantity === 1) {
           return currItems.filter((item) => item.id !== id);

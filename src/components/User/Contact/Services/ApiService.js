@@ -25,6 +25,16 @@ async function getTransport(id) {
     return data.data;
 }
 
+async function getTouristSpot(id) {
+    const data = await axios.get(`http://localhost:5158/api/TouristSpot/GetTouristSpotById/${id}`);
+    return data.data;
+}
+
+async function getTour(id) {
+    const data = await axios.get(`http://localhost:5158/api/Tour/GetTour/${id}`);
+    return data.data;
+}
+
 async function postFeedback(info) {
     const data = await axios.post("http://localhost:5158/api/Feedback/AddFeedback",info);
     return data.data;
@@ -54,4 +64,7 @@ export {
     getFeedbackList,
     getBookingByBookingId,
     getTransport,
+    getTour,
+    getTouristSpot,
+
 };

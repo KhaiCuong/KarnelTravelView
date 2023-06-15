@@ -85,6 +85,28 @@ const BookingModal = ({ setShowModal, showModal }) => {
           })
           .then((result) => {})
           .catch((err) => console.log(err));
+      }  else if (cartItems[i].type === "TouristSpot") {
+        axios
+          .post("http://localhost:5158/api/Booking/AddBooking", {
+            user_id: user.user_id,
+            touristSpot_id: cartItems[i].id,
+            quantity: cartItems[i].quantity,
+            // created_at: cartItems[i].times.timeIn,
+            // update_at: cartItems[i].times.timeOut,
+          })
+          .then((result) => {})
+          .catch((err) => console.log(err));
+      }  else if (cartItems[i].type === "Tour") {
+        axios 
+          .post("http://localhost:5158/api/Booking/AddBooking", {
+            user_id: user.user_id,
+            tour_id: cartItems[i].id,
+            quantity: cartItems[i].quantity,
+            // created_at: cartItems[i].times.timeIn,
+            // update_at: cartItems[i].times.timeOut,
+          })
+          .then((result) => {})
+          .catch((err) => console.log(err));
       }
     }
 
@@ -115,6 +137,8 @@ const BookingModal = ({ setShowModal, showModal }) => {
         console.log(error.text);
       }
     );
+
+ 
   };
 
   let total = 0;

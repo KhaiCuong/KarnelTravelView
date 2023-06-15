@@ -29,6 +29,9 @@ const Header = ({ setShowModal, showModal }) => {
     setActive("navBar activeNavbar");
   };
 
+
+
+
   const showModalCart = (e) => {
     e.preventDefault();
     if (showModal) {
@@ -99,15 +102,15 @@ const Header = ({ setShowModal, showModal }) => {
                 </a>
                 <a className="dropdown-item" href="/tourist-spot">
                   <i class="fas fa-map-marked mr-2 text-secondary"></i>
-                  <Link to="/tourist-spot">Tourist Spot</Link>
+                  <Link to="/touristsport">Tourist Spot</Link>
                 </a>
                 <a className="dropdown-item" href="/usertransport">
                   <i class="fas fa-car-side mr-2 text-secondary"></i>
                   <Link to="/usertransport">Transport</Link>
                 </a>
-                <a className="dropdown-item" href="/usertransport">
+                <a className="dropdown-item" href="/tour">
                   <i class="fas fa-plane-departure mr-2 text-secondary"></i>
-                  <Link to="/usertransport">Tours</Link>
+                  <Link to="/tour">Tours</Link>
                 </a>
               </div>
             </li>
