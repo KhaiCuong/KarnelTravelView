@@ -106,7 +106,7 @@ function UserAccommodation() {
   return (
     <>
       {/* search */}
-      <section className="home " style={{ height: "300px", alignItems: "end" }}>
+      <section className="home" style={{ height: "300px", alignItems: "end" }}>
         <div className="homeContent container pb-0 ">
           <div className="cardDiv grid bg-secondary">
             <div className="destinationInput">
@@ -159,7 +159,7 @@ function UserAccommodation() {
         </div>
       </section>
 
-      <section className="main container section pt-0 pl-0 pr-0">
+      <section className="main container section pt-0 pl-0 pr-0  min-vh-100">
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title ">
             Most visited destinations

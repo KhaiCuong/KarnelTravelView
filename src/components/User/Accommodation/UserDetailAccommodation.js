@@ -102,7 +102,8 @@ function UserDetailAccommodation() {
   return (
     <div>
       <br />
-      <section className="main container section ftco-section ftco-degree-bg">
+
+      <section className="main container section ftco-section ftco-degree-bg min-vh-100">
         <div className="container">
           <div className="row">
             <div className="">

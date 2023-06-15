@@ -80,7 +80,7 @@ function UserDetailTransport() {
 
   return (
     <div>
-      <section className="ftco-section ftco-degree-bg">
+      <section className="ftco-section ftco-degree-bg min-vh-100">
         <div className="container">
           <div className="row mb-5 mt-3">
             <div className="col-lg-6 ">

@@ -80,7 +80,7 @@ function DetailofRestaurant() {
       <br />
       <br />
 
-      <section className="ftco-section ftco-degree-bg">
+      <section className="ftco-section ftco-degree-bg min-vh-100">
         <div className="container">
           <div className="row">
             <div className="col-lg-3 sidebar">

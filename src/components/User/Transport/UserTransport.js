@@ -6,6 +6,7 @@ import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getListTransport, getTransportByID } from "./Service/ApiService";
 import { useShoppingCart } from "../Context/ShoppingCartContext";
+import "aos/dist/aos.css";
 
 // search
 import "aos/dist/aos.css";
@@ -17,26 +18,23 @@ function UserTransport() {
   // const [accommodationImage, setAccommodationImages] = useState([]);
   const navigate = useNavigate();
 
-// Booking
+  // Booking
   var today = new Date();
-  const date =
-    today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-  const {
-    getItemQuantity,
-    increaseCartQuantity,
-    decreaseCartQuantity,
-    removeFromCart,
-  } = useShoppingCart();
+  const date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart();
   let times = {
-    timeIn : date,
-    timeOut : "09:00",
-  }
+    timeIn: date,
+    timeOut: "09:00",
+  };
 
   //search
   const { sendInfo, itemSearch } = useSearch();
   const [rs, setRs] = useState(0);
   const [fKey, setFKey] = useState("");
-  const [fService, setFService] = useState("Transport");  { /***/}
+  const [fService, setFService] = useState("Transport");
+  {
+    /***/
+  }
   const [fPrice, setFPrice] = useState(10000);
   const [isHiden, setIsHiden] = useState(true);
   const handelFilter = (e) => {
@@ -50,9 +48,9 @@ function UserTransport() {
       navigate("/tour");
     } else if (fService === "Tourist Sppot") {
       navigate("/touristsport");
-    } else if(fService === "Restaurant") {
+    } else if (fService === "Restaurant") {
       navigate("/restaurant");
-    } ;
+    }
   };
   const FilterKey = (e) => {
     setFKey(e.target.value);
@@ -71,8 +69,8 @@ function UserTransport() {
   };
 
   useEffect(() => {
-     // Search
-     if (typeof itemSearch.key != "undefined") {
+    // Search
+    if (typeof itemSearch.key != "undefined") {
       setFKey(itemSearch.key);
     }
     if (typeof itemSearch.price != "undefined") {
@@ -100,8 +98,8 @@ function UserTransport() {
   };
   return (
     <>
-       {/* search */}
-       <section className="home " style={{ height: "300px", alignItems: "end" }}>
+      {/* search */}
+      <section className="home" style={{ height: "300px", alignItems: "end" }}>
         <div className="homeContent container pb-0 ">
           <div className="cardDiv grid bg-secondary">
             <div className="destinationInput">
@@ -120,12 +118,11 @@ function UserTransport() {
               </label>
               <div className="input flex">
                 <select name="" id="" placeholder="Keyword search" onChange={FilterService} className="w-100" style={{ border: "none", backgroundColor: "#efefef" }}>
-                <option value="Transport">Transport</option> {/***/}
+                  <option value="Transport">Transport</option> {/***/}
                   <option value="Restaurant">Restaurant</option>
                   <option value="Accommodation">Accommodation</option>
                   <option value="Tourist Sppot">Tourist Sppot</option>
                   <option value="Tour">Tour</option>
-                 
                 </select>
               </div>
             </div>
@@ -154,142 +151,52 @@ function UserTransport() {
           </div>
         </div>
       </section>
-      <section className="main container section">
+
+      <section className="main container section  pt-0 pl-0 pr-0 min-vh-100">
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title">
             Most visited destinations
           </h3>
         </div>
-        <div className="row">
-          <div class="col-lg-3 sidebar pl-4">
-            <div class="sidebar-wrap bg-light ftco-animate">
-              <h3 class="heading mb-4">Find City</h3>
-              <form action="#">
-                <div class="fields">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Destination, City"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <div class="select-wrap one-third">
-                      <div class="icon">
-                        <span class="ion-ios-arrow-down"></span>
-                      </div>
-                      <select
-                        name=""
-                        id=""
-                        class="form-control"
-                        placeholder="Keyword search"
-                      >
-                        <option value="">Select Location</option>
-                        <option value="">San Francisco USA</option>
-                        <option value="">Berlin Germany</option>
-                        <option value="">Lodon United Kingdom</option>
-                        <option value="">Paris Italy</option>
-                      </select>
+        {/* search */}
+
+        <div className="secContent grid">
+          {Transport.filter((i) => i.transport_name.toLowerCase().includes(fKey.toLowerCase()))
+            .filter((i) => i.price < fPrice)
+            .map((item, index) => (
+              <div key={index} data-aos="fade-up-right" className="singleDestination">
+                <div className="cardInfo">
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <i class="fas fa-circle mr-2 pl-1" style={{fontSize:"18px"}}></i><bold className="font-weight-bold">From: </bold> {item.start_position}
+                  </h4>
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <Room className="icon mr-1" /><bold  className="font-weight-bold">To: </bold>{item.transport_name}
+                  </h4>
+
+
+
+                  <div className="fees flex">
+                    {/* <div className="grade">
+                    <span>
+                      {item.grade}
+                      <small> +1</small>
+                    </span>
+                  </div> */}
+                    <div className="price">
+                      <h5>{item.price} $</h5>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      id="checkin_date"
-                      class="form-control"
-                      placeholder="Date from"
-                    />
+
+                  <div className="description">
+                    <p>{item.description}</p>
                   </div>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      id="checkin_date"
-                      class="form-control"
-                      placeholder="Date to"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <input type="number" value="25000" min="0" max="120000" /> -
-                    <input type="number" value="50000" min="0" max="120000" />
-                    <div class="range-slider">
-                      <span></span>
-                      <input
-                        value="1000"
-                        min="0"
-                        max="120000"
-                        step="500"
-                        type="range"
-                      />
-                      <input
-                        value="50000"
-                        min="0"
-                        max="120000"
-                        step="500"
-                        type="range"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group button">
-                    <input
-                      type="submit"
-                      value="Search"
-                      class="btn btn-primary py-3 px-5"
-                    />
-                  </div>
+
+                  <button className="btn flex" onClick={() => increaseCartQuantity(item.touristSpot_id, "TouristSpot", times)}>
+                    Book now <ContentPaste className="icon" />
+                  </button>
                 </div>
-              </form>
-            </div>
-          </div>
-          <div className="col-lg-9">
-            <div className="row">
-              {Transport
-                .filter((i) => i.transport_name.toLowerCase().includes(fKey.toLowerCase()))
-                .filter((i) => i.price < fPrice)
-                .map((item, index) => (
-                <div class="col-md-4 ftco-animate">
-                  <div class="destination">
-                    <div class="text p-3">
-                      <a href={`usertransport/detail/${item.transport_id}`}>
-                        <h3> From: {item.start_position} </h3>
-                        <h3>
-                          To:{" "}
-                          {item.transport_name.length > 15
-                            ? `${item.transport_name.substring(0, 15)}...`
-                            : item.transport_name}
-                        </h3>
-                        <div>
-                          <span class="price per-price">
-                            Price: {item.price}$
-                            <br />
-                          </span>
-                        </div>
-                      </a>
-                      <hr />
-                      <p class="bottom-area d-flex">
-                        <span hidden>
-                          <i class="icon-map-o"></i> {item.location_id}
-                        </span>
-                        <span class="ml-auto">
-                          <button
-                            className="btn btn-warning"
-                            onClick={() =>
-                              increaseCartQuantity(
-                                item.transport_id,
-                                "Transport",
-                                times
-                              )
-                            }
-                          >
-                            Booking
-                          </button>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            ))}
         </div>
       </section>
     </>

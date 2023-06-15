@@ -84,6 +84,7 @@ function UserTouristSpot() {
           for (let index = 0; index < response.data.length; index++) {
             console.log("response", response);
             const imageResponse = await GetImagesByTouristSpotId(response.data[index].touristSpot_id);
+            
             console.log("imageResponse", imageResponse);
             if (imageResponse.status === 200) {
               touristsportImage[index] = imageResponse.data;
@@ -107,7 +108,7 @@ function UserTouristSpot() {
   return (
     <>
       {/* search */}
-      <section className="home " style={{ height: "300px", alignItems: "end" }}>
+      <section className="home" style={{ height: "300px", alignItems: "end" }}>
         <div className="homeContent container pb-0 ">
           <div className="cardDiv grid bg-secondary">
             <div className="destinationInput">
@@ -160,7 +161,8 @@ function UserTouristSpot() {
           </div>
         </div>
       </section>
-      <section className="main container section  pt-0 pl-0 pr-0">
+      
+      <section className="main container section  pt-0 pl-0 pr-0 min-vh-100">
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title">
             Most visited destinations
@@ -185,7 +187,7 @@ function UserTouristSpot() {
 
                   <span className="continent flex" onClick={() => handleDetailTouristSpot(item.touristSpot_id)}  style={{cursor:"pointer"}}>
                     <Room className="icon" />
-                    <span className="name">{item.Location_id}</span>
+                    <span className="name">{item.location_id}</span>
                   </span>
 
                   <div className="fees flex">
@@ -196,7 +198,7 @@ function UserTouristSpot() {
                     </span>
                   </div> */}
                     <div className="price">
-                      <h5>{item.price}</h5>
+                      <h5> {item.price} $</h5>
                     </div>
                   </div>
 

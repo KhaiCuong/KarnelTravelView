@@ -182,7 +182,7 @@ function Tour() {
           </div>
         </div>
       </section>
-      <section className="main container section pt-0 pl-0 pr-0">
+      <section className="main container section pt-0 pl-0 pr-0 min-vh-100">
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title">
             Most visited destinations
@@ -213,7 +213,7 @@ function Tour() {
                       <span>{item.times} hours</span>
                     </div>
                     <div className="price">
-                      <h5>{item.price}</h5>
+                      <h5>{item.price} $</h5>
                     </div>
                   </div>
 

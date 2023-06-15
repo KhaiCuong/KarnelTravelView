@@ -8,6 +8,7 @@ import { useShoppingCart } from "../Context/ShoppingCartContext";
 import "../Booking/Booking.css";
 
 import { GetImagesByTouristSpotId, GetTouristSpotById, GetTouristSpots } from "./Service/AppService";
+import ChartTour from "../../Charts/ChartTour";
 
 function UserTouristSpotDetail() {
   // Booking
@@ -107,8 +108,8 @@ function UserTouristSpotDetail() {
 
   return (
     <div>
-      <br />
-      <section className="main container section ftco-section ftco-degree-bg">
+      <br/>
+      <section className="main container section ftco-section ftco-degree-bg min-vh-100">
         <div className="container">
           <div className="row">
             <div className="">

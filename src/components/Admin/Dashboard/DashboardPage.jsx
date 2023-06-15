@@ -1,4 +1,6 @@
 import { React, useEffect } from "react";
+import ChartBook from "../../Charts/ChartBook";
+import ChartTour from "../../Charts/ChartTour";
 
 const DashboardPage = () => {
   return (
@@ -102,32 +104,10 @@ const DashboardPage = () => {
               <div className="card shadow mb-4">
                 {/* <!-- Card Header - Dropdown --> */}
                 <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 className="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                  <div className="dropdown no-arrow">
-                    <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div className="dropdown-header">Dropdown Header:</div>
-                      <a className="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a className="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="#">
-                        Something else here
-                      </a>
-                    </div>
-                  </div>
+                  <ChartTour></ChartTour>
                 </div>
                 {/* <!-- Card Body --> */}
-                <div className="card-body">
-                  <div className="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                </div>
+           
               </div>
             </div>
 
@@ -136,41 +116,19 @@ const DashboardPage = () => {
               <div className="card shadow mb-4">
                 {/* <!-- Card Header - Dropdown --> */}
                 <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 className="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+              
                   <div className="dropdown no-arrow">
                     <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
-                    <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div className="dropdown-header">Dropdown Header:</div>
-                      <a className="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a className="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="#">
-                        Something else here
-                      </a>
-                    </div>
+                    <ChartBook></ChartBook>
                   </div>
                 </div>
-                {/* <!-- Card Body --> */}
+               
                 <div className="card-body">
-                  <div className="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <div className="mt-4 text-center small">
-                    <span className="mr-2">
-                      <i className="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span className="mr-2">
-                      <i className="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span className="mr-2">
-                      <i className="fas fa-circle text-info"></i> Referral
-                    </span>
+       
+                  <div className="mt-2 text-center small">
+                  <h6 className="m-0 font-weight-bold text-primary">Booking Percentage</h6>
                   </div>
                 </div>
               </div>
@@ -220,73 +178,6 @@ const DashboardPage = () => {
                 </div>
               </div>
 
-              {/* <!-- Color System --> */}
-              <div className="row">
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-primary text-white shadow">
-                    <div className="card-body">
-                      Primary
-                      <div className="text-white-50 small">#4e73df</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-success text-white shadow">
-                    <div className="card-body">
-                      Success
-                      <div className="text-white-50 small">#1cc88a</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-info text-white shadow">
-                    <div className="card-body">
-                      Info
-                      <div className="text-white-50 small">#36b9cc</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-warning text-white shadow">
-                    <div className="card-body">
-                      Warning
-                      <div className="text-white-50 small">#f6c23e</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-danger text-white shadow">
-                    <div className="card-body">
-                      Danger
-                      <div className="text-white-50 small">#e74a3b</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-secondary text-white shadow">
-                    <div className="card-body">
-                      Secondary
-                      <div className="text-white-50 small">#858796</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-light text-black shadow">
-                    <div className="card-body">
-                      Light
-                      <div className="text-black-50 small">#f8f9fc</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="card bg-dark text-white shadow">
-                    <div className="card-body">
-                      Dark
-                      <div className="text-white-50 small">#5a5c69</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="col-lg-6 mb-4">
@@ -318,10 +209,7 @@ const DashboardPage = () => {
                   <h6 className="m-0 font-weight-bold text-primary">Development Approach</h6>
                 </div>
                 <div className="card-body">
-                  <p>
-                    SB Admin 2 makes extensive use of Bootstrap 4 utility classNamees in order to reduce CSS bloat and poor page performance. Custom CSS classNamees are used to create custom
-                    components and custom utility classNamees.
-                  </p>
+                  <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classNamees in order to reduce CSS bloat and poor page performance. Custom CSS classNamees are used to create custom components and custom utility classNamees.</p>
                   <p className="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classNamees.</p>
                 </div>
               </div>
