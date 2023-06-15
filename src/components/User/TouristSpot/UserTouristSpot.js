@@ -80,32 +80,31 @@ function UserTouristSpot() {
               data-aos="fade-up-right"
               className="singleDestination"
             >
-              <div className="imageDiv">
-                <img
-                  src={`http://localhost:5158/${touristsportImage[idx][0]}`}
-                />
-              </div>
+                {touristsportImage[idx] && (
+                      <div className="imageDiv">
+                      <img
+                        src={`http://localhost:5158/${touristsportImage[idx][0]}`}
+                        alt={item}
+                      />
+                    </div>
+                )}
+            
 
               <div className="cardInfo">
-                <h4 className="destTitle">
-                  <a href={`tourist/detail/${item.touristSpot_id}`}>
-                    {item.touristSpot_name.length > 15
-                      ? `${item.touristSpot_name.substring(0, 15)}...`
-                      : item.touristSpot_name}
-                  </a>
-                </h4>
+                <h4 className="destTitle">{item.touristSpot_name}</h4>
+                  
                 <span className="continent flex">
                   <Room className="icon" />
                   <span className="name">{item.Location_id}</span>
                 </span>
 
                 <div className="fees flex">
-                  <div className="grade">
-                    {/* <span>
+                  {/* <div className="grade">
+                    <span>
                       {item.grade}
                       <small> +1</small>
-                    </span> */}
-                  </div>
+                    </span>
+                  </div> */}
                   <div className="price">
                     <h5>{item.price}</h5>
                   </div>
@@ -115,7 +114,11 @@ function UserTouristSpot() {
                   <p>{item.description}</p>
                 </div>
 
-                <button className="btn flex">
+                <button className="btn flex"
+                onClick={()=>
+                    handleDetailTouristSpot(item.touristSpot_id)
+                }
+                >
                   DETAILS <ContentPaste className="icon" />
                 </button>
               </div>

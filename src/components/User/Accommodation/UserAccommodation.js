@@ -16,7 +16,6 @@ function UserAccommodation() {
   const [accommodationImage, setAccommodationImages] = useState([]);
   const navigate = useNavigate();
 
-
   //Booking
   var today = new Date();
   const date =
@@ -30,8 +29,8 @@ function UserAccommodation() {
   } = useShoppingCart();
   let times = {
     timeIn: date,
-    timeOut: date
-  }
+    timeOut: date,
+  };
 
   useEffect(() => {
     const fetchAccommodationData = async () => {
@@ -177,7 +176,7 @@ function UserAccommodation() {
     //   </section>
     // </>
     <>
-      <section className='main container section'>
+      <section className="main container section">
         <div className="secTitle">
           <h3 data-aos="fade-right" className="title">
             Most visited destinations
@@ -185,29 +184,30 @@ function UserAccommodation() {
         </div>
         <div className="secContent grid">
           {accommodation.map((item, index) => (
-            <div key={index} data-aos="fade-up-right" className='singleDestination'>
+            <div
+              key={index}
+              data-aos="fade-up-right"
+              className="singleDestination"
+            >
               {accommodationImage[index] && (
-                <div className="imageDiv" >
-                  <img src={`http://localhost:5158/${accommodationImage[index][0]}`} alt={item} />
+                <div className="imageDiv">
+                  <img
+                    src={`http://localhost:5158/${accommodationImage[index][0]}`}
+                    alt={item}
+                  />
                 </div>
               )}
 
               <div className="cardInfo">
-                <h4 className="destTitle">
-                  {item.accommodation_name}
-                </h4>
+                <h4 className="destTitle">{item.accommodation_name}</h4>
                 <span className="continent flex">
                   <Room className="icon" />
-                  <span className="name">
-                    {item.location_id}
-                  </span>
+                  <span className="name">{item.location_id}</span>
                 </span>
 
                 <div className="fees flex">
                   <div className="grade">
-                    <span>
-                      {item.rate} stars
-                    </span>
+                    <span>{item.rate} stars</span>
                   </div>
                   <div className="price">
                     <h5>${item.price} / Night</h5>
@@ -218,8 +218,13 @@ function UserAccommodation() {
                   <p>{item.description}</p>
                 </div>
 
-                <button className='btn flex' onClick={() => handleDetailAccommodation(item.accommodation_id)}>
-                  DETAILS <ContentPaste className='icon' />
+                <button
+                  className="btn flex"
+                  onClick={() =>
+                    handleDetailAccommodation(item.accommodation_id)
+                  }
+                >
+                  DETAILS <ContentPaste className="icon" />
                 </button>
               </div>
             </div>

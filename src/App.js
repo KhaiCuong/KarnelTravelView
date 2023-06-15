@@ -107,7 +107,7 @@ function App() {
           {/* TouristSpot */}
           <Route path="touristsport">
             <Route index element={<UserTouristSpot />} />
-           
+            <Route path="detail/:id" element={<UserDetailTransport />} />
           </Route>
         </Route>
 
