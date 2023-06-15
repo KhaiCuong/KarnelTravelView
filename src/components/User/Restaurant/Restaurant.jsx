@@ -149,7 +149,7 @@ function Restaurant() {
                   {fullDescription ? (
                     <p>{item.description}</p>
                   ) : (
-                    <p>{`${item.description.substring(0, 30)}...`}</p>
+                    <p>{`${item.description.substring(0, 100)}...`}</p>
                   )}
                 </div>
 

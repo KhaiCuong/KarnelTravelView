@@ -4,7 +4,7 @@ import Home from "./components/Home/Home";
 import MainContent from "./components/MainContent/MainContent";
 import Footer from "./components/Footer/Footer";
 import AdminLayout from "./components/Admin/AdminPage/AdminLayout";
-import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
+
 import TouristSpot from "./components/Admin/TouristSpot/TouristSpotManager";
 import MainLayout from "./components/Layout/MainLayout";
 import CreateAccommodation from "./components/Admin/Accommodation/CreateAccommodation";
@@ -102,7 +102,7 @@ function App() {
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
-          <Route index element={<DashboardPage />} />
+          
 
           {/* Location Route */}
           <Route path="location">

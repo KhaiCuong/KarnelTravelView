@@ -133,6 +133,11 @@
   align-self: center;
   font-size: 15px;
 }
+.fa-star-o {
+  -webkit-text-stroke: 1px #FFD700;
+  color: transparent;
+}
+
 
 @media screen and (min-width: 500px) {
   .title {
