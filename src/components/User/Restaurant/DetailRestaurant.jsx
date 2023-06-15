@@ -13,6 +13,7 @@ function DetailofRestaurant() {
   const [imageRestaurant, setImageRestaurant] = useState([]);
 
   // Booking
+  let [isSubmit, setIsSubmit] = useState(false);
   const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
   const [valid, setValid] = useState(false);
   let [count, setCount] = useState(1);
@@ -261,18 +262,20 @@ function DetailofRestaurant() {
                   <div className="fields">
                     <div className="row">
                       <div className="col-md-6">
-                        <div className="form-group position-relative" >
-                            <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
-                            <span class="validity "></span>
-
-
-                          <div className="text-dark">Please enter the time you will come</div>
+                        <div className="form-group position-relative">
+                          <div className="font-weight-bold text-dark mb-2">Check in date : </div>
+                          <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
+                          {isSubmit && <span class="validity"></span>}
+                          {isSubmit && timeIn == "" && <div className="text-danger"> Please enter Check-in date</div>}
+                          <div className="text-dark ">Please enter the time you will come</div>
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group timess">
+                          <div  className="font-weight-bold text-dark mb-2">Check in time :</div>
                           <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
-                          <span class="validity"></span>
+                          {isSubmit && <span class="validity"></span>}
+                          {isSubmit && timeOut == "" && <div className="text-danger"> Please enter Check-in times</div>}
                           <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
                         </div>
                       </div>
@@ -299,6 +302,9 @@ function DetailofRestaurant() {
                             onClick={() => {
                               if (valid && timeIn.length != 0) {
                                 addMultiQuantity(restaurant.restaurant_id, count, "Restaurant", times);
+                                setIsSubmit(false);
+                              } else {
+                                setIsSubmit(true);
                               }
                             }}
                             value="Check Availability"

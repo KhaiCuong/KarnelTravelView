@@ -8,6 +8,7 @@ import "../Booking/Booking.css";
 
 function DetailTour(props) {
     // Booking
+    let [isSubmit, setIsSubmit] = useState(false);
     const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
     let [count, setCount] = useState(1);
     function incrementCount() {
@@ -139,7 +140,7 @@ function DetailTour(props) {
         setCount(e.target.value);
         console.log("e", count);
     };
-    const [timeIn, setTimeIn] = useState([]);
+    const [timeIn, setTimeIn] = useState("");
     const [timeOut, setTimeOut] = useState([]);
     const handleChangeDateIn = (e) => {
         console.log("e", e.target.value);
@@ -222,14 +223,21 @@ function DetailTour(props) {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="form-control" placeholder="Date from" />
-                                                    {timeIn > timeOut && <span className="text-danger"> Date must be less than Check-out Date</span>}
+                                                <div className="font-weight-bold text-dark mb-2">Check in date : </div>
+
+                                                    <input type="date" id="checkin" onChange={handleChangeDateIn} className="form-control" placeholder="Date from" />
+                                                    {timeIn > timeOut  && <span className="text-danger"> Date must be less than Check-out Date</span>}
+                                                    {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span> }
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
+                                                <div className="font-weight-bold text-dark mb-2">Check out date : </div>
+
                                                     <input type="date" id="checkout_date" onChange={handleChangeDateOut} className="form-control" placeholder="Date to" />
                                                     {timeOut < timeIn && <span className="text-danger"> Date must be greater than Check-in Date</span>}
+                                                    {isSubmit && timeOut == "" && <span className="text-danger"> Please enter Check-out date</span>}
+
                                                 </div>
                                             </div>
 
@@ -253,8 +261,12 @@ function DetailTour(props) {
                                                     <input
                                                         type="submit"
                                                         onClick={() => {
-                                                            if (timeOut >= timeIn) {
+                                                            if (timeOut >= timeIn && timeIn != "") {
                                                                 addMultiQuantity(tour.tour_id, count, "Tour", times);
+                                                                setIsSubmit(false);
+
+                                                            } else {
+                                                                setIsSubmit(true)
                                                             }
                                                         }}
                                                         value="Check Availability"

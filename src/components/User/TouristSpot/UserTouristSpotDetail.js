@@ -6,21 +6,14 @@ import "../Accommodation/css/DetailAccommodation.css";
 // Booking
 import { useShoppingCart } from "../Context/ShoppingCartContext";
 import "../Booking/Booking.css";
-import {
-  GetImagesByTouristSpotId,
-  GetTouristSpotById,
-  GetTouristSpots,
-} from "./Service/AppService";
+
+import { GetImagesByTouristSpotId, GetTouristSpotById, GetTouristSpots } from "./Service/AppService";
 
 function UserTouristSpotDetail() {
   // Booking
-  const {
-    getItemQuantity,
-    increaseCartQuantity,
-    addMultiQuantity,
-    removeFromCart,
-    quantity,
-  } = useShoppingCart();
+  let [isSubmit, setIsSubmit] = useState(false);
+  const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
+  const [valid, setValid] = useState(false);
   let [count, setCount] = useState(1);
   function incrementCount() {
     count = count + 1;
@@ -47,9 +40,7 @@ function UserTouristSpotDetail() {
         //console.log("response", response);
         if (response.status === 200) {
           setTouristSpot(response.data);
-          const imageResponse = await GetImagesByTouristSpotId(
-            response.data.touristSpot_id
-          );
+          const imageResponse = await GetImagesByTouristSpotId(response.data.touristSpot_id);
 
           console.log("imageResponse", imageResponse);
           if (imageResponse.status === 200) {
@@ -70,9 +61,7 @@ function UserTouristSpotDetail() {
 
           for (let index = 0; index < response.data.length; index++) {
             console.log("response", response);
-            const imageResponse = await GetImagesByTouristSpotId(
-              response.data[index].touristSpot_id
-            );
+            const imageResponse = await GetImagesByTouristSpotId(response.data[index].touristSpot_id);
             console.log("imageResponse", imageResponse);
             if (imageResponse.status === 200) {
               touristsportImage[index] = imageResponse.data;
@@ -95,9 +84,7 @@ function UserTouristSpotDetail() {
 
   // Booking
   const handleChangeInput = (e) => {
-    console.log("e", e.target.value);
     setCount(e.target.value);
-    console.log("e", count);
   };
   const [timeIn, setTimeIn] = useState([]);
   const [timeOut, setTimeOut] = useState([]);
@@ -107,6 +94,11 @@ function UserTouristSpotDetail() {
   };
   const handleChangeDateOut = (e) => {
     setTimeOut(e.target.value);
+    if (e.target.min < e.target.value && e.target.max > e.target.value) {
+      setValid(true);
+    } else {
+      setValid(false);
+    }
   };
   let times = {
     timeIn: timeIn,
@@ -122,65 +114,26 @@ function UserTouristSpotDetail() {
             <div className="">
               <div className="row">
                 <div className="ftco-animate">
-                  <div
-                    id="carouselExampleControls"
-                    class="carousel slide user-slide"
-                    data-bs-ride="carousel"
-                  >
+                  <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                       <div className="carousel-item user-carousel1 active">
                         {touristsportImage.map((item, index) => {
                           if (index < 1) {
                             return (
                               <>
-                                <img
-                                  src={`http://localhost:5158/${item}`}
-                                  className=""
-                                  alt={item}
-                                />
-                              </>
-                            );
-                          }
-                        })}
-                      </div>
-                      <div className="carousel-item user-carousel1">
-                        {imageAccommodation.map((item, index) => {
-                          if (index >= 1) {
-                            return (
-                              <>
-                                <img
-                                  src={`http://localhost:5158/${item}`}
-                                  className=""
-                                  alt={item}
-                                />
+                                <img src={`http://localhost:5158/${item}`} className="" alt={item} />
                               </>
                             );
                           }
                         })}
                       </div>
                     </div>
-                    <button
-                      className="carousel-control-prev"
-                      type="button"
-                      data-bs-target="#carouselExampleControls"
-                      data-bs-slide="prev"
-                    >
-                      <span
-                        className="carousel-control-prev-icon"
-                        aria-hidden="true"
-                      ></span>
+                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span className="visually-hidden">Previous</span>
                     </button>
-                    <button
-                      className="carousel-control-next"
-                      type="button"
-                      data-bs-target="#carouselExampleControls"
-                      data-bs-slide="next"
-                    >
-                      <span
-                        className="carousel-control-next-icon"
-                        aria-hidden="true"
-                      ></span>
+                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                      <span className="carousel-control-next-icon" aria-hidden="true"></span>
                       <span className="visually-hidden">Next</span>
                     </button>
                   </div>
@@ -189,8 +142,7 @@ function UserTouristSpotDetail() {
                   <span>Our Best hotels &amp; Resorts</span>
                   <h2>{touristsport.touristSpot_name}</h2>
                   <p className="rate mb-5">
-                    {touristsport.type + "" === "true" ? "Resort" : "Hotel"}{" "}
-                    &nbsp;
+                    {touristsport.type + "" === "true" ? "Resort" : "Hotel"} &nbsp;
                     <span className="star">{touristsport.rate} Stars</span>
                     <div className="star">
                       Discount: &nbsp;
@@ -201,47 +153,27 @@ function UserTouristSpotDetail() {
                 </div>
 
                 {/* Booking */}
-                <div
-                  className="col-md-12 hotel-single ftco-animate mb-5 mt-4 border border-dark"
-                  style={{ borderRadius: "13px" }}
-                >
+                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
                   <h4 className="mb-5 mt-3 text-center ">
                     Booking <i class="fas fa-book-open"></i>
                   </h4>
                   <div className="fields">
                     <div className="row">
                       <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="date"
-                            id="checkin_date"
-                            onChange={handleChangeDateIn}
-                            className="form-control"
-                            placeholder="Date from"
-                          />
-                          {timeIn > timeOut && (
-                            <span className="text-danger">
-                              {" "}
-                              Date must be less than Check-out Date
-                            </span>
-                          )}
+                        <div className="form-group position-relative">
+                          <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
+                          {isSubmit && <span class="validity"></span>}
+
+                          {isSubmit && timeIn == "" && <span className="text-danger"> Please enter Check-in date</span>}
+
+                          <div className="text-dark">Please enter the time you will come</div>
                         </div>
                       </div>
                       <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="date"
-                            id="checkout_date"
-                            onChange={handleChangeDateOut}
-                            className="form-control"
-                            placeholder="Date to"
-                          />
-                          {timeOut < timeIn && (
-                            <span className="text-danger">
-                              {" "}
-                              Date must be greater than Check-in Date
-                            </span>
-                          )}
+                        <div className="form-group timess">
+                          <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
+                          {isSubmit && <span class="validity"></span>}
+                          <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
                         </div>
                       </div>
 
@@ -253,20 +185,9 @@ function UserTouristSpotDetail() {
                       <div className="col-md-6 mt-3 mb-3 d-flex ">
                         <div className="d-flex align-items-center ml-3">
                           <div className="def-number-input number-input safari_only">
-                            <button
-                              className="minus"
-                              onClick={decrementCount}
-                            ></button>
-                            <input
-                              className="quantity fw-bold text-black"
-                              onChange={handleChangeInput}
-                              value={count}
-                              type="number"
-                            />
-                            <button
-                              className="plus"
-                              onClick={incrementCount}
-                            ></button>
+                            <button className="minus" onClick={decrementCount}></button>
+                            <input className="quantity fw-bold text-black" onChange={handleChangeInput} value={count} type="number" />
+                            <button className="plus" onClick={incrementCount}></button>
                           </div>
                         </div>
                       </div>
@@ -276,16 +197,14 @@ function UserTouristSpotDetail() {
                           <input
                             type="submit"
                             onClick={() => {
-                              if (timeOut >= timeIn) {
-                                addMultiQuantity(
-                                  touristsport.touristSpot_id,
-                                  count,
-                                  "touristsport",
-                                  times
-                                );
+                              if (valid && timeIn.length != 0) {
+                                addMultiQuantity(touristsport.touristSpot_id, count, "TouristSpot", times);
+                                setIsSubmit(false);
+                              } else {
+                                setIsSubmit(true);
                               }
                             }}
-                            value="Check Availability"
+                            value="Booking"
                             className="btn btn-primary py-3"
                           />
                         </div>
@@ -301,15 +220,8 @@ function UserTouristSpotDetail() {
                         <div class="destination">
                           {extraTouristSpotImage[index] && (
                             <div>
-                              <div
-                                class="icon d-flex justify-content-center align-items-center"
-                                onClick={() =>
-                                  handleDetailTouristSpot(item.touristSpot_id)
-                                }
-                              >
-                                <img
-                                  src={`http://localhost:5158/${extraTouristSpotImage[index][0]}`}
-                                />
+                              <div class="icon d-flex justify-content-center align-items-center" onClick={() => handleDetailTouristSpot(item.touristSpot_id)}>
+                                <img src={`http://localhost:5158/${extraTouristSpotImage[index][0]}`} />
                                 <span class="icon-search2"></span>
                               </div>
                             </div>
@@ -345,16 +257,7 @@ function UserTouristSpotDetail() {
                               </span>
                               <span class="ml-auto">
                                 {/* Booking */}
-                                <Link
-                                  onClick={() =>
-                                    increaseCartQuantity(
-                                      item.touristSpot_id,
-                                      "touristsport"
-                                    )
-                                  }
-                                >
-                                  Book Now
-                                </Link>
+                                <Link onClick={() => increaseCartQuantity(item.touristSpot_id, "touristsport")}>Book Now</Link>
                               </span>
                             </p>
                           </div>

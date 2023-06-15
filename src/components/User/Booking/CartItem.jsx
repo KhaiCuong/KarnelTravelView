@@ -97,9 +97,60 @@ export function CartItem({ id, quantity, type, times }) {
             .then((error) => console.log(error));
         })
         .then((error) => console.log(error));
+    } else if (type === "TouristSpot") {
+      axios
+        .get(`http://localhost:5158/api/TouristSpot/GetTouristSpotById/${id}`)
+        .then((t) => {
+          setItem(t.data.data);
+          SetPrice(id, t.data.data.price);
+
+          return t.data.data;
+        })
+        .then((item) => {
+          axios
+            .get(`http://localhost:5158/api/Location/GetLocation/${item.location_id}`)
+            .then((t) => {
+              setLocation(t.data.data.location_name);
+            })
+            .then((error) => console.log(error));
+
+          axios
+            .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${id}`)
+            .then((t) => {
+              setImg(t.data.data[0]);
+            })
+            .then((error) => console.log(error));
+        })
+        .then((error) => console.log(error));
+    } else if (type === "Tour") {
+      axios
+        .get(`http://localhost:5158/api/Tour/GetTour/${id}`)
+        .then((t) => {
+          setItem(t.data.data);
+          SetPrice(id, t.data.data.price);
+
+          return t.data.data;
+        })
+        .then((item) => {
+          axios
+            .get(`http://localhost:5158/api/TouristSpotTour/GetListByTourId/${id}`)
+            .then((s) => {
+              return s.data.data;
+            })
+            .then((spot) => {
+              axios
+                .get(`http://localhost:5158/api/TouristSpotImage/GetImagesByTouristSpotId/${spot[0].touristSpot_id}`)
+                .then((i) => {
+                  setImg(i.data.data[0]);
+                })
+                .then((error) => console.log(error));
+            });
+        })
+        .then((error) => console.log(error));
     }
   }, []);
   console.log(item.price);
+  console.log("item", timeIn);
 
   const handleChangeInput = (e) => {
     if (type === "Accommodation") {
@@ -111,6 +162,12 @@ export function CartItem({ id, quantity, type, times }) {
     } else if (type === "Transport") {
       setCount(e.target.value);
       changeQuantity(item.transport_id, e.target.value, "Transport");
+    } else if (type === "TouristSpot") {
+      setCount(e.target.value);
+      changeQuantity(item.touristSpot_id, e.target.value, "TouristSpot");
+    } else if (type === "Tour") {
+      setCount(e.target.value);
+      changeQuantity(item.tour_id, e.target.value, "Tour");
     }
   };
 
@@ -129,10 +186,10 @@ export function CartItem({ id, quantity, type, times }) {
   return (
     <div className="d-flex align-items-center mb-3 border border-primary rounded p-3">
       <div className="flex-shrink-0">
-      {type === "Accommodation" &&  <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" /> }
-      {type === "Restaurant" &&  <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" /> }
-      {type === "TouristSpot" &&  <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" /> }
-
+        {type === "Accommodation" && <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" />}
+        {type === "Restaurant" && <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" />}
+        {type === "TouristSpot" && <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" />}
+        {type === "Tour" && <MDBCardImage src={`http://localhost:5158/${img}`} fluid style={{ width: "150px" }} alt="Generic placeholder image" />}
       </div>
 
       <div className="flex-grow-1 ms-3">
@@ -145,6 +202,10 @@ export function CartItem({ id, quantity, type, times }) {
               removeFromCart(item.restaurant_id);
             } else if (type === "Transport") {
               removeFromCart(item.transport_id);
+            } else if (type === "TouristSpot") {
+              removeFromCart(item.touristSpot_id);
+            } else if (type === "Tour") {
+              removeFromCart(item.tour_id);
             }
           }}
         >
@@ -158,6 +219,9 @@ export function CartItem({ id, quantity, type, times }) {
           {type === "Transport" && `${item.start_position}  `}
           {type === "Transport" && <i class="fas fa-arrow-right" style={{ fontSize: "10px" }}></i>}
           {type === "Transport" && `  ${item.transport_name}`}
+
+          {type === "TouristSpot" && item.touristSpot_name}
+          {type === "Tour" && item.tour_name}
 
           {type === "Accommodation" && <i class="fas fa-home ml-3"></i>}
           {type === "Transport" && <i class="fas fa-car-side ml-3"></i>}
@@ -177,11 +241,21 @@ export function CartItem({ id, quantity, type, times }) {
           Check-in date :{timeIn}
           <input type="date" id="checkin_date" onChange={handleChangeDateIn} onBlur={handleSaveDate} className="form-control" />
           {type === "Accommodation" && timeIn > timeOut && <span className="text-danger "> Date must be less than Check-out Date</span>}
+          {type === "Tour" && timeIn > timeOut && <span className="text-danger "> Date must be less than Check-out Date</span>}
           {type === "Restaurant" && <span class="validity position-relative"></span>}
           {type === "Transport" && <span class="validity position-relative"></span>}
+          {type === "TouristSpot" && <span class="validity position-relative"></span>}
         </MDBTypography>
 
         {type === "Accommodation" && (
+          <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
+            Check-out date : {timeOut}
+            <input type="date" id="checkout_date" onChange={handleChangeDateOut} onBlur={handleSaveDate} className="form-control" />
+            {timeOut < timeIn && <span className="text-danger "> Date must be greater than Check-in Date</span>}
+          </MDBTypography>
+        )}
+
+        {type === "Tour" && (
           <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
             Check-out date : {timeOut}
             <input type="date" id="checkout_date" onChange={handleChangeDateOut} onBlur={handleSaveDate} className="form-control" />
@@ -203,6 +277,13 @@ export function CartItem({ id, quantity, type, times }) {
             <span class="validity position-relative"></span>
           </MDBTypography>
         )}
+        {type === "TouristSpot" && (
+          <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
+            Start time :{timeOut} ( From 9am To 10pm)
+            <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} className="form-control" min="09:00" max="22:00"></input>
+            <span class="validity position-relative"></span>
+          </MDBTypography>
+        )}
 
         <div className="d-flex align-items-center">
           <p className="fw-bold mb-0 me-5 pe-3">{item.price}$</p>
@@ -214,9 +295,13 @@ export function CartItem({ id, quantity, type, times }) {
                 if (type === "Accommodation") {
                   decreaseCartQuantity(item.accommodation_id);
                 } else if (type === "Restaurant") {
-                  increaseCartQuantity(item.restaurant_id);
+                  decreaseCartQuantity(item.restaurant_id);
                 } else if (type === "Transport") {
-                  increaseCartQuantity(item.transport_id);
+                  decreaseCartQuantity(item.transport_id);
+                } else if (type === "TouristSpot") {
+                  decreaseCartQuantity(item.touristSpot_id);
+                } else if (type === "Tour") {
+                  decreaseCartQuantity(item.tour_id, times);
                 }
 
                 decrementCount();
@@ -227,13 +312,16 @@ export function CartItem({ id, quantity, type, times }) {
               className="plus"
               onClick={() => {
                 if (type === "Accommodation") {
-                  increaseCartQuantity(item.accommodation_id);
+                  increaseCartQuantity(item.accommodation_id, "Accommodation", times);
                 } else if (type === "Restaurant") {
-                  increaseCartQuantity(item.restaurant_id);
+                  increaseCartQuantity(item.restaurant_id, "Restaurant", times);
                 } else if (type === "Transport") {
-                  increaseCartQuantity(item.transport_id);
+                  increaseCartQuantity(item.transport_id, "Transport", times);
+                } else if (type === "TouristSpot") {
+                  increaseCartQuantity(item.touristSpot_id, "TouristSpot", times);
+                } else if (type === "Tour") {
+                  increaseCartQuantity(item.tour_id, "Tour", times);
                 }
-
 
                 incrementCount();
               }}

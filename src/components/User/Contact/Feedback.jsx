@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./animate.css";
 import "./style.css";
-import { getUser, getBookingByUserId, getAccommodation, getRestaurant, postFeedback, getFeedbackList, getTransport, getBookingByBookingId } from "./Services/ApiService";
+import { getUser, getBookingByUserId, getAccommodation,    getTour,
+  getTouristSpot, getRestaurant, postFeedback, getFeedbackList, getTransport, getBookingByBookingId } from "./Services/ApiService";
 import Swal from "sweetalert2";
 
 export default function Feedback() {
@@ -120,6 +121,24 @@ export default function Feedback() {
                   }
                 }
               }
+              if (bookingRes.data[index].touristSpot_id != null) {
+                const ResSpot = await getTouristSpot(bookingRes.data[index].touristSpot_id);
+                if (ResSpot.status === 200) {
+                  if (!temp.includes(ResSpot.data.touristSpot_name)) {
+                    book[index] = { valuename: ResSpot.data.touristSpot_name, book: bookingRes.data[index].booking_id };
+                    temp[index] = ResSpot.data.touristSpot_name;
+                  }
+                }
+              }
+              if (bookingRes.data[index].tour_id != null) {
+                const ResTour = await getTour(bookingRes.data[index].tour_id);
+                if (ResTour.status === 200) {
+                  if (!temp.includes(ResTour.data.tour_name)) {
+                    book[index] = { valuename: ResTour.data.tour_name, book: bookingRes.data[index].booking_id };
+                    temp[index] = ResTour.data.tour_name;
+                  }
+                }
+              }
             }
 
             setBookList(book);
@@ -151,7 +170,19 @@ export default function Feedback() {
               if (bkId.data.transport_id != null) {
                 const ResTrans = await getTransport(bkId.data.transport_id);
                 if (ResTrans.status === 200) {
-                  book[index] = ResTrans.data.restaurant_name;
+                  book[index] = ResTrans.data.transport_name;
+                }
+              }
+              if (bkId.data.touristSpot_id != null) {
+                const ResSpot = await getTouristSpot(bkId.data.touristSpot_id);
+                if (ResSpot.status === 200) {
+                  book[index] = ResSpot.data.touristSpot_name;
+                }
+              }
+              if (bkId.data.tour_id != null) {
+                const ResTour = await getTour(bkId.data.tour_id);
+                if (ResTour.status === 200) {
+                  book[index] = ResTour.data.tour_name;
                 }
               }
 

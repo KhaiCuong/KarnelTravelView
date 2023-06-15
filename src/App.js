@@ -59,6 +59,7 @@ import AccountDetailManager from "./components/Admin/Account/AccountDetailManage
 import PersonalProfile from "./components/User/ProfileUser/ProfileUser";
 import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
 import UserTouristSpot from "./components/User/TouristSpot/UserTouristSpot";
+import UserTouristSpotDetail from "./components/User/TouristSpot/UserTouristSpotDetail";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -107,7 +108,7 @@ function App() {
           {/* TouristSpot */}
           <Route path="touristsport">
             <Route index element={<UserTouristSpot />} />
-            <Route path="detail/:id" element={<UserDetailTransport />} />
+            <Route path="detail/:id" element={<UserTouristSpotDetail />} />
           </Route>
         </Route>
 
