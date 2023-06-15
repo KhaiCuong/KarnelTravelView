@@ -54,6 +54,7 @@ import Contact from "./components/User/Contact/Contact";
 import Feedback from "./components/User/Contact/Feedback";
 import BookingList from "./components/User/Booking/BookingLisht";
 import AccountDetailManager from "./components/Admin/Account/AccountDetailManager";
+import About from "./components/User/About/About";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -90,15 +91,16 @@ function App() {
           <Route path="my-booking" element={<BookingList />} />
 
           <Route path="feedback" element={<Feedback />} />
+          <Route path="about" element={<About />}/> 
 
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
             <Route path="detail/:id" element={<UserDetailAccommodation />} />
           </Route>
-          <Route path="tour">
-            <Route index element={<Tour />} />
-            <Route path="detail/:id" element={<DetailTour />} />
-          </Route>
+        </Route>
+        <Route path="tour">
+          <Route index element={<Tour />} />
+          <Route path="detail/:id" element={<DetailTour />} />
         </Route>
 
         <Route path="register" element={<Register></Register>}></Route>
@@ -145,9 +147,9 @@ function App() {
             <Route path="createRestaurant" element={<CreateRestaurant />} />
             <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
           </Route>
-          <Route path="account" > 
-          <Route index element={<AccountManager />} />
-          <Route path="detailUser/:id" element={<AccountDetailManager />} />
+          <Route path="account" >
+            <Route index element={<AccountManager />} />
+            <Route path="detailUser/:id" element={<AccountDetailManager />} />
           </Route>
 
           <Route path="accommodation">

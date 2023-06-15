@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import ('./Login.css');
 
 const { useNavigate } = require("react-router-dom");
 
@@ -71,17 +72,7 @@ function Register(props) {
         }
         // return result.data.user_id;
       })
-      // .then((id) => {
-      //     // Upload hinh
-      //   axios
-      //     .post(`http://localhost:5158/api/TouristSpotImage/PostImages?TouristSpot_Id=${id}`, formData )
-      //     .then((result) => {
-      //       if (result.status === 200) {
-      //         navigate("/admin/tourist-spot");
-      //       }
-      //     })
-      //     .catch((err) => console.log(err));
-      // })
+
       .catch((err) => console.log(err));
   };
 
@@ -104,13 +95,6 @@ function Register(props) {
       errors.email = "Invalid email format";
     }
 
-    if (!dataInput.role) {
-      errors.role = "Role is required. Please enter Admin/User";
-    }
-
-    if (!dataInput.total_payment) {
-      errors.total_payment = "Total_payment is required";
-    }
     if (!dataInput.password) {
       errors.password = "password is required";
     } else if (dataInput.password.length < 6 || dataInput.password.length > 20) {
@@ -127,8 +111,8 @@ function Register(props) {
           <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
               <div class="row">
-                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                <div class="col-lg-7">
+                <div class="col-lg-6 d-none d-lg-block RegisterCss"></div>
+                <div class="col-lg-6">
                   <div class="p-5">
                     <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
@@ -208,26 +192,13 @@ function Register(props) {
                         Register Account
                       </button>
 
-                      <a
-                        href="index.html"
-                        class="btn btn-google btn-user btn-block"
-                      >
-                        <i class="fab fa-google fa-fw"></i> Register with Google
-                      </a>
-                      <a
-                        href="index.html"
-                        class="btn btn-facebook btn-user btn-block"
-                      >
-                        <i class="fab fa-facebook-f fa-fw"></i> Register with
-                        Facebook
-                      </a>
                     </form>
 
-                    <div class="text-center">
+                    {/* <div class="text-center">
                       <a class="small" href="forgot-password.html">
                         Forgot Password?
                       </a>
-                    </div>
+                    </div> */}
                     <div class="text-center">
                       <a class="small" href="/login">
                         Already have an account? Login!

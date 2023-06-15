@@ -125,7 +125,7 @@ const Header = ({ setShowModal, showModal }) => {
             </li> */}
 
             <li className="navItem">
-              <a href="">About</a>
+             < Link to="/about">About </Link>
             </li>
             <li className="navItem dropdown no-arrow pl-4">
               <a className="nav-link dropdown-toggle d-flex justify-content-end w-90 align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

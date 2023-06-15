@@ -97,8 +97,6 @@ function ListLocations(props) {
                 <th>Name</th>
                 <th>Description</th>
                 <th>Status</th>
-                <th>Create at</th>
-                <th>Update at</th>
                 <th style={{ paddingLeft: "9%" }}>Action</th>
                 <th></th>
                 <th></th>
@@ -118,8 +116,6 @@ function ListLocations(props) {
                       {item.status_Location ? "Mở" : "Tắt"}
                     </button>
                   </td>
-                  <td>{item.created_at}</td>
-                  <td>{item.update_at}</td>
                   <td>
                     <button className="btn btn-primary" onClick={() => handleDeleteLocation(item.location_id)}>
                       Delete
