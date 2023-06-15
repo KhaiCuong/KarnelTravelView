@@ -106,7 +106,7 @@ function UserTouristSpotDetail() {
   };
 
   return (
-    <div>
+    <div className="main-view">
       <br />
       <section className="main container section ftco-section ftco-degree-bg">
         <div className="container">
@@ -138,18 +138,21 @@ function UserTouristSpotDetail() {
                     </button>
                   </div>
                 </div>
-                <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
+                <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate text-dark">
                   <span>Our Best hotels &amp; Resorts</span>
                   <h2>{touristsport.touristSpot_name}</h2>
                   <p className="rate mb-5">
                     {touristsport.type + "" === "true" ? "Resort" : "Hotel"} &nbsp;
-                    <span className="star">{touristsport.rate} Stars</span>
+                    <span className="star">{touristsport.rate} <i class="fa fa-star-o"></i></span>
                     <div className="star">
                       Discount: &nbsp;
                       {touristsport.discount}
                     </div>
                   </p>
-                  <p>{touristsport.description}</p>
+                  <div class="product-box">
+            <h3 class="product-name"></h3>
+            <p  class="round3 text-dark">{touristsport.description}</p>
+          </div>
                 </div>
 
                 {/* Booking */}

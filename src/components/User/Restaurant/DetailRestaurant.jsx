@@ -10,6 +10,7 @@ import "../Restaurant/css/DetailRestaurant.css";
 // Booking
 import { useShoppingCart } from "../Context/ShoppingCartContext";
 import "../Booking/Booking.css";
+import { width } from "@mui/system";
 
 function DetailofRestaurant() {
   const { id } = useParams();
@@ -22,7 +23,13 @@ function DetailofRestaurant() {
   const [fullDescription, setFullDescription] = useState(false);
   // Booking
   let [isSubmit, setIsSubmit] = useState(false);
-  const { getItemQuantity, increaseCartQuantity, addMultiQuantity, removeFromCart, quantity } = useShoppingCart();
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    addMultiQuantity,
+    removeFromCart,
+    quantity,
+  } = useShoppingCart();
   const [valid, setValid] = useState(false);
   let [count, setCount] = useState(1);
   function incrementCount() {
@@ -114,17 +121,16 @@ function DetailofRestaurant() {
   console.log("Time in", timeIn);
 
   return (
-    <div>
+    <div className="main-view">
       <br />
       <br />
       <br />
       <br />
-
-      <section className="ftco-section ftco-degree-bg">
-        <div className="container">
+    <div><section className="ftco-section ftco-degree-bg" style={{color : "background-color: rgba(0, 0, 0, 1)"}}>
+        <div className="container text-white">
           <div className="row">
             <span>Our Best Restaurants</span>
-            <h2>{restaurant.restaurant_name}</h2>
+            <h2 className="text-white">{restaurant.restaurant_name}</h2>
             <p>
               {restaurant.rate} <i class="fa fa-star-o"></i>
             </p>
@@ -199,32 +205,72 @@ function DetailofRestaurant() {
                     </div>
                   </div>
                 </div> */}
+          <div class="product-box">
+            <h3 class="product-name"></h3>
+            <p  class="round3 text-dark">{restaurant.description}</p>
+          </div>
 
-                {/* Booking */}
-                <div className="col-md-12 hotel-single ftco-animate mb-5 mt-4 border border-dark" style={{ borderRadius: "13px" }}>
-                  <h4 className="mb-5 mt-3 text-center ">
-                    Booking <i class="fas fa-book-open"></i>
-                  </h4>
-                  <div className="fields">
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="form-group position-relative">
-                          <div className="font-weight-bold text-dark mb-2">Check in date : </div>
-                          <input type="date" id="checkin_date" onChange={handleChangeDateIn} className="w-75" placeholder="Date from" required />
-                          {isSubmit && <span class="validity"></span>}
-                          {isSubmit && timeIn == "" && <div className="text-danger"> Please enter Check-in date</div>}
-                          <div className="text-dark ">Please enter the time you will come</div>
-                        </div>
+          {/* Booking */}
+          <div
+            className="borderwitdh col-md-12 hotel-single ftco-animate mb-5 mt-4 "
+            style={{ borderRadius: "13px" , borderColor:"white"  }}
+          >
+            <h4 className="mb-5 mt-3 text-center text-dark ">
+              Booking <i class="fas fa-book-open"></i>
+            </h4>
+            <div className="fields">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-group position-relative">
+                    <div className="font-weight-bold text-dark mb-2">
+                      Check in date :{" "}
+                    </div>
+                    <input
+                      type="date"
+                      id="checkin_date"
+                      onChange={handleChangeDateIn}
+                      className="w-75"
+                      placeholder="Date from"
+                      required
+                    />
+                    {isSubmit && <span class="validity"></span>}
+                    {isSubmit && timeIn == "" && (
+                      <div className="text-danger">
+                        {" "}
+                        Please enter Check-in date
                       </div>
-                      <div className="col-md-6">
-                        <div className="form-group timess">
-                          <div  className="font-weight-bold text-dark mb-2">Check in time :</div>
-                          <input type="time" id="appt-time" name="appt" onChange={handleChangeDateOut} min="09:00" max="22:00" required></input>
-                          {isSubmit && <span class="validity"></span>}
-                          {isSubmit && timeOut == "" && <div className="text-danger"> Please enter Check-in times</div>}
-                          <div className="text-dark">My Restaurant just open from 9am to 10pm</div>
-                        </div>
+                    )}
+                    <div className="text-dark ">
+                      Please enter the time you will come
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group timess">
+                    <div className="font-weight-bold text-dark mb-2">
+                      Check in time :
+                    </div>
+                    <input
+                      type="time"
+                      id="appt-time"
+                      name="appt"
+                      onChange={handleChangeDateOut}
+                      min="09:00"
+                      max="22:00"
+                      required
+                    ></input>
+                    {isSubmit && <span class="validity"></span>}
+                    {isSubmit && timeOut == "" && (
+                      <div className="text-danger">
+                        {" "}
+                        Please enter Check-in times
                       </div>
+                    )}
+                    <div className="text-dark">
+                      My Restaurant just open from 9am to 10pm
+                    </div>
+                  </div>
+                </div>
 
                 <div className="col-md-6 mt-3 mb-3 ">
                   <div className="form-group">
@@ -258,7 +304,12 @@ function DetailofRestaurant() {
                       type="submit"
                       onClick={() => {
                         if (valid && timeIn.length != 0) {
-                          addMultiQuantity(restaurant.restaurant_id, count, "Restaurant", times);
+                          addMultiQuantity(
+                            restaurant.restaurant_id,
+                            count,
+                            "Restaurant",
+                            times
+                          );
                           setIsSubmit(false);
                         } else {
                           setIsSubmit(true);
@@ -347,7 +398,8 @@ function DetailofRestaurant() {
             </div>
           </div>
         </div>
-      </section>
+      </section></div>
+      
       {/* < !-- .section --> */}
     </div>
   );
