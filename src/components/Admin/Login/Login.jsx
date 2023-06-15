@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-
+import ('./Login.css');
 const { useNavigate } = require("react-router-dom");
 
 function Login(props) {
@@ -94,9 +94,9 @@ function Login(props) {
               <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                   <div class="row">
-                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                    <div class="col-lg-6 d-none d-lg-block LoginCss"></div>
                     <div class="col-lg-6">
-                      <div class="p-5">
+                      <div class="p-5 LoginMediaCss">
                         <div class="text-center">
                           {errorMessage ? (
                             <div className="text-center text-danger mb-3">{errorMessage}</div>
@@ -146,7 +146,7 @@ function Login(props) {
                                 id="customCheck"
                               />
                               <label
-                                class="custom-control-label"
+                                class="custom-control-label aInLogin"
                                 for="customCheck"
                               >
                                 Remember Me
@@ -157,29 +157,23 @@ function Login(props) {
                             Login
                           </button>
 
-                          <a
+                          {/* <a
                             href="index.html"
                             class="btn btn-google btn-user btn-block"
                           >
                             <i class="fab fa-google fa-fw"></i> Login with
                             Google
-                          </a>
-                          <a
-                            href="index.html"
-                            class="btn btn-facebook btn-user btn-block"
-                          >
-                            <i class="fab fa-facebook-f fa-fw"></i> Login with
-                            Facebook
-                          </a>
+                          </a> */}
+                       
                         </form>
 
-                        <div class="text-center">
+                        {/* <div class="text-center">
                           <a class="small" href="forgot-password.html">
                             Forgot Password?
                           </a>
-                        </div>
+                        </div> */}
                         <div class="text-center">
-                          <a class="small" href="/register">
+                          <a class="small aInLogin" href="/register">
                             Create an Account!
                           </a>
                         </div>
