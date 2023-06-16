@@ -35,9 +35,16 @@ function UpdateTouristSpot() {
   const formData = new FormData();
   // Upload hinh
   const handleFileChange = (e) => {
-    for (var i = 0; i < e.target.files.length; i++) {
-      formData.append("files", e.target.files[i]);
+    const files = e.target.files;
+    if (files.length > 0) {
+      for (var i = 0; i < e.target.files.length; i++) {
+        console.log("files", e);
+        formData.append("files", e.target.files[i]);
+      }
     }
+    // for (var i = 0; i < e.target.files.length; i++) {
+    //   formData.append("files", e.target.files[i]);
+    // }
   };
 
   const handleSubmit = (e) => {
@@ -50,14 +57,21 @@ function UpdateTouristSpot() {
       })
       .then((id) => {
         // Upload hinh
-        axios
-          .post(`http://localhost:5158/api/TouristSpotImage/UpdateImageById/${id}`, formData)
-          .then((result) => {
-            if (result.status === 200) {
-              navigate("/admin/tourist-spot");
-            }
-          })
-          .catch((err) => console.log(err));
+        if (formData.get("files")) {
+          // Check if new files are selected
+          axios
+            .post(`http://localhost:5158/api/TouristSpotImage/UpdateImageById/${id}`, formData)
+            .then((result) => {
+              if (result.status === 200) {
+                navigate("/admin/tourist-spot");
+              }
+            })
+            .catch((err) => console.log(err));
+        } else {
+          navigate("/admin/tourist-spot");
+
+        }
+
       })
       .catch((err) => console.log(err));
   };
@@ -78,6 +92,7 @@ function UpdateTouristSpot() {
       })
       .then((error) => console.log(error));
   }, []);
+  console.log("formdata", formData);
 
   return (
     <div className="container-fluid ">

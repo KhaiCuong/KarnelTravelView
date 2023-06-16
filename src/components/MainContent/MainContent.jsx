@@ -22,7 +22,7 @@ const MainContent = ({ children }) => {
         //console.log("tourResponse", tourResponse.data);
         if (tourResponse.status === 200) {
           setTour(tourResponse.data);
-          //console.log("tourResponse.data.length", tourResponse.data.length);
+          console.log("tourResponse.data", tourResponse.data);
 
           // array 
           const touristSpotImageArray = [];
