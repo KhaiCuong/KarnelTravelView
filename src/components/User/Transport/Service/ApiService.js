@@ -15,6 +15,9 @@ async function getTransportByID(id) {
 //     const data = await axios.get(`http://localhost:5158/api/AccommodationImage/GetImagesByTouristSpotId/${id}`);
 //     return data.data;
 // }
+
+
+
 export {
     getListTransport,
     getTransportByID,

@@ -165,10 +165,10 @@ function UserTransport() {
             .map((item, index) => (
               <div key={index} data-aos="fade-up-right" className="singleDestination">
                 <div className="cardInfo">
-                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.transport_id)} style={{ cursor: "pointer" }}>
                   <i class="fas fa-circle mr-2 pl-1" style={{fontSize:"18px"}}></i><bold className="font-weight-bold">From: </bold> {item.start_position}
                   </h4>
-                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.transport_id)} style={{ cursor: "pointer" }}>
                   <Room className="icon mr-1" /><bold  className="font-weight-bold">To: </bold>{item.transport_name}
                   </h4>
 

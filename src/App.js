@@ -61,6 +61,7 @@ import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
 import UserTouristSpot from "./components/User/TouristSpot/UserTouristSpot";
 import UserTouristSpotDetail from "./components/User/TouristSpot/UserTouristSpotDetail";
 import ChartTour from "./components/Charts/ChartTour";
+import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
 
 function App() {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -136,7 +137,7 @@ function App() {
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
           
-
+             <Route index element={<DashboardPage />} />
           {/* Location Route */}
           <Route path="location">
             <Route index element={<ListLocations />} />
