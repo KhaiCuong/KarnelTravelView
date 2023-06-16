@@ -123,12 +123,12 @@ function UpdateAccommodation(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     //Validate form before call API to create
-    const newErrors = validateForm(updateAccommodation);
+    //const newErrors = validateForm(updateAccommodation);
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+    // if (Object.keys(newErrors).length > 0) {
+    //   setErrors(newErrors);
+    //   return;
+    // }
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -187,38 +187,38 @@ function UpdateAccommodation(props) {
     }
   };
 
-  const validateForm = (accommodation) => {
-    let errors = {};
+  // const validateForm = (accommodation) => {
+  //   let errors = {};
 
-    if (!accommodation.accommodation_name) {
-      errors.accommodation_name = "accommodation Name is required";
-    } else if (accommodation.accommodation_name.length < 3 || accommodation.accommodation_name.length > 30) {
-      errors.accommodation_name = "accommodation Name must be between 3 - 30 characters";
-    }
+  //   if (!accommodation.accommodation_name) {
+  //     errors.accommodation_name = "accommodation Name is required";
+  //   } else if (accommodation.accommodation_name.length < 3 || accommodation.accommodation_name.length > 30) {
+  //     errors.accommodation_name = "accommodation Name must be between 3 - 30 characters";
+  //   }
 
-    if (!accommodation.rate) {
-      errors.rate = "Rate is required";
-    } else if (accommodation.rate < 1 || accommodation.rate > 5) {
-      errors.rate = "Rate  must be between 1- 5 stars";
-    }
+  //   if (!accommodation.rate) {
+  //     errors.rate = "Rate is required";
+  //   } else if (accommodation.rate < 1 || accommodation.rate > 5) {
+  //     errors.rate = "Rate  must be between 1- 5 stars";
+  //   }
 
-    if (!accommodation.type) {
-      errors.type = "Type is required";
-    }
-    if (!accommodation.price) {
-      errors.price = "Price is required";
-    } else if (accommodation.price < 1 || accommodation.price > 100000000000) {
-      errors.price = "Price  must be between 1- 100.000.000.000 ";
-    }
+  //   if (!accommodation.type) {
+  //     errors.type = "Type is required";
+  //   }
+  //   if (!accommodation.price) {
+  //     errors.price = "Price is required";
+  //   } else if (accommodation.price < 1 || accommodation.price > 100000000000) {
+  //     errors.price = "Price  must be between 1- 100.000.000.000 ";
+  //   }
 
-    if (!accommodation.status_Accommodation) {
-      errors.status_Accommodation = "Accommodation Status is required";
-    }
-    if (!accommodation.location_id) {
-      errors.location_id = "Location ID is required";
-    }
-    return errors;
-  };
+  //   if (!accommodation.status_Accommodation) {
+  //     errors.status_Accommodation = "Accommodation Status is required";
+  //   }
+  //   if (!accommodation.location_id) {
+  //     errors.location_id = "Location ID is required";
+  //   }
+  //   return errors;
+  // };
   return (
     <section>
       <div className="container">
