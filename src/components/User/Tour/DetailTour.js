@@ -198,7 +198,7 @@ function DetailTour(props) {
                 <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
                   <span className="text-light">Our Best Tour</span>
                   <h2 className="text-light">
-                    {tour.tour_name}  <i class="fas fa-suitcase"  style={{ fontSize: "24px" }}></i> 
+                    {tour.tour_name}  <i class="fas fa-suitcase" style={{ fontSize: "24px" }}></i>
                   </h2>
 
                   <div className="star font-weight-bold text-light">
@@ -313,7 +313,7 @@ function DetailTour(props) {
                                 </span>
                               </div>
                             </div>
-                            <p>{item.description}</p>
+                            <p>{item.description.length > 27 ? `${item.description.substring(0, 27)}...` : item.description}</p>
                             <hr />
                             <p class="bottom-area d-flex">
                               <span>

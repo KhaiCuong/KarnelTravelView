@@ -1,11 +1,13 @@
+import GetUsers from "./Service/ApiServiceUser";
 import axios from "axios";
-import { useState } from "react";
-import ('./Login.css');
-
+import { useEffect, useState } from "react";
+import ("./Login.css");
 const { useNavigate } = require("react-router-dom");
 
 function Register(props) {
   const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+  const [emailUser, setEmailUser] = useState([]);
 
   const initialState = {
     username: "",
@@ -68,7 +70,7 @@ function Register(props) {
       .then((result) => {
         console.log(result.data);
         if (result.data.status === 201) {
-          navigate("/");
+          navigate("/login");
         }
         // return result.data.user_id;
       })
@@ -93,6 +95,8 @@ function Register(props) {
       errors.email = "email is required";
     } else if (!/\S+@\S+\.\S+/.test(dataInput.email)) {
       errors.email = "Invalid email format";
+    } else if (Object.values(emailUser).includes(dataInput.email)) {
+      errors.email = "Email already used!";
     }
 
     if (!dataInput.password) {
@@ -103,6 +107,25 @@ function Register(props) {
 
     return errors;
   };
+  useEffect(() => {
+    const fetchDataList = async () => {
+      try {
+        const listUser = await GetUsers();
+     
+         if(listUser.status === 200 ) {
+          let arr = [];
+          for(let i = 0 ; i < listUser.data.length ; i++) {
+            arr[i] = listUser.data[i].email;
+          }
+          setEmailUser(arr);
+         }
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchDataList();
+  }, []);
+  console.log("setEmailUser" , emailUser)
 
   return (
     <section>
@@ -120,78 +143,32 @@ function Register(props) {
                     <form onSubmit={handleSubmit} class="user">
                       <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                          <input
-                            type="text"
-                            className={`form-control form-control-user ${errors.user_name ? "is-invalid" : ""}`}
-                            id="username"
-                            placeholder="user name"
-                            name="user_name"
-                            onChange={handleChangeInput}
-                          />
+                          <input type="text" className={`form-control form-control-user ${errors.user_name ? "is-invalid" : ""}`} id="username" placeholder="user name" name="user_name" onChange={handleChangeInput} />
                           {errors.user_name && <div className="invalid-feedback">{errors.user_name}</div>}
-
                         </div>
                         <div class="col-sm-6">
-                          <input
-                            type="text"
-                            className={`form-control form-control-user ${errors.phone_number ? "is-invalid" : ""}`}
-                            id="phonenumber"
-                            placeholder="phone number"
-                            name="phone_number"
-                            onChange={handleChangeInput}
-                          />
+                          <input type="text" className={`form-control form-control-user ${errors.phone_number ? "is-invalid" : ""}`} id="phonenumber" placeholder="phone number" name="phone_number" onChange={handleChangeInput} />
                           {errors.phone_number && <div className="invalid-feedback">{errors.phone_number}</div>}
                         </div>
                       </div>
                       <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control form-control-user"
-                          id="address"
-                          placeholder=" Address"
-                          name="address"
-                          onChange={handleChangeInput}
-                        />
+                        <input type="text" class="form-control form-control-user" id="address" placeholder=" Address" name="address" onChange={handleChangeInput} />
                       </div>
                       <div class="form-group">
-                        <input
-                          type="email"
-                          className={`form-control form-control-user ${errors.email ? "is-invalid" : ""}`}
-                          id="email"
-                          placeholder="Email Address"
-                          name="email"
-                          onChange={handleChangeInput}
-                        />
+                        <input type="email" className={`form-control form-control-user ${errors.email ? "is-invalid" : ""}`} id="email" placeholder="Email Address" name="email" onChange={handleChangeInput} />
                         {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                       </div>
                       <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                          <input
-                            type="password"
-                            className={`form-control form-control-user ${errors.password ? "is-invalid" : ""}`}
-                            id="password"
-                            placeholder="Password"
-                            name="password"
-                            onChange={handleChangeInput}
-                          />
+                          <input type="password" className={`form-control form-control-user ${errors.password ? "is-invalid" : ""}`} id="password" placeholder="Password" name="password" onChange={handleChangeInput} />
                           {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                         </div>
                         <div class="col-sm-6">
-                          <input hidden
-                            type="text"
-                            className={`form-control form-control-user ${errors.role ? "is-invalid" : ""}`}
-                            id="role"
-                            name="role"
-                            value={dataInput.role}
-                            onChange={handleChangeInput}
-                          />
+                          <input hidden type="text" className={`form-control form-control-user ${errors.role ? "is-invalid" : ""}`} id="role" name="role" value={dataInput.role} onChange={handleChangeInput} />
                           {errors.role && <div className="invalid-feedback">{errors.role}</div>}
                         </div>
                       </div>
-                      <button class="btn btn-primary btn-user btn-block">
-                        Register Account
-                      </button>
-
+                      <button class="btn btn-primary btn-user btn-block">Register Account</button>
                     </form>
 
                     {/* <div class="text-center">

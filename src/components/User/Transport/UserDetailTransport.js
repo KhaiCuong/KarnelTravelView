@@ -32,8 +32,6 @@ function UserDetailTransport() {
     const fetchTransportDataByID = async () => {
       try {
         const response = await getTransportByID(id);
-        // console.log("response", response);
-
         setTransport(response.data);
         console.log("respone", response.data);
       } catch (error) {

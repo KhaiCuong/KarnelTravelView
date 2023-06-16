@@ -133,13 +133,13 @@ function UserTransport() {
                   <label htmlFor="price" className=" ">
                     Max Price:
                   </label>
-                  <h3 className="total ">$10000</h3>
+                  <h3 className="total ">$1000</h3>
                 </div>
                 <div className="input flex position-relative ">
                   <p className="position-absolute text-light mb-0 bg-secondary pl-1 pr-1 rounded " style={{ bottom: "100%", left: "43%" }} hidden={isHiden}>
                     {fPrice}
                   </p>
-                  <input type="range" max="10000" min="100" onChange={FilterPrice} onMouseUp={handelDisplay} onMouseDown={handelHiden} value={fPrice} />
+                  <input type="range" max="1000" min="1" onChange={FilterPrice} onMouseUp={handelDisplay} onMouseDown={handelHiden} value={fPrice} />
                 </div>
               </div>
 
@@ -165,10 +165,10 @@ function UserTransport() {
             .map((item, index) => (
               <div key={index} data-aos="fade-up-right" className="singleDestination">
                 <div className="cardInfo">
-                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.transport_id)} style={{ cursor: "pointer" }}>
                   <i class="fas fa-circle mr-2 pl-1" style={{fontSize:"18px"}}></i><bold className="font-weight-bold">From: </bold> {item.start_position}
                   </h4>
-                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.touristSpot_id)} style={{ cursor: "pointer" }}>
+                  <h4 className="destTitle" onClick={() => handleDetailTransport(item.transport_id)} style={{ cursor: "pointer" }}>
                   <Room className="icon mr-1" /><bold  className="font-weight-bold">To: </bold>{item.transport_name}
                   </h4>
 

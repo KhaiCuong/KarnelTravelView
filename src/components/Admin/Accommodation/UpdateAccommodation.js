@@ -76,48 +76,7 @@ function UpdateAccommodation(props) {
     });
   };
 
-  //update accommodation and image, however cannot keep the old images when no new image
-  // const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     //update accommodation with the updatedAccommodation data
-  //     Swal.fire({
-  //         title: 'Are you sure?',
-  //         text: "You won't be able to revert this!",
-  //         icon: 'warning',
-  //         showCancelButton: true,
-  //         confirmButtonColor: '#3085d6',
-  //         cancelButtonColor: '#d33',
-  //         confirmButtonText: 'Yes, update it!'
-  //     })
-  //         .then(result => {
-  //             if (result.isConfirmed) {
-  //                 putAccommodation(id, updatedData)
-  //                     .then(response => {
-  //                         console.log("Updated Accommodation", response);
-  //                         if (response.status === 200) {
-  //                             console.log("updateImage", updateImage);
-  //                             console.log("formData", formData);
-  //                             putAccommodationImage(id, formData)
-  //                                 .then(response => {
-  //                                     console.log("updated image", response);
-  //                                     if (response.status === 200) {
-  //                                         Swal.fire(
-  //                                             'Updated!',
-  //                                             'Your Accommodation has been updated.',
-  //                                             'success'
-  //                                         )
-  //                                         // handle success or navigate to another page
-  //                                         // navigate("/admin/accommodation");
-  //                                     }
-  //                                 })
-  //                                 .catch(error => console.log("error", error));
-  //                         }
-  //                     })
-  //                     .catch(error => console.log("error", error));
-  //             }
-  //         })
-  //     console.log("updateAccommodation", updateAccommodation);
-  // };
+  
 
   // update accommodation and image, it can also keep the old images when there are no new updated images
   const handleSubmit = (e) => {
