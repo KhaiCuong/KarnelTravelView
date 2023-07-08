@@ -108,7 +108,7 @@ function UserDetailAccommodation() {
           <div className="row">
             <div className="">
               <div className="row ">
-                <div className="ftco-animate border border-dark p-5 bg-blur"  style={{ borderRadius: "13px" }}>
+                <div className="ftco-animate border border-dark p-5 bg-blur" style={{ borderRadius: "13px" }}>
                   <div id="carouselExampleControls" class="carousel slide user-slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                       <div className="carousel-item user-carousel1 active">
@@ -144,27 +144,27 @@ function UserDetailAccommodation() {
                     </button>
                   </div>
                   <div className="col-md-12 hotel-single mt-4 mb-5 ftco-animate text-light">
-                  <span className="text-light">Our Best hotels &amp; Resorts</span>
-                  <h2 className="text-light">{accommodation.accommodation_name} <i class="fas fa-hotel ml-1" style={{fontSize:"24px"}}></i></h2>
-                    
-                  <div className="star font-weight-bold text-light">
-                  <i class="fas fa-caret-right"></i>  {accommodation.type + "" === "true" ? "Resort" : "Hotel"} &nbsp; {accommodation.rate} <i class="fa fa-star-o"></i>
-                  </div>
-                  <div className="star font-weight-bold text-light">
-                    <i class="fas fa-caret-right"></i> Price: {accommodation.price} $
-                  </div>
-                  <div className="star font-weight-bold text-light" >
-                  <i class="fas fa-caret-right"></i> Discount: &nbsp;
-                    {accommodation.discount}
-                  </div>
+                    <span className="text-light">Our Best hotels &amp; Resorts</span>
+                    <h2 className="text-light">{accommodation.accommodation_name} <i class="fas fa-hotel ml-1" style={{ fontSize: "24px" }}></i></h2>
 
-                  <div class="product-box">
-                    <div class="font-weight-bold text-light mb-2"><i class="fas fa-caret-right"></i>   Description :</div>
-                    <p class="round3  p-3 text-light border-white">{accommodation.description}</p>
+                    <div className="star font-weight-bold text-light">
+                      <i class="fas fa-caret-right"></i>  {accommodation.type + "" === "true" ? "Resort" : "Hotel"} &nbsp; {accommodation.rate} <i class="fa fa-star-o"></i>
+                    </div>
+                    <div className="star font-weight-bold text-light">
+                      <i class="fas fa-caret-right"></i> Price: {accommodation.price} $
+                    </div>
+                    <div className="star font-weight-bold text-light" >
+                      <i class="fas fa-caret-right"></i> Discount: &nbsp;
+                      {accommodation.discount}
+                    </div>
+
+                    <div class="product-box">
+                      <div class="font-weight-bold text-light mb-2"><i class="fas fa-caret-right"></i>   Description :</div>
+                      <p class="round3  p-3 text-light border-white">{accommodation.description}</p>
+                    </div>
                   </div>
                 </div>
-                </div>
-              
+
 
                 {/* Booking */}
                 <div className=" borderwitdh col-md-12 hotel-single ftco-animate mb-5 mt-4  bg-blur " style={{ borderRadius: "13px" }}>
@@ -262,7 +262,7 @@ function UserDetailAccommodation() {
                                 </span>
                               </div>
                             </div>
-                            <p>{item.description}</p>
+                            <p>{item.description.length > 27 ? `${item.description.substring(0, 27)}...` : item.description}</p>
                             <hr />
                             <p class="bottom-area d-flex">
                               <span>

@@ -61,6 +61,8 @@ import ProfileUpdate from "./components/User/ProfileUser/ProfileUpdate";
 import UserTouristSpot from "./components/User/TouristSpot/UserTouristSpot";
 import UserTouristSpotDetail from "./components/User/TouristSpot/UserTouristSpotDetail";
 import ChartTour from "./components/Charts/ChartTour";
+import ListBooking from "./components/Admin/Booking/ListBooking";
+import ListFeedback from "./components/Admin/Feedback/ListFeedback";
 import DashboardPage from "./components/Admin/Dashboard/DashboardPage";
 
 function App() {
@@ -89,7 +91,7 @@ function App() {
             <Route path="detail/:id" element={<UserDetailTransport />} />
           </Route>
 
- 
+
 
 
           <Route path="restaurant">
@@ -101,7 +103,7 @@ function App() {
           <Route path="my-booking" element={<BookingList />} />
 
           <Route path="feedback" element={<Feedback />} />
-          <Route path="about" element={<About />}/> 
+          <Route path="about" element={<About />} />
 
           <Route path="accommodation">
             <Route index element={<UserAccommodation />} />
@@ -111,8 +113,8 @@ function App() {
             <Route index element={<Tour />} />
             <Route path="detail/:id" element={<DetailTour />} />
           </Route>
-            {/* TouristSpot */}
-            <Route path="touristsport">
+          {/* TouristSpot */}
+          <Route path="touristsport">
             <Route index element={<UserTouristSpot />} />
             <Route path="detail/:id" element={<UserTouristSpotDetail />} />
           </Route>
@@ -136,8 +138,8 @@ function App() {
 
         {/* View Admin */}
         <Route path="/admin/" element={<AdminLayout></AdminLayout>}>
-          
-             <Route index element={<DashboardPage />} />
+
+          <Route index element={<DashboardPage />} />
           {/* Location Route */}
           <Route path="location">
             <Route index element={<ListLocations />} />
@@ -191,6 +193,12 @@ function App() {
               path="detailAccommodation/:id"
               element={<DetailAccommodation />}
             />
+          </Route>
+          <Route path="booking">
+            <Route index element={<ListBooking />} />
+          </Route>
+          <Route path="feedback">
+            <Route index element={<ListFeedback />} />
           </Route>
         </Route>
 

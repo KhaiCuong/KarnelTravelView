@@ -8340,8 +8340,9 @@ textarea.form-control {
 
 
 div.stars {
-  width: 270px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
  
 input.star { display: none; }

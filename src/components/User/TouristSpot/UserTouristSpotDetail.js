@@ -259,7 +259,7 @@ function UserTouristSpotDetail() {
                                 </span>
                               </div>
                             </div>
-                            <p>{item.description}</p>
+                            <p>{item.description.length > 27 ? `${item.description.substring(0, 27)}...` : item.description}</p>
                             <hr />
                             <p class="bottom-area d-flex">
                               <span>

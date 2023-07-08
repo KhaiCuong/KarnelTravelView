@@ -76,59 +76,18 @@ function UpdateAccommodation(props) {
     });
   };
 
-  //update accommodation and image, however cannot keep the old images when no new image
-  // const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     //update accommodation with the updatedAccommodation data
-  //     Swal.fire({
-  //         title: 'Are you sure?',
-  //         text: "You won't be able to revert this!",
-  //         icon: 'warning',
-  //         showCancelButton: true,
-  //         confirmButtonColor: '#3085d6',
-  //         cancelButtonColor: '#d33',
-  //         confirmButtonText: 'Yes, update it!'
-  //     })
-  //         .then(result => {
-  //             if (result.isConfirmed) {
-  //                 putAccommodation(id, updatedData)
-  //                     .then(response => {
-  //                         console.log("Updated Accommodation", response);
-  //                         if (response.status === 200) {
-  //                             console.log("updateImage", updateImage);
-  //                             console.log("formData", formData);
-  //                             putAccommodationImage(id, formData)
-  //                                 .then(response => {
-  //                                     console.log("updated image", response);
-  //                                     if (response.status === 200) {
-  //                                         Swal.fire(
-  //                                             'Updated!',
-  //                                             'Your Accommodation has been updated.',
-  //                                             'success'
-  //                                         )
-  //                                         // handle success or navigate to another page
-  //                                         // navigate("/admin/accommodation");
-  //                                     }
-  //                                 })
-  //                                 .catch(error => console.log("error", error));
-  //                         }
-  //                     })
-  //                     .catch(error => console.log("error", error));
-  //             }
-  //         })
-  //     console.log("updateAccommodation", updateAccommodation);
-  // };
+  
 
   // update accommodation and image, it can also keep the old images when there are no new updated images
   const handleSubmit = (e) => {
     e.preventDefault();
     //Validate form before call API to create
-    const newErrors = validateForm(updateAccommodation);
+    //const newErrors = validateForm(updateAccommodation);
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+    // if (Object.keys(newErrors).length > 0) {
+    //   setErrors(newErrors);
+    //   return;
+    // }
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -187,38 +146,38 @@ function UpdateAccommodation(props) {
     }
   };
 
-  const validateForm = (accommodation) => {
-    let errors = {};
+  // const validateForm = (accommodation) => {
+  //   let errors = {};
 
-    if (!accommodation.accommodation_name) {
-      errors.accommodation_name = "accommodation Name is required";
-    } else if (accommodation.accommodation_name.length < 3 || accommodation.accommodation_name.length > 30) {
-      errors.accommodation_name = "accommodation Name must be between 3 - 30 characters";
-    }
+  //   if (!accommodation.accommodation_name) {
+  //     errors.accommodation_name = "accommodation Name is required";
+  //   } else if (accommodation.accommodation_name.length < 3 || accommodation.accommodation_name.length > 30) {
+  //     errors.accommodation_name = "accommodation Name must be between 3 - 30 characters";
+  //   }
 
-    if (!accommodation.rate) {
-      errors.rate = "Rate is required";
-    } else if (accommodation.rate < 1 || accommodation.rate > 5) {
-      errors.rate = "Rate  must be between 1- 5 stars";
-    }
+  //   if (!accommodation.rate) {
+  //     errors.rate = "Rate is required";
+  //   } else if (accommodation.rate < 1 || accommodation.rate > 5) {
+  //     errors.rate = "Rate  must be between 1- 5 stars";
+  //   }
 
-    if (!accommodation.type) {
-      errors.type = "Type is required";
-    }
-    if (!accommodation.price) {
-      errors.price = "Price is required";
-    } else if (accommodation.price < 1 || accommodation.price > 100000000000) {
-      errors.price = "Price  must be between 1- 100.000.000.000 ";
-    }
+  //   if (!accommodation.type) {
+  //     errors.type = "Type is required";
+  //   }
+  //   if (!accommodation.price) {
+  //     errors.price = "Price is required";
+  //   } else if (accommodation.price < 1 || accommodation.price > 100000000000) {
+  //     errors.price = "Price  must be between 1- 100.000.000.000 ";
+  //   }
 
-    if (!accommodation.status_Accommodation) {
-      errors.status_Accommodation = "Accommodation Status is required";
-    }
-    if (!accommodation.location_id) {
-      errors.location_id = "Location ID is required";
-    }
-    return errors;
-  };
+  //   if (!accommodation.status_Accommodation) {
+  //     errors.status_Accommodation = "Accommodation Status is required";
+  //   }
+  //   if (!accommodation.location_id) {
+  //     errors.location_id = "Location ID is required";
+  //   }
+  //   return errors;
+  // };
   return (
     <section>
       <div className="container">

@@ -107,7 +107,7 @@ function UserAccommodation() {
     <>
       {/* search */}
       <div className="main-view">
-      <section className="home " style={{ height: "300px", alignItems: "end" }}>
+      <section className="home " style={{ height: "auto", alignItems: "end" }}>
         <div className="homeContent container pb-0 ">
           <div className="cardDiv grid bg-light">
             <div className="destinationInput">

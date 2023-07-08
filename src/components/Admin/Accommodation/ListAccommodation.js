@@ -106,7 +106,7 @@ function ListAccommodation() {
                       <td>{item.accommodation_name}</td>
                       <td>{item.rate}</td>
                       <td>{item.type === true ? "Resort" : "Hotel"}</td>
-                      <td>{item.description}</td>
+                      <td>{item.description.length > 27 ? `${item.description.substring(0, 27)}...` : item.description}</td>
                       <td>{item.price}</td>
                       <td>{item.status_Accommodation.toString()}</td>
                       <td>{item.discount}</td>
