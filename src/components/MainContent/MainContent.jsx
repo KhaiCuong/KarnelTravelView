@@ -1,8 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import './mainContent.css'
-import { Data } from '../../fakeData/FakeInfoDest'
 import { Room, ContentPaste } from '@mui/icons-material';
-import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { getImageByTouristSpotID, getListTour, getListTouristSpotTourByTourID } from '../User/Tour/Services/ApiService';

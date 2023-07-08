@@ -221,6 +221,23 @@
 
 
 
+@media only screen and  (max-width: 500px) {
+  .home .homeContent .cardDiv {
+    padding: 2rem 1rem;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .homeFooterIcons {
+    display: none;
+  }
+
+  .textDiv {
+    display: none;
+  }
+}
+
+
+
 
 
 

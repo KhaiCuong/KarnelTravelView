@@ -252,8 +252,7 @@ export default function Feedback() {
                               <textarea class="form-control pr-1 pl-1" id="message" name="content" cols="30" rows="7" onChange={GetContent} placeholder="Message"></textarea>
                             </div>
                           </div>
-                          <div class="col-md-3 "></div>
-                          <div class="col-md-6  stars">
+                          <div class="col-md-12 stars">
                             <div class="form-group pr-0 pl-0 ">
                               <input
                                 class="star star-5"
@@ -307,7 +306,6 @@ export default function Feedback() {
                               <label class="star star-1" for="star-1"></label>
                             </div>
                           </div>
-                          <div class="col-md-3 "></div>
                           <div class="col-md-12 ">
                             <div class="form-group pr-0 pl-0 d-flex justify-content-around">
                               <input type="submit" value="Send Feedback" class="btn text-light btn-secondary bg-feedback " />

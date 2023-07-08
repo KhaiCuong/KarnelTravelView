@@ -294,3 +294,11 @@
   background-color: #333; 
   color: #fff; 
 } */
+
+
+
+@media only screen and  (max-width: 500px) {
+  .home {
+    height: 500px;
+    }
+}

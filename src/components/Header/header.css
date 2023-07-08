@@ -134,7 +134,17 @@
 
 
 
+@media screen and (max-width: 1310px) {
+ .logo h1 {
+  font-size: 24px
+ }
+}
 
+@media screen and (max-width: 990px) {
+  .logo h1 {
+   font-size: 20px
+  }
+ }
 
 
 
